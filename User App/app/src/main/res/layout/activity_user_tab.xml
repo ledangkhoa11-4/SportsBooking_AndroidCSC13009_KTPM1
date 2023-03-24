@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="345dp"
+        android:layout_width="410dp"
+        android:layout_height="314dp"
         android:layout_marginTop="-50dp"
         android:backgroundTint="#B0D6E5"
         android:enabled="false"
