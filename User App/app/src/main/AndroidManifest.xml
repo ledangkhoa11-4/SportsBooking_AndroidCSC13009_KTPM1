@@ -12,6 +12,9 @@
         android:theme="@style/Theme.SportBooking"
         tools:targetApi="31">
         <activity
+            android:name=".EditInformationActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserTabActivity"
             android:exported="false" />
         <activity
