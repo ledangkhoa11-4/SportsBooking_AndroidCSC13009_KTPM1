@@ -21,7 +21,7 @@
         app:sv_doneCircleColor="@color/primaryLightColor"
         app:sv_doneCircleRadius="20dp"
         app:sv_doneStepLineColor="@color/primaryLightColor"
-        app:sv_doneStepMarkColor="@android:color/black"
+        app:sv_doneStepMarkColor="@android:color/white"
         app:sv_doneTextColor="@android:color/darker_gray"
         app:sv_nextStepLineColor="@color/colorGray"
         app:sv_nextTextColor="@color/colorGray"
