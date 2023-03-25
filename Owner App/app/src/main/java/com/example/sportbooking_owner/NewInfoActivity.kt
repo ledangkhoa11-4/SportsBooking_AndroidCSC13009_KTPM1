@@ -20,25 +20,27 @@ import com.shuhart.stepview.StepView
 
 class NewInfoActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View
-    lateinit var stepView:StepView
+    lateinit var stepView: StepView
 
-    lateinit var chooseImageBtn:ImageButton
-    lateinit var courtNameInput:EditText
+    lateinit var chooseImageBtn: ImageButton
+    lateinit var courtNameInput: EditText
     lateinit var descriptionInput: EditText
-    lateinit var nextStep:Button
+    lateinit var nextStep: Button
     var isImagePicked = false
-    companion object{
+
+    companion object {
         val PICK_IMAGE_REQUEST = 201
         val TAKE_IMAGE_REQUEST = 202
         val FORMAT_STEP_REQUEST = 203
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_info)
 
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)
-        stepView.go(0,true)
+        stepView.go(0, true)
 
         chooseImageBtn = findViewById(R.id.imageButton)
 
@@ -52,11 +54,13 @@ class NewInfoActivity : AppCompatActivity() {
 //            if(!isImagePicked || courtNameInput.text.length == 0 || descriptionInput.text.length == 0){
 //                Toast.makeText(this, "Please enter all information to continue!",Toast.LENGTH_SHORT).show()
 //            }else{
-                val intent = Intent(this, NewFormatActivity::class.java)
-                startActivityForResult(intent, FORMAT_STEP_REQUEST)
+            val intent = Intent(this, NewFormatActivity::class.java)
+            startActivityForResult(intent, FORMAT_STEP_REQUEST)
+            overridePendingTransition(0, 0)
             //}
         }
     }
+
     private fun showBottomSheetDialog() {
         val view = layoutInflater.inflate(R.layout.modal_bottom_sheet_content, null)
         val dialog = BottomSheetDialog(this)
@@ -73,24 +77,27 @@ class NewInfoActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-    fun pickImageGallery(){
+
+    fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
-    fun takeImageCamera(){
+
+    fun takeImageCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, TAKE_IMAGE_REQUEST)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             chooseImageBtn.setImageURI(data?.data)
             isImagePicked = true
             chooseImageBtn.setScaleType(ImageView.ScaleType.CENTER_CROP)
         }
-        if(requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK){
+        if (requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             val img = (data?.extras!!.get("data")) as Bitmap
             chooseImageBtn.setImageBitmap(img)
             isImagePicked = true

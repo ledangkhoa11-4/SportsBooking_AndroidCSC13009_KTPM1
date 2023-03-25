@@ -38,7 +38,7 @@ class NewFormatActivity : AppCompatActivity() {
         locationInput.isFocusable = false
 
         locationInput.setOnClickListener {
-            var fieldList = arrayListOf<Place.Field>(Place.Field.ADDRESS)
+            var fieldList = arrayListOf<Place.Field>(Place.Field.ADDRESS, Place.Field.LAT_LNG)
             val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY,fieldList).build(this)
             startActivityForResult(intent, PICK_LOCATION_REQUEST)
         }

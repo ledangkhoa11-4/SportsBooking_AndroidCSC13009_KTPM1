@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SportBooking_Owner</string>
     <array name="step_create">
-        <item>Information</item>
-        <item>Format</item>
+        <item>Introduction</item>
+        <item>Information &amp; Format</item>
         <item>Timeline</item>
     </array>
 </resources>
