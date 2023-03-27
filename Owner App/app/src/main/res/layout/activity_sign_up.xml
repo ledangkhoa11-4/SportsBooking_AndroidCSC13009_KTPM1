@@ -5,5 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUp">
+    <TextView
+
+        android:id="@+id/textView"
+        android:layout_width="108dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="40dp"
+        android:text="SIGN UP"
+        android:textAlignment="center"
+        android:textColor="@color/purple_200"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/SignInBtn"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="320dp"
+        android:layout_height="66dp"
+        android:backgroundTint="@color/purple_200"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="547dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
