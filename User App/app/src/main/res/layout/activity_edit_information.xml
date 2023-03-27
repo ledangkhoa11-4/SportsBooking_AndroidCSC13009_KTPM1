@@ -19,7 +19,7 @@
     <EditText
         android:id="@+id/phoneInput"
         android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="number"
@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="@+id/fullnameInput" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backBtn"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -75,10 +75,11 @@
         android:text="Edit Information"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+        app:layout_constraintStart_toStartOf="@+id/backBtn"
+        app:layout_constraintTop_toTopOf="@+id/backBtn"
+        app:layout_constraintVertical_bias="0.64" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/avatarIv"
@@ -117,8 +118,8 @@
 
     <EditText
         android:id="@+id/fullnameInput"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_width="348dp"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -129,7 +130,7 @@
     <Spinner
         android:id="@+id/genderSpinner"
         android:layout_width="348dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +139,7 @@
     <EditText
         android:id="@+id/dobInput"
         android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:cursorVisible="false"
         android:ems="10"
@@ -159,6 +160,16 @@
         app:layout_constraintEnd_toEndOf="@+id/genderSpinner"
         app:layout_constraintStart_toStartOf="@+id/genderSpinner" />
 
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="Save change"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

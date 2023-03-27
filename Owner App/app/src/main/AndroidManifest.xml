@@ -18,6 +18,15 @@
             android:name=".SignIn"
             android:exported="false" />
         <activity
+            android:name=".NewFormatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SelectSportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

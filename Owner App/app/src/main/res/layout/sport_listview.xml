@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/sportIconIv"
+        android:layout_width="29dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="30dp"
+        android:backgroundTint="#ED1414"
+        android:scaleType="fitCenter"
+        android:tint="#C60F0F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archery_icon" />
+
+    <TextView
+        android:id="@+id/sportNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="79dp"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:text="Archery"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sportIconIv"
+        app:layout_constraintStart_toEndOf="@+id/sportIconIv"
+        app:layout_constraintTop_toTopOf="@+id/sportIconIv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
