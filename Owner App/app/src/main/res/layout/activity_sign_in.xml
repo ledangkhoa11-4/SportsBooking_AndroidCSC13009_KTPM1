@@ -45,7 +45,9 @@
         app:startIconDrawable="@drawable/baseline_person_24"
         app:startIconScaleType="centerInside"
         app:startIconTint="@color/purple_200"
-        app:startIconTintMode="src_in">
+        app:startIconTintMode="src_in"
+        app:counterEnabled="true"
+        app:counterMaxLength="20">>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtUsername"
@@ -79,7 +81,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LayoutName"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:startIconTint="@color/purple_200">
+        app:startIconTint="@color/purple_200"
+        app:counterEnabled="true"
+        app:counterMaxLength="20">>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
