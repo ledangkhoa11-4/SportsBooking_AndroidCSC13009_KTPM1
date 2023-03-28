@@ -8,11 +8,13 @@ import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
     lateinit var nav_bar:NavigationBarView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        nav_bar = findViewById(R.id.nav_bar)
-        navBarHandle(nav_bar)
+//        nav_bar = findViewById(R.id.nav_bar)
+//        navBarHandle(nav_bar)
+        startActivity(Intent(this,CourtScheduleActivity::class.java))
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_home
