@@ -33,6 +33,9 @@
             android:name=".NewInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".NewTimelineActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
