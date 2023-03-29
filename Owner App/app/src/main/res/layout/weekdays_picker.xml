@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <ToggleButton
-        android:id="@+id/tD"
+        android:id="@+id/tM"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -17,7 +17,7 @@
         android:textOn="M" />
 
     <ToggleButton
-        android:id="@+id/tL"
+        android:id="@+id/tTue"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -28,7 +28,7 @@
         android:textOn="T" />
 
     <ToggleButton
-        android:id="@+id/tM"
+        android:id="@+id/tW"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -39,7 +39,7 @@
         android:textOn="W" />
 
     <ToggleButton
-        android:id="@+id/tMi"
+        android:id="@+id/tT"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -50,7 +50,7 @@
         android:textOn="T" />
 
     <ToggleButton
-        android:id="@+id/tJ"
+        android:id="@+id/tF"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -61,7 +61,7 @@
         android:textOn="F" />
 
     <ToggleButton
-        android:id="@+id/tV"
+        android:id="@+id/tS"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -72,7 +72,7 @@
         android:textOn="S" />
 
     <ToggleButton
-        android:id="@+id/tS"
+        android:id="@+id/tSu"
         style="@style/toggleButton"
         android:layout_width="35dp"
         android:layout_height="35dp"

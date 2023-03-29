@@ -2,6 +2,7 @@ package com.example.sportbooking_owner
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,6 +24,7 @@ class NewFormatActivity : AppCompatActivity() {
     lateinit var typeSport:EditText
     lateinit var locationInput:EditText
     lateinit var finalStepBtn:Button
+    lateinit var newCourt:Court
     companion object {
         val PICK_SPORT_TYPE_REQUEST = 200
         val PICK_LOCATION_REQUEST = 201
@@ -31,6 +33,8 @@ class NewFormatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_format)
+
+
         Places.initialize(this, "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y", Locale("vi","VN"))
 
         stepViewLayout = findViewById(R.id.step_view_layout)

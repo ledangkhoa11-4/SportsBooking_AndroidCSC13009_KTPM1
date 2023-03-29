@@ -2,16 +2,12 @@ package com.example.sportbooking_owner
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ImageView.ScaleType
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -27,7 +23,9 @@ class NewInfoActivity : AppCompatActivity() {
     lateinit var courtNameInput: EditText
     lateinit var descriptionInput: EditText
     lateinit var nextStep: Button
-    lateinit var imageSliderVP2:ViewPager2
+    lateinit var imageSliderVP2: ViewPager2
+    lateinit var bitmapList:ArrayList<Bitmap>
+    lateinit var listUri:ArrayList<Uri>
     var isImagePicked = false
 
     companion object {
@@ -40,6 +38,7 @@ class NewInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_info)
 
+        bitmapList = ArrayList()
         imageSliderVP2 = findViewById(R.id.imageSliderVP2)
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)
@@ -62,19 +61,29 @@ class NewInfoActivity : AppCompatActivity() {
 
         courtNameInput = findViewById(R.id.courtNameInput)
         descriptionInput = findViewById(R.id.descriptionInput)
-        nextStep = findViewById(R.id.nextStepBtn)
+        nextStep = findViewById(R.id.finishBtn)
         nextStep.setOnClickListener {
-//            if(!isImagePicked || courtNameInput.text.length == 0 || descriptionInput.text.length == 0){
-//                Toast.makeText(this, "Please enter all information to continue!",Toast.LENGTH_SHORT).show()
-//            }else{
-            val intent = Intent(this, NewFormatActivity::class.java)
-            startActivityForResult(intent, FORMAT_STEP_REQUEST)
-            overridePendingTransition(0, 0)
-            //}
+//            if (!isImagePicked || courtNameInput.text.length == 0 || descriptionInput.text.length == 0) {
+//                Toast.makeText(
+//                    this,
+//                    "Please enter all information to continue!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            } else {
+                val intent = Intent(this, NewFormatActivity::class.java)
+                val newCourt = Court()
+//                newCourt.Name = courtNameInput.text.toString()
+//                newCourt.Description = descriptionInput.text.toString()
+//                newCourt.ImagesTemp.addAll(listUri)
+                intent.putExtra("court",newCourt)
+
+                startActivityForResult(intent, FORMAT_STEP_REQUEST)
+                overridePendingTransition(0, 0)
+           // }
         }
         findViewById<FloatingActionButton>(R.id.backBtn).setOnClickListener {
             val intent = intent
-            setResult(RESULT_CANCELED,intent)
+            setResult(RESULT_CANCELED, intent)
             finish()
         }
     }
@@ -101,7 +110,7 @@ class NewInfoActivity : AppCompatActivity() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     fun takeImageCamera() {
@@ -114,14 +123,18 @@ class NewInfoActivity : AppCompatActivity() {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             isImagePicked = true
-            var listUri = ArrayList<Uri>()
+            listUri = ArrayList<Uri>()
             if (data?.clipData != null) {
                 val clipData = data.clipData
                 for (i in 0 until clipData?.itemCount!!) {
                     listUri.add(clipData.getItemAt(i).uri)
+                    val inputStream = applicationContext.contentResolver.openInputStream(clipData.getItemAt(i).uri)
+                    bitmapList.add(BitmapFactory.decodeStream(inputStream))
                 }
             } else {
                 listUri.add(data?.data!!)
+                val inputStream = applicationContext.contentResolver.openInputStream(data?.data!!)
+                bitmapList.add(BitmapFactory.decodeStream(inputStream))
             }
             imageSliderVP2.adapter = SliderImageAdapter(listUri)
             chooseImageBtn.setImageResource(0)
@@ -129,6 +142,7 @@ class NewInfoActivity : AppCompatActivity() {
         }
         if (requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             val img = (data?.extras!!.get("data")) as Bitmap
+            bitmapList.add(img)
             imageSliderVP2.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY), img)
             isImagePicked = true
         }

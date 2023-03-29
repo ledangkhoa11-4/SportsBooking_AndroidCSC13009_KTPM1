@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".NewInfoActivity">
 
 
@@ -100,7 +101,6 @@
         android:layout_width="349dp"
         android:layout_height="180dp"
         android:layout_marginTop="15dp"
-        android:background="@android:color/transparent"
         android:src="@drawable/upload_icon"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -128,7 +128,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
-        android:id="@+id/nextStepBtn"
+        android:id="@+id/finishBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="118dp"
         android:layout_height="49dp"

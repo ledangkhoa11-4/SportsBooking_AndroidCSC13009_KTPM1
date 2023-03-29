@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".NewTimelineActivity">
 
 
     <EditText
         android:id="@+id/timeEnd"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:cursorVisible="false"
         android:layout_width="100dp"
         android:layout_height="39dp"
         android:layout_marginStart="12dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toTopOf="@+id/timeStart" />
 
@@ -104,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"></include>
 
     <Button
-        android:id="@+id/nextStepBtn"
+        android:id="@+id/finishBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="118dp"
         android:layout_height="49dp"
@@ -121,9 +123,9 @@
         android:layout_marginBottom="30dp"
         android:text=" *You can adjust specific hours later"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/nextStepBtn"
-        app:layout_constraintEnd_toEndOf="@+id/nextStepBtn"
-        app:layout_constraintStart_toStartOf="@+id/nextStepBtn" />
+        app:layout_constraintBottom_toTopOf="@+id/finishBtn"
+        app:layout_constraintEnd_toEndOf="@+id/finishBtn"
+        app:layout_constraintStart_toStartOf="@+id/finishBtn" />
 
     <TextView
         android:id="@+id/Tv"
@@ -137,14 +139,16 @@
         app:layout_constraintTop_toTopOf="@+id/timeStart" />
 
     <EditText
+
         android:id="@+id/timeStart"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:cursorVisible="false"
         android:layout_width="100dp"
         android:layout_height="39dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
         app:layout_constraintStart_toEndOf="@+id/Tv"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
