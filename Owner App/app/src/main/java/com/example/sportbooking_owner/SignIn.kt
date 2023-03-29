@@ -35,40 +35,43 @@ class SignIn : AppCompatActivity() {
         //Sign In
 
         //Sign In with google
-//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestEmail()
-//            .build()
-//        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
-//        val account=GoogleSignIn.getLastSignedInAccount(this)
-//        if(account!=null){
-//            //sign in success
-//        }
-
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso)
+        val account=GoogleSignIn.getLastSignedInAccount(this)
+        if(account!=null){
+            //sign in success
+            startActivity(Intent(this,SignUp::class.java))
+        }
+        signInGGBtn!!.setOnClickListener {
+            signIn()
+        }
     }
-//    private fun signIn(){
-//        val signInIntent=mGoogleSignInClient!!.signInIntent
-//        startActivityForResult(signInIntent,1000)
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if(requestCode==1000){
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            handleSignInResult(task)
-//        }
-//    }
-//
-//    private fun handleSignInResult(task: Task<GoogleSignInAccount>) {
-//        try {
-//            val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
-//
-//            // Signed in successfully, show authenticated UI.
-//            //updateUI(account)
-//        } catch (e: ApiException) {
-//            // The ApiException status code indicates the detailed failure reason.
-//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-//            //updateUI(null)
-//        }
-//    }
+    private fun signIn(){
+        val signInIntent=mGoogleSignInClient!!.signInIntent
+        startActivityForResult(signInIntent,1000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==1000){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+
+    private fun handleSignInResult(task: Task<GoogleSignInAccount>) {
+        try {
+            val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
+            startActivity(Intent(this,SignUp::class.java))
+            // Signed in successfully, show authenticated UI.
+            //updateUI(account)
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+            //updateUI(null)
+        }
+    }
 }
