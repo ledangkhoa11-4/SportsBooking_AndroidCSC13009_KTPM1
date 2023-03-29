@@ -18,6 +18,9 @@
             android:name=".SearchStadiumActivity"
             android:exported="false" />
         <activity
+            android:name=".CalendarViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".CourtScheduleActivity"
             android:exported="false" />
         <activity
