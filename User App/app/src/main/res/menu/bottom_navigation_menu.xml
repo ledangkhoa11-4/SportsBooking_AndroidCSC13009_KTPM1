@@ -2,7 +2,7 @@
     <item
         android:id="@+id/item_home"
         android:enabled="true"
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/football_pitch_icon"
         android:title="Home"/>
     <item
         android:id="@+id/item_user"

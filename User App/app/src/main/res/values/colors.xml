@@ -10,4 +10,6 @@
     <color name="red">#ff0000</color>
     <color name="topic_color">#43A9DD</color>
     <color name="pink">#FB6B90</color>
+    <color name="myBlue">#00BCD4</color>
+    <color name="Gray">#A1A1A1</color>
 </resources>
