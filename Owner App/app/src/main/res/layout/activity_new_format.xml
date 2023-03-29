@@ -7,7 +7,7 @@
     tools:context=".NewFormatActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/backBtn"
         android:layout_width="59dp"
         android:layout_height="62dp"
         android:layout_gravity="bottom|center|end"
@@ -29,10 +29,10 @@
         android:text="Create New Facilities"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/floating_action_button"
+        app:layout_constraintBottom_toBottomOf="@+id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/floating_action_button" />
+        app:layout_constraintTop_toTopOf="@+id/backBtn" />
 
 
     <include
@@ -168,7 +168,7 @@
             <EditText
                 android:id="@+id/locationInput"
                 android:layout_width="350dp"
-                android:layout_height="55dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="15dp"
                 android:cursorVisible="false"
                 android:ems="10"
@@ -269,7 +269,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/finalStepBtn"
                 android:layout_width="110dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="40dp"
@@ -306,7 +306,7 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button3" />
+                app:layout_constraintTop_toBottomOf="@+id/finalStepBtn" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

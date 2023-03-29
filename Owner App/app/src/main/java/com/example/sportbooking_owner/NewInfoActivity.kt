@@ -1,31 +1,33 @@
 package com.example.sportbooking_owner
 
-import android.content.ClipDescription
 import android.content.Intent
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Layout
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shuhart.stepview.StepView
 
 class NewInfoActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View
     lateinit var stepView: StepView
-
     lateinit var chooseImageBtn: ImageButton
     lateinit var courtNameInput: EditText
     lateinit var descriptionInput: EditText
     lateinit var nextStep: Button
+    lateinit var imageSliderVP2:ViewPager2
     var isImagePicked = false
 
     companion object {
@@ -38,15 +40,26 @@ class NewInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_info)
 
+        imageSliderVP2 = findViewById(R.id.imageSliderVP2)
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)
         stepView.go(0, true)
 
         chooseImageBtn = findViewById(R.id.imageButton)
 
+        imageSliderVP2.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY))
+        val transformer = CompositePageTransformer()
+        transformer.addTransformer(MarginPageTransformer(40))
+        transformer.addTransformer(ViewPager2.PageTransformer { page, position ->
+            page.setOnClickListener {
+                showBottomSheetDialog()
+            }
+        })
+        imageSliderVP2.setPageTransformer(transformer)
         chooseImageBtn.setOnClickListener {
             showBottomSheetDialog()
         }
+
         courtNameInput = findViewById(R.id.courtNameInput)
         descriptionInput = findViewById(R.id.descriptionInput)
         nextStep = findViewById(R.id.nextStepBtn)
@@ -58,6 +71,11 @@ class NewInfoActivity : AppCompatActivity() {
             startActivityForResult(intent, FORMAT_STEP_REQUEST)
             overridePendingTransition(0, 0)
             //}
+        }
+        findViewById<FloatingActionButton>(R.id.backBtn).setOnClickListener {
+            val intent = intent
+            setResult(RESULT_CANCELED,intent)
+            finish()
         }
     }
 
@@ -81,7 +99,9 @@ class NewInfoActivity : AppCompatActivity() {
     fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     fun takeImageCamera() {
@@ -93,15 +113,24 @@ class NewInfoActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
-            chooseImageBtn.setImageURI(data?.data)
             isImagePicked = true
-            chooseImageBtn.setScaleType(ImageView.ScaleType.CENTER_CROP)
+            var listUri = ArrayList<Uri>()
+            if (data?.clipData != null) {
+                val clipData = data.clipData
+                for (i in 0 until clipData?.itemCount!!) {
+                    listUri.add(clipData.getItemAt(i).uri)
+                }
+            } else {
+                listUri.add(data?.data!!)
+            }
+            imageSliderVP2.adapter = SliderImageAdapter(listUri)
+            chooseImageBtn.setImageResource(0)
+
         }
         if (requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             val img = (data?.extras!!.get("data")) as Bitmap
-            chooseImageBtn.setImageBitmap(img)
+            imageSliderVP2.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY), img)
             isImagePicked = true
-            chooseImageBtn.setScaleType(ScaleType.CENTER_CROP)
         }
     }
 }

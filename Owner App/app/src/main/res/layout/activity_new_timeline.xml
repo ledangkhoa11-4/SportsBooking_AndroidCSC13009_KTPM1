@@ -4,44 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewInfoActivity">
+    tools:context=".NewTimelineActivity">
 
 
     <EditText
-        android:id="@+id/descriptionInput"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:id="@+id/timeEnd"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:layout_width="100dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/timeStart" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="30dp"
-        android:text="Description"
-        android:textColor="#505050"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courtNameInput" />
-
-    <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:text="Court's Name"
+        android:text="To"
+        app:layout_constraintBottom_toBottomOf="@+id/timeEnd"
+        app:layout_constraintStart_toEndOf="@+id/timeStart"
+        app:layout_constraintTop_toTopOf="@+id/timeEnd" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:text="Service Hour"
         android:textColor="#505050"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backBtn"
@@ -86,8 +84,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Images"
+        android:layout_marginTop="25dp"
+        android:text="Service Weekdays"
         android:textColor="#505050"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -95,37 +93,15 @@
         app:layout_constraintTop_toBottomOf="@+id/step_view_layout" />
 
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="349dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/upload_icon"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/imageSliderVP2"
-        android:layout_width="351dp"
-        android:layout_height="180dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/courtNameInput"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+    <include
+        android:id="@+id/daypicker"
+        layout="@layout/weekdays_picker"
+        android:layout_width="389dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"></include>
 
     <Button
         android:id="@+id/nextStepBtn"
@@ -133,9 +109,44 @@
         android:layout_width="118dp"
         android:layout_height="49dp"
         android:layout_marginBottom="30dp"
-        android:text="Next"
+        android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text=" *You can adjust specific hours later"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/nextStepBtn"
+        app:layout_constraintEnd_toEndOf="@+id/nextStepBtn"
+        app:layout_constraintStart_toStartOf="@+id/nextStepBtn" />
+
+    <TextView
+        android:id="@+id/Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="From"
+
+        app:layout_constraintBottom_toBottomOf="@+id/timeStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timeStart" />
+
+    <EditText
+        android:id="@+id/timeStart"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:cursorVisible="false"
+        android:layout_width="100dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/Tv"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

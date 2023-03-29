@@ -16,7 +16,7 @@ class CourtScheduleActivity : AppCompatActivity() {
             "24:00","#73fcae68","#000000")
         scheduleList.add(schedule)
         scheduleList.add(
-            ScheduleEntity(5,"San A Sang","8-930",0,"8:30",
+            ScheduleEntity(5,"San A Sang Bla Bla Bla Bla LBa","8-930",0,"8:30",
                 "10:00","#73fcae68","#000000"))
         var table = findViewById<MinTimeTableView>(R.id.table)
         table.initTable(day)
