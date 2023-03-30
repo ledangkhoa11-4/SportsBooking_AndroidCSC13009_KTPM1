@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="navigation_icon" />
-                            <entry key="sourceFile" value="D:\Semester 2 22-23\LapTrinhAndroid\Project\navigation_icon.svg" />
+                            <entry key="outputName" value="arrowdown_icon" />
+                            <entry key="sourceFile" value="D:\Semester 2 22-23\LapTrinhAndroid\Project\arrowdown_icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

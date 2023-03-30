@@ -22,7 +22,10 @@
         android:layout_height="120dp"
         android:layout_marginTop="-10dp"
         android:backgroundTint="@color/myBlue"
-        app:cornerRadius="-100dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,35 +102,41 @@
 
     <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
         android:id="@+id/group_choices"
-        android:layout_width="348dp"
+        android:layout_width="match_parent"
         android:layout_height="37dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/outlinedButton">
 
         <ToggleButton
             android:id="@+id/nearYouTgBtn"
+            android:fontFamily="@font/lato_regular"
             style="@style/toggleButton"
-            android:layout_width="95dp"
+            android:layout_width="65dp"
             android:layout_height="35dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/toggle_bg"
             android:textOff="Near you"
             android:textOn="Near you"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group_choices" />
 
         <ToggleButton
             android:id="@+id/bookMostTgBtn"
+            android:fontFamily="@font/lato_regular"
             style="@style/toggleButton"
-            android:layout_width="117dp"
+            android:layout_width="95dp"
             android:layout_height="35dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/toggle_bg"
             android:textOff="Many booking"
             android:textOn="Many booking"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group_choices" />
@@ -135,15 +144,35 @@
         <ToggleButton
             android:id="@+id/tM2"
             style="@style/toggleButton"
-            android:layout_width="100dp"
+            android:layout_width="75dp"
             android:layout_height="35dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/toggle_bg"
+            android:fontFamily="@font/lato_regular"
             android:textOff="High rating"
             android:textOn="High rating"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group_choices" />
 
+        <ToggleButton
+            android:id="@+id/price"
+            style="@style/toggleButton"
+            android:layout_width="110sp"
+            android:layout_height="35dp"
+            android:background="@drawable/toggle_bg"
+            android:drawableRight="@drawable/arrowdown_icon"
+            android:fontFamily="@font/lato_regular"
+            android:gravity="center|start"
+            android:paddingStart="15sp"
+            android:paddingEnd="20dp"
+            android:textOff="Price"
+            android:textOn="Price"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/group_choices" />
     </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
 
     <ListView

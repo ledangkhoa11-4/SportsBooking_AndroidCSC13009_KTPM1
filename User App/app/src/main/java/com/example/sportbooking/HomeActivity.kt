@@ -36,6 +36,10 @@ class HomeActivity : AppCompatActivity() {
         courtList.add(court)
         val listViewAdapter = homeListViewAdapter(this,courtList)
         listView.adapter = listViewAdapter
+        listView.setOnItemClickListener { adapterView, view, i, l ->
+            val intent = Intent(this, DetailCourtActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun navBarHandle(nav_bar: NavigationBarView){
