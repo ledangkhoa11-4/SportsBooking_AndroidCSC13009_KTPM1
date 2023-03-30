@@ -46,4 +46,6 @@ dependencies {
     implementation 'com.github.islandparadise14:Mintable:1.5.1'
     implementation 'com.nex3z:toggle-button-group:1.2.3'
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+    implementation "androidx.viewpager2:viewpager2:1.0.0-alpha01"
+    implementation "com.tbuonomo:dotsindicator:4.3"
 }

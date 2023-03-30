@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailCourtActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="1000dp">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                app:dotsColor="@color/LightGray"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="10dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/viewPager"
+                app:progressMode="true"
+                app:selectedDotColor="@color/myBlue">
+
+            </com.tbuonomo.viewpagerdotsindicator.DotsIndicator>
+
+            <TextView
+                android:id="@+id/courtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="Sân Bóng Trí Hải"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+            <TextView
+                android:id="@+id/courtLocation"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:text="227 D. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/courtPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:text="0344102242"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/courtPhone3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:text="500.000 / 60min"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+            <TextView
+                android:id="@+id/tv15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:text="SERVICES ON THIS LOCATION"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:text="REVIEWS"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button9" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="4dp"
+                android:tint="#838282"
+                app:layout_constraintEnd_toStartOf="@+id/courtName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/courtName"
+                app:srcCompat="@drawable/location_icon" />
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:tint="#848383"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:srcCompat="@android:drawable/stat_sys_phone_call" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:tint="#848383"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6"
+                app:srcCompat="@drawable/price_icon" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="10dp"
+                android:tint="#848383"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:srcCompat="@drawable/football_icon" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                app:srcCompat="@drawable/football_pitch_icon" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="|"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/courtName"
+                app:layout_constraintStart_toEndOf="@+id/courtName"
+                app:layout_constraintTop_toTopOf="@+id/courtName" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="#838282"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courtPhone" />
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="350dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="25dp"
+                android:backgroundTint="#838282"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="229dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv15" />
+
+            <ListView
+                android:layout_width="0dp"
+                android:layout_height="121dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="1000dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="-5dp"
+        android:backgroundTint="#FFFFFF"
+        android:clickable="false"
+        android:text="Button"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/ViewSchedule"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="153dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="View Schedule"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/topic_color" />
+
+    <Button
+        android:id="@+id/BookBtn"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="153dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Book now"
+        android:textColor="#FF0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="@color/red" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
