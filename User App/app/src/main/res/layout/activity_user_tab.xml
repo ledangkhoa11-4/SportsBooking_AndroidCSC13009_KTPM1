@@ -8,8 +8,9 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar"
-        android:layout_width="408dp"
-        android:layout_height="72dp"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="-5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,7 +19,7 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="410dp"
+        android:layout_width="0dp"
         android:layout_height="314dp"
         android:layout_marginTop="-50dp"
         android:backgroundTint="#B0D6E5"

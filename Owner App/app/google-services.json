@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "161293653541",
+    "project_id": "sportbooking2-b3fa8",
+    "storage_bucket": "sportbooking2-b3fa8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161293653541:android:6c6410f8dee26c401b11cc",
+        "android_client_info": {
+          "package_name": "com.example.sportbooking_owner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfMFxuxKhOSCsxLPjZxzjqCgNIxpc0sNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

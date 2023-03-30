@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -50,5 +51,8 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:3.0.0'
     implementation "androidx.viewpager2:viewpager2:1.0.0-alpha01"
     implementation 'com.github.mahimrocky:WeekDaySelector:1.0.0'
+    implementation platform('com.google.firebase:firebase-bom:31.4.0')
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 }

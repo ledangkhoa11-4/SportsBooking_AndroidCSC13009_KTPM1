@@ -48,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.item_home-> true
                 R.id.item_user->{
+                    finish()
                     startActivity(Intent(this,UserTabActivity::class.java))
                     overridePendingTransition(0,0)
                     true
