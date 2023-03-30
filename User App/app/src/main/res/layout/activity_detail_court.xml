@@ -70,7 +70,9 @@
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="1"
                 android:text="227 D. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh"
+                android:textColor="#0243FB"
                 android:textSize="14sp"
+
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -84,6 +86,7 @@
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="1"
                 android:text="0344102242"
+                android:textColor="#0243FB"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"

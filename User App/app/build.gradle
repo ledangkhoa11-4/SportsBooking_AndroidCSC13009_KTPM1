@@ -48,4 +48,5 @@ dependencies {
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
     implementation "androidx.viewpager2:viewpager2:1.0.0-alpha01"
     implementation "com.tbuonomo:dotsindicator:4.3"
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
