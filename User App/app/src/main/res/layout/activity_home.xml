@@ -73,7 +73,8 @@
         app:mt_maxSuggestionsCount="10"
         app:mt_placeholder="Search here"
         app:mt_searchIconDrawable="@android:drawable/ic_menu_search"
-        app:mt_speechMode="false" />
+        app:mt_speechMode="false"
+        app:mt_textCursorTint="@color/myBlue" />
 
     <Button
         android:id="@+id/outlinedButton"
