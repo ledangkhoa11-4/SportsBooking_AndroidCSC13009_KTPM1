@@ -19,7 +19,7 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="432dp"
-        android:layout_height="135dp"
+        android:layout_height="120dp"
         android:layout_marginTop="-10dp"
         android:backgroundTint="@color/myBlue"
         app:cornerRadius="-100dp"
@@ -28,30 +28,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/textField"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="a"-->
-<!--        tools:ignore="MissingConstraints">-->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/textField"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="a"-->
+    <!--        tools:ignore="MissingConstraints">-->
 
     <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
+        style="?attr/floatingActionButtonSmallStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
         android:contentDescription="Filter"
+        android:foregroundGravity="center"
+        android:scaleType="center"
         app:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/filter_icon" />
+
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/searchBar"
+        style="@style/MaterialSearchBarLight"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_action_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/floating_action_button"
+        app:mt_borderlessRippleEnabled="true"
+        app:mt_hint="Search by court name"
+        app:mt_maxSuggestionsCount="10"
+        app:mt_placeholder="Search here"
+        app:mt_searchIconDrawable="@android:drawable/ic_menu_search"
+        app:mt_speechMode="false" />
 
     <Button
         android:id="@+id/outlinedButton"
@@ -75,8 +92,10 @@
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.304" />
 
     <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
         android:id="@+id/group_choices"
@@ -126,6 +145,18 @@
             app:layout_constraintTop_toBottomOf="@+id/group_choices" />
 
     </com.nex3z.togglebuttongroup.SingleSelectToggleGroup>
+
+    <ListView
+        android:id="@+id/homeListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:dividerHeight="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/nav_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_choices"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

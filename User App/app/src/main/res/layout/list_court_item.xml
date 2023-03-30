@@ -3,20 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="15dp"
+        android:tint="#858383"
+        app:layout_constraintBottom_toBottomOf="@+id/courtNameTv"
+        app:layout_constraintStart_toEndOf="@+id/courtNameTv"
+        app:srcCompat="@drawable/navigation_icon" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="230dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/numBookingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:ellipsize="end"
         android:fontFamily="@font/lato_regular"
-        android:text="227 Nguyễn Văn Cừ, P4, Q5, HCM"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="73 bookings"
         android:textColor="#5A5A5A"
-        android:textSize="15dp"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/courtRatingTv"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/courtRatingTv" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato_regular"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="|"
+        android:textColor="#5A5A5A"
+        android:textSize="13dp"
+        app:layout_constraintBottom_toBottomOf="@+id/courtRatingTv"
+        app:layout_constraintStart_toEndOf="@+id/courtRatingTv"
+        app:layout_constraintTop_toTopOf="@+id/courtRatingTv" />
+
+    <TextView
+        android:id="@+id/courtRatingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato_regular"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="4.3 (51 rate)"
+        android:textColor="#5A5A5A"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/courtLocationTv" />
+
+    <TextView
+        android:id="@+id/courtLocationTv"
+        android:layout_width="230dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato_regular"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:text="227 Nguyễn Văn Cừ, P4, Q5, Hồ Chí Minh"
+        android:textColor="#5A5A5A"
+        android:textSize="13dp"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/courtNameTv" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -31,19 +93,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/courtImage"
             android:layout_width="110dp"
-            android:layout_height="85dp"
+            android:layout_height="90dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/illustration" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/courtNameTv"
         android:layout_width="107dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="-15dp"
+        android:layout_marginTop="-10dp"
         android:fontFamily="@font/lato_regular"
         android:gravity="bottom"
         android:text="Sân bóng Trí Hải"
@@ -55,13 +117,40 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="25dp"
-        android:layout_height="19dp"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintBottom_toBottomOf="@+id/courtLocationTv"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/courtLocationTv"
         app:srcCompat="@drawable/location_icon" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/courtRatingTv"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/courtRatingTv"
+        app:srcCompat="@drawable/star_icon" />
+
+    <TextView
+        android:id="@+id/dump"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/distanceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/lato_italic"
+        android:text="1150km"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
