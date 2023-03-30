@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RatingActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="347dp"
+        android:layout_height="114dp"
+        android:orientation="horizontal"
+        android:background="@drawable/custom_background"
+        app:layout_constraintBottom_toTopOf="@+id/advertiseTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fieldName"
+                android:layout_width="200dp"
+                android:layout_height="78dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="San bong k34"
+                android:textStyle="bold" />
+
+            <com.hadi.emojiratingbar.EmojiRatingBar
+                android:id="@+id/emoji_rating_bar1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                app:defaultValue="AWFUL"
+                app:titleColor="#844848" />
+        </LinearLayout>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/fieldImage"
+            android:layout_width="153dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/san_bong"
+            app:shapeAppearanceOverlay="@style/roundimageview" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/advertiseTextView"
+        android:layout_width="302dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="504dp"
+        android:gravity="center"
+        android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="100sp"
+        app:autoSizeStepGranularity="2sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.hadi.emojiratingbar.EmojiRatingBar
+        android:id="@+id/emoji_rating_bar2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        app:defaultValue="AWFUL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advertiseTextView"
+        app:layout_constraintVertical_bias="0.121"
+        app:showAllText="true"
+        app:showText="true"
+        app:titleColor="#844848" />
+
+    <EditText
+        android:id="@+id/commentEditText"
+        android:layout_width="330dp"
+        android:layout_height="185dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Nhận xét"
+        android:background="@drawable/custom_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emoji_rating_bar2"
+        app:layout_constraintVertical_bias="0.214" />
+
+    <Button
+        android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá ngay"
+        android:backgroundTint="@color/topic_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
