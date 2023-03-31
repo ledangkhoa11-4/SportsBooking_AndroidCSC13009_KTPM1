@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/beautiful_gray"
     tools:context=".RatingActivity">
 
     <LinearLayout
@@ -11,25 +12,41 @@
         android:layout_width="347dp"
         android:layout_height="114dp"
         android:orientation="horizontal"
+        android:background="@drawable/background_main_menu"
         app:layout_constraintBottom_toTopOf="@+id/advertiseTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/fieldName"
-                android:layout_width="200dp"
-                android:layout_height="78dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="San bong k34"
-                android:textStyle="bold" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="169dp"
+                android:layout_height="44dp"
+                android:background="@drawable/background_image"
+                app:layout_constraintBottom_toTopOf="@+id/emoji_rating_bar1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/fieldName"
+                    android:layout_width="155dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="San bong k34"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.hadi.emojiratingbar.EmojiRatingBar
                 android:id="@+id/emoji_rating_bar1"
@@ -37,34 +54,37 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 app:defaultValue="AWFUL"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:titleColor="#844848" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="145dp"
+            android:layout_height="match_parent" >
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/fieldImage"
-            android:layout_width="153dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/san_bong"
-             />
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="113dp"
+                android:layout_height="87dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/san_bong" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </LinearLayout>
-
     <TextView
         android:id="@+id/advertiseTextView"
         android:layout_width="302dp"
         android:layout_height="54dp"
         android:layout_marginBottom="504dp"
         android:gravity="center"
+        android:background="@drawable/background_main_menu"
         android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
         app:autoSizeTextType="uniform"
         app:autoSizeMinTextSize="12sp"
@@ -80,6 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_main_menu"
         app:defaultValue="AWFUL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +120,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Nhận xét"
+        android:background="@drawable/background_main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
