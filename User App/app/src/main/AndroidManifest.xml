@@ -20,7 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".SearchStadiumActivity"
-            android:exported="false" />
+            android:exported="true" />
+
         <activity
             android:name=".CalendarViewActivity"
             android:exported="false" />
