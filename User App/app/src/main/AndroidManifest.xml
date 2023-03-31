@@ -16,6 +16,7 @@
         tools:targetApi="31">
         <activity
             android:name=".HomeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".SearchStadiumActivity"
@@ -31,6 +32,12 @@
             android:exported="false" />
         <activity
             android:name=".UserTabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RatingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailCourtActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
