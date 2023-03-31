@@ -9,13 +9,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="347dp"
-        android:layout_height="114dp"
+        android:layout_width="410dp"
+        android:layout_height="130dp"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:background="@drawable/background_main_menu"
-        app:layout_constraintBottom_toTopOf="@+id/advertiseTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -50,26 +48,30 @@
 
             <com.hadi.emojiratingbar.EmojiRatingBar
                 android:id="@+id/emoji_rating_bar1"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_width="193dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/background_image"
                 app:defaultValue="AWFUL"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:titleColor="#844848" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="145dp"
-            android:layout_height="match_parent" >
+            android:layout_width="215dp"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageView13"
-                android:layout_width="113dp"
-                android:layout_height="87dp"
+                android:layout_width="171dp"
+                android:layout_height="112dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.636"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/san_bong" />
@@ -78,65 +80,170 @@
 
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/advertiseTextView"
-        android:layout_width="302dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="504dp"
-        android:gravity="center"
-        android:background="@drawable/background_main_menu"
-        android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeMaxTextSize="100sp"
-        app:autoSizeStepGranularity="2sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.hadi.emojiratingbar.EmojiRatingBar
-        android:id="@+id/emoji_rating_bar2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:background="@drawable/background_main_menu"
-        app:defaultValue="AWFUL"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="413dp"
+        android:layout_height="501dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advertiseTextView"
-        app:layout_constraintVertical_bias="0.121"
-        app:showAllText="true"
-        app:showText="true"
-        app:titleColor="#844848" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-    <EditText
-        android:id="@+id/commentEditText"
-        android:layout_width="330dp"
-        android:layout_height="185dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Nhận xét"
-        android:background="@drawable/background_main_menu"
+        <TextView
+            android:id="@+id/advertiseTextView"
+            android:layout_width="365dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="432dp"
+            android:gravity="center"
+            android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.hadi.emojiratingbar.EmojiRatingBar
+            android:id="@+id/emoji_rating_bar2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/background_image"
+            app:defaultValue="AWFUL"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/advertiseTextView"
+            app:layout_constraintVertical_bias="0.0"
+            app:showAllText="true"
+            app:showText="true"
+            app:titleColor="#844848" />
+
+        <TextView
+            android:layout_width="225dp"
+            android:layout_height="30dp"
+            android:text="Cần cải thiện thêm về?"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.085"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emoji_rating_bar2"
+            app:layout_constraintVertical_bias="1.0"></TextView>
+
+        <GridLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="394dp"
+            android:layout_height="168dp"
+            android:layout_marginBottom="8dp"
+            android:columnCount="2"
+            android:rowCount="3"
+            app:layout_constraintBottom_toTopOf="@+id/commentEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Chất lượng phục vụ"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Hỗ trợ khách hàng"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button14"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Thông tin sân"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Thái độ nhân viên"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Bề mặt sân"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/button13"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/beautiful_gray"
+                android:text="Banh"
+                android:textColor="@color/black" />
+        </GridLayout>
+
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="366dp"
+            android:layout_height="121dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/background_main_menu"
+            android:ems="10"
+            android:hint="Nhận xét"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="420dp"
+        android:layout_height="76dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emoji_rating_bar2"
-        app:layout_constraintVertical_bias="0.214" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/commit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đánh giá ngay"
-        android:backgroundTint="@color/topic_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentEditText" />
+        <Button
+            android:id="@+id/commit"
+            android:layout_width="167dp"
+            android:layout_height="43dp"
+            android:backgroundTint="@color/topic_color"
+            android:text="Đánh giá ngay"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
