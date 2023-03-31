@@ -17,11 +17,11 @@ class CourtListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_list)
-        val cour1=Court(0,0,"San cau long 1","San cau long")
-        val cour2=Court(1,0,"San cau long 2","San cau long")
-        val cour3=Court(2,0,"San da banh","San da banh")
-        val courtList= arrayListOf<Court>(cour1,cour2,cour3)
-        var courtTemp= arrayListOf<Court>()
+        val cour1=Courts(0,0,"San cau long 1","San cau long")
+        val cour2=Courts(1,0,"San cau long 2","San cau long")
+        val cour3=Courts(2,0,"San da banh","San da banh")
+        val courtList= arrayListOf<Courts>(cour1,cour2,cour3)
+        var courtTemp= arrayListOf<Courts>()
         courtTemp.addAll(courtList)
         //Set Recycler view adapter
         val adapter=CustomAdapter(courtTemp)
@@ -50,7 +50,7 @@ class CourtListActivity : AppCompatActivity() {
         })
     }
 }
-class CustomAdapter(private val dataSet: ArrayList<Court>) :
+class CustomAdapter(private val dataSet: ArrayList<Courts>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**

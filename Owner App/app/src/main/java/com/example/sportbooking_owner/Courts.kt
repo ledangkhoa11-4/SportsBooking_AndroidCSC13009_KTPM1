@@ -7,15 +7,15 @@ import kotlinx.parcelize.Parcelize
 import java.sql.Timestamp
 
 @Parcelize
-public class Court(
-    var CourtID:Int = 0,
-    var OwnerID:Int = 0,
+public class Courts(
+    var CourtID:Long = 0L,
+    var OwnerID:Long = 0L,
     var Name:String = "",
     var Type:String = "",
+    var location: Location? = null,
     var ServiceWeekdays:String = "",
-    var ServiceHour:ArrayList<Timestamp> = ArrayList(),
-    var Images:ArrayList<Bitmap> = ArrayList(),
-    var ImagesTemp:ArrayList<Uri> = ArrayList(),
+    var ServiceHour:ArrayList<Long> = ArrayList(),
+    var Images:ArrayList<String> = ArrayList(),
     var Description: String = "",
     var AvalableService:ArrayList<String> = ArrayList(),
     var Price:Int = 0

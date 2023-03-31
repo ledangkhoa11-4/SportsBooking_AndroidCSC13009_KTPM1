@@ -120,7 +120,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -190,7 +190,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox5" />
+                app:layout_constraintTop_toBottomOf="@+id/shoesCb" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -203,7 +203,7 @@
                 app:srcCompat="@drawable/all_sport_icon" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/phoneInput"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -213,7 +213,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/freeParkCb"
                 android:layout_width="186dp"
                 android:layout_height="35dp"
 
@@ -228,7 +228,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/freeWifiCb"
                 android:layout_width="186dp"
                 android:layout_height="35dp"
 
@@ -238,11 +238,11 @@
                 android:drawablePadding="15dp"
                 android:text="Free wifi"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkBox2"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+                app:layout_constraintStart_toStartOf="@+id/freeParkCb"
+                app:layout_constraintTop_toBottomOf="@+id/freeParkCb" />
 
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/refereesCb"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
 
@@ -252,11 +252,11 @@
                 android:drawablePadding="15dp"
                 android:text="Referees available"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkBox3"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+                app:layout_constraintStart_toStartOf="@+id/freeWifiCb"
+                app:layout_constraintTop_toBottomOf="@+id/freeWifiCb" />
 
             <CheckBox
-                android:id="@+id/checkBox5"
+                android:id="@+id/shoesCb"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
 
@@ -266,8 +266,8 @@
                 android:drawablePadding="15dp"
                 android:text="Shoes for rent"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkBox4"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
+                app:layout_constraintStart_toStartOf="@+id/refereesCb"
+                app:layout_constraintTop_toBottomOf="@+id/refereesCb" />
 
             <Button
                 android:id="@+id/finalStepBtn"
@@ -278,7 +278,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+                app:layout_constraintTop_toBottomOf="@+id/priceInput" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -291,7 +291,7 @@
                 app:srcCompat="@drawable/service_icon" />
 
             <EditText
-                android:id="@+id/editTextNumberDecimal"
+                android:id="@+id/priceInput"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"

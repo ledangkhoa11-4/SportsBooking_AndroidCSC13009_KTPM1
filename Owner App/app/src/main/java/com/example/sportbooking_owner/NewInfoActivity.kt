@@ -6,15 +6,21 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.shuhart.stepview.StepView
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.io.ByteArrayOutputStream
+import java.util.Calendar
 
 class NewInfoActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View
@@ -28,6 +34,7 @@ class NewInfoActivity : AppCompatActivity() {
     lateinit var listUri:ArrayList<Uri>
     var isImagePicked = false
 
+
     companion object {
         val PICK_IMAGE_REQUEST = 201
         val TAKE_IMAGE_REQUEST = 202
@@ -37,6 +44,7 @@ class NewInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_info)
+
 
         bitmapList = ArrayList()
         imageSliderVP2 = findViewById(R.id.imageSliderVP2)
@@ -63,23 +71,20 @@ class NewInfoActivity : AppCompatActivity() {
         descriptionInput = findViewById(R.id.descriptionInput)
         nextStep = findViewById(R.id.finishBtn)
         nextStep.setOnClickListener {
-//            if (!isImagePicked || courtNameInput.text.length == 0 || descriptionInput.text.length == 0) {
-//                Toast.makeText(
-//                    this,
-//                    "Please enter all information to continue!",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            } else {
-                val intent = Intent(this, NewFormatActivity::class.java)
-                val newCourt = Court()
-//                newCourt.Name = courtNameInput.text.toString()
-//                newCourt.Description = descriptionInput.text.toString()
-//                newCourt.ImagesTemp.addAll(listUri)
-                intent.putExtra("court",newCourt)
+            if (!isImagePicked || courtNameInput.text.length == 0 || descriptionInput.text.length == 0) {
+                MotionToast.createToast(this,
+                    "Warning",
+                    "Please fill all the details!",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
 
+            } else {
+                val intent = Intent(this, NewFormatActivity::class.java)
                 startActivityForResult(intent, FORMAT_STEP_REQUEST)
                 overridePendingTransition(0, 0)
-           // }
+            }
         }
         findViewById<FloatingActionButton>(R.id.backBtn).setOnClickListener {
             val intent = intent
@@ -146,5 +151,39 @@ class NewInfoActivity : AppCompatActivity() {
             imageSliderVP2.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY), img)
             isImagePicked = true
         }
+        if (requestCode == FORMAT_STEP_REQUEST && resultCode == RESULT_OK) {
+           var newCourt = data!!.getParcelableExtra<Courts>("court")!!
+           for(i in 0 until bitmapList.size){
+               val imageID = uploadImage(bitmapList[i])
+               if(imageID.length != 0)
+                   newCourt.Images.add(imageID)
+           }
+            newCourt.Name = courtNameInput.text.toString()
+            newCourt.Description = descriptionInput.text.toString()
+            val Ref = MainActivity.database.getReference("Courts")
+            Ref.push().setValue(newCourt)
+            MotionToast.createToast(this,
+                "Hurray success",
+                "Add new court completed successfully!",
+                MotionToastStyle.SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+        }
+    }
+    fun uploadImage(bitmap: Bitmap):String{
+        val calendar = Calendar.getInstance()
+        var pathStr = "image${calendar.timeInMillis}"
+        val baos = ByteArrayOutputStream()
+        val Ref = MainActivity.storageRef.child(pathStr)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = Ref.putBytes(data)
+        uploadTask.addOnFailureListener {
+            pathStr = ""
+        }.addOnSuccessListener { taskSnapshot ->
+        }
+        return pathStr
     }
 }

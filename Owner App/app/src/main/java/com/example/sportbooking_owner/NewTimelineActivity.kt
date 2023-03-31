@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.shuhart.stepview.StepView
-import java.util.PropertyPermission
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NewTimelineActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View
@@ -18,10 +24,10 @@ class NewTimelineActivity : AppCompatActivity() {
 
     lateinit var timeStart:EditText
     lateinit var timeEnd:EditText
-    var hourStart:Int = 12
-    var minuteStart:Int = 0
-    var hourEnd:Int = 13
-    var minuteEnd:Int = 0
+    var hourStart:Int = -1
+    var minuteStart:Int = -1
+    var hourEnd:Int = -1
+    var minuteEnd:Int = -1
     lateinit var datePickerView: View
     lateinit var tM:ToggleButton
     lateinit var tTue:ToggleButton
@@ -153,6 +159,37 @@ class NewTimelineActivity : AppCompatActivity() {
             if(tSu.isChecked()){
                 weekdaysChoice +="Sun";
             }
+            var startTime = convertToTimestamp("${hourStart}:${minuteStart}")
+            var endTime = convertToTimestamp("${hourEnd}:${minuteEnd}")
+            if(weekdaysChoice.length == 0 || startTime == 0L || endTime == 0L){
+                MotionToast.createColorToast(this,
+                    "Warning",
+                    "Please fill all the details!",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+            }else{
+                var calendar = Calendar.getInstance()
+                val id = calendar.timeInMillis
+                var newCourt = Courts()
+                newCourt.CourtID = id
+                newCourt.ServiceWeekdays = weekdaysChoice
+                newCourt.ServiceHour = arrayListOf(startTime, endTime)
+                val intent = intent
+                intent.putExtra("court",newCourt)
+                setResult(RESULT_OK,intent)
+                finish()
+            }
+        }
+    }
+    fun convertToTimestamp(time: String): Long {
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        try{
+            val date = sdf.parse(time)
+            return date?.time ?: 0
+        }catch (e:Exception){
+            return 0
         }
     }
 }
