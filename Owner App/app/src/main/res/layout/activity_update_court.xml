@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".UpdateCourtActivity">
+
+    <ScrollView
+        android:layout_width="404dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Court's Name"
+                app:layout_constraintStart_toStartOf="@+id/imageVP2_Update"
+                app:layout_constraintTop_toBottomOf="@+id/imageVP2_Update" />
+
+            <EditText
+                android:id="@+id/CourtNameEdt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/imageVP2_Update"
+                app:layout_constraintStart_toStartOf="@+id/textView17"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <EditText
+                android:id="@+id/descriptionEdt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/CourtNameEdt"
+                app:layout_constraintStart_toStartOf="@+id/textView18"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Description"
+                app:layout_constraintStart_toStartOf="@+id/CourtNameEdt"
+                app:layout_constraintTop_toBottomOf="@+id/CourtNameEdt" />
+
+            <EditText
+                android:id="@+id/TypeEdt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionEdt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Type"
+                app:layout_constraintStart_toStartOf="@+id/descriptionEdt"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionEdt" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Price"
+                app:layout_constraintStart_toStartOf="@+id/TypeEdt"
+                app:layout_constraintTop_toBottomOf="@+id/TypeEdt" />
+
+            <EditText
+                android:id="@+id/PriceEdt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="@+id/TypeEdt"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="344dp"
+                android:text="TextView"
+                app:layout_constraintStart_toStartOf="@+id/PriceEdt"
+                app:layout_constraintTop_toBottomOf="@+id/PriceEdt" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Court's Information"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/chooseImageBtn"
+                android:layout_width="245dp"
+                android:layout_height="128dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageVP2_Update"
+                android:layout_width="285dp"
+                android:layout_height="153dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName6"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                app:layout_constraintEnd_toEndOf="@+id/LocationEdt"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Location"
+                app:layout_constraintStart_toStartOf="@+id/PriceEdt"
+                app:layout_constraintTop_toBottomOf="@+id/PriceEdt" />
+
+            <EditText
+                android:id="@+id/LocationEdt"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/PriceEdt"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Service Weekdays"
+                app:layout_constraintStart_toStartOf="@+id/LocationEdt"
+                app:layout_constraintTop_toBottomOf="@+id/LocationEdt" />
+
+            <EditText
+                android:id="@+id/WeekDaysEdt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ems="10"
+                android:focusable="false"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/LocationEdt"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
