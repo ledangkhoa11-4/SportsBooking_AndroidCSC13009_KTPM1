@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         //startActivity(Intent(this,CourtListActivity::class.java))\
 
 
-
         val myRef = database.getReference("message")
         myRef.setValue("Hello, World!")
     }

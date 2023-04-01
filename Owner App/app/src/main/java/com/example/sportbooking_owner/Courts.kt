@@ -12,6 +12,7 @@ public class Courts(
     var OwnerID:Long = 0L,
     var Name:String = "",
     var Type:String = "",
+    var Phone:String = "",
     var location: Location? = null,
     var ServiceWeekdays:String = "",
     var ServiceHour:ArrayList<Long> = ArrayList(),

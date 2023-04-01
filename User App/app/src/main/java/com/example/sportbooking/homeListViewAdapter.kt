@@ -19,8 +19,9 @@ class homeListViewAdapter(private val context:Activity, private val courtInfo:Ar
         val courtDistance = rowView.findViewById<TextView>(R.id.distanceTv)
 
         courtName.text = courtInfo[position].Name
-        courtImage.setImageBitmap(courtInfo[position].Images[0])
-        courtLocation.text = courtInfo[position].location.toString()
+        if(courtInfo[position].bitmapArrayList.size > 0)
+            courtImage.setImageBitmap(courtInfo[position].bitmapArrayList[0])
+        courtLocation.text = courtInfo[position].location!!.addressName
         courtRating.text = courtInfo[position].avgRating.toString() + " (${courtInfo[position].numRating} rate)"
         courtBooking.text = courtInfo[position].numBooking.toString() + " booking"
         courtDistance.text = courtInfo[position].courtDistance.toString() + "m"

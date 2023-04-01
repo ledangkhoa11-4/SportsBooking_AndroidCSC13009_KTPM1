@@ -102,6 +102,7 @@ class NewFormatActivity : AppCompatActivity() {
         }
         if (requestCode == TIMELINE_STEP_REQUEST && resultCode == RESULT_OK) {
             newCourt = data!!.getParcelableExtra<Courts>("court")!!
+            newCourt.Phone = phoneInput.text.toString()
             newCourt.location = location
             newCourt.Type = typeSport.text.toString()
             if(findViewById<CheckBox>(R.id.freeParkCb).isChecked)

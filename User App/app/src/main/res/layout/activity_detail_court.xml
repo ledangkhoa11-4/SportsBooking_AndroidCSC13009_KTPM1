@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
+                    android:id="@+id/listImageDetailVP"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     app:layout_constraintEnd_toEndOf="@+id/cardView"
@@ -110,7 +110,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
             <TextView
-                android:id="@+id/courtPhone3"
+                android:id="@+id/courtPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -187,7 +187,7 @@
                 app:tint="#848383" />
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/typeSportImage"
                 android:layout_width="30dp"
                 android:layout_height="27dp"
                 android:layout_marginStart="10dp"

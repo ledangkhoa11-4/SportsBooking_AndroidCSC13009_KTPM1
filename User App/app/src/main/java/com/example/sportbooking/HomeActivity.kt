@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ListView
 import androidx.core.graphics.drawable.toBitmap
 import com.google.android.material.navigation.NavigationBarView
@@ -12,32 +13,23 @@ import com.google.android.material.navigation.NavigationBarView
 class HomeActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
     lateinit var listView: ListView
+    companion object{
+        var listViewAdapter:homeListViewAdapter? = null
+        var courtList_Home:ArrayList<Court>? = null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         nav_bar = findViewById(R.id.nav_bar)
         navBarHandle(nav_bar)
         listView = findViewById(R.id.homeListView)
-        var courtList = ArrayList<Court>()
-        val drawable = resources.getDrawable(R.drawable.san_bong)
-        val bitmap = (drawable as BitmapDrawable).bitmap
+        courtList_Home = MainActivity.listCourt
 
-        val court = Court(1,1,"Sân bóng Trí Hải", "227 Đ.Nguyễn Văn Cừ, Phường 4, Quận 5, Hồ Chí Minh",
-            "Bóng đá", "", ArrayList(), arrayListOf(bitmap),ArrayList(),"",
-            ArrayList(),50000 , 2.7,25,90,500.0
-        )
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        courtList.add(court)
-        val listViewAdapter = homeListViewAdapter(this,courtList)
+        listViewAdapter = homeListViewAdapter(this,courtList_Home!!)
         listView.adapter = listViewAdapter
         listView.setOnItemClickListener { adapterView, view, i, l ->
             val intent = Intent(this, DetailCourtActivity::class.java)
+            intent.putExtra("index",i)
             startActivity(intent)
         }
     }
@@ -48,9 +40,10 @@ class HomeActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.item_home-> true
                 R.id.item_user->{
-                    finish()
+
                     startActivity(Intent(this,UserTabActivity::class.java))
                     overridePendingTransition(0,0)
+                    finish()
                     true
                 }
                 else -> {

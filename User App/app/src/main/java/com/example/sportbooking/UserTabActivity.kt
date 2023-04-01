@@ -27,9 +27,9 @@ class UserTabActivity : AppCompatActivity() {
         nav_bar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.item_home->{
-                    finish()
-                    startActivity(Intent(this,MainActivity::class.java))
+                    startActivity(Intent(this,HomeActivity::class.java))
                     overridePendingTransition(0,0)
+                    finish()
                     true
                 }
                 R.id.item_user->{
