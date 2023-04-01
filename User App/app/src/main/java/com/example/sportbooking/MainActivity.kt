@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         var courtsRef = database.getReference("Courts");
         var valueEventListener: ValueEventListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                listCourt.clear()
                 for (ds in dataSnapshot.children) {
                     val courtDbId: String = ds.key!!
                     val courtRef: DatabaseReference = database.getReference().child("Courts").child(courtDbId)

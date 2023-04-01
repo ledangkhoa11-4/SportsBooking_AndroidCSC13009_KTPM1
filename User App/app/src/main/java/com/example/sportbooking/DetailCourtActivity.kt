@@ -2,15 +2,18 @@ package com.example.sportbooking
 
 import android.content.Intent
 import android.graphics.Paint
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -21,6 +24,9 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var courtLocation:TextView
     lateinit var courtPhone:TextView
     lateinit var courtPrice:TextView
+    lateinit var hourServiceTv:TextView
+    lateinit var weekdaysServiceTv:TextView
+    lateinit var listServiceRv: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
@@ -40,6 +46,7 @@ class DetailCourtActivity : AppCompatActivity() {
 
         courtName = findViewById(R.id.courtName)
         courtName.setText(courtDetail.Name)
+
         typeSportImage = findViewById(R.id.typeSportImage)
         val drawableID = resources.getIdentifier("${courtDetail.Type.lowercase()}_icon","drawable",packageName)
         typeSportImage.setImageDrawable(resources.getDrawable(drawableID))
@@ -50,6 +57,18 @@ class DetailCourtActivity : AppCompatActivity() {
         courtPhone.setText(courtDetail.Phone)
         courtPrice =  findViewById(R.id.courtPrice)
         courtPrice.setText(formatPrice(courtDetail.Price))
+        hourServiceTv = findViewById(R.id.hourServiceTv)
+        hourServiceTv.setText(convertTimestampToTime(courtDetail.ServiceHour[0]) + " - " + convertTimestampToTime(courtDetail.ServiceHour[1]))
+        weekdaysServiceTv = findViewById(R.id.weekdaysServiceTv)
+        var serviceWeekdaysStr = courtDetail.ServiceWeekdays
+        if(serviceWeekdaysStr[serviceWeekdaysStr.length-1]==',')
+            serviceWeekdaysStr = serviceWeekdaysStr.substring(0,serviceWeekdaysStr.length-1)
+        serviceWeekdaysStr = serviceWeekdaysStr.replace(",",", ")
+        weekdaysServiceTv.setText(serviceWeekdaysStr)
+        listServiceRv = findViewById(R.id.listServiceRv)
+        val adapter = ServiceAvaiRecyclerViewAdapter(packageName,resources,courtDetail.AvalableService)
+        listServiceRv.adapter = adapter
+        listServiceRv.layoutManager = GridLayoutManager(this,2)
         courtLocation.setOnClickListener {
             val location =courtLocation.text.toString()
             val uri = Uri.parse("geo:0,0?q=$location")
@@ -66,5 +85,10 @@ class DetailCourtActivity : AppCompatActivity() {
     fun formatPrice(price: Int): String {
         val formatter = java.text.DecimalFormat("#,###")
         return formatter.format(price) + "đ / 60min"
+    }
+    fun convertTimestampToTime(timestamp: Long): String {
+        val date = Date(timestamp)
+        val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return formatter.format(date)
     }
 }
