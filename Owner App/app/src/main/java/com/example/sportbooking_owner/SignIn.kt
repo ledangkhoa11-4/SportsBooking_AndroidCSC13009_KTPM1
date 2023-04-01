@@ -64,7 +64,7 @@ class SignIn : AppCompatActivity() {
     private fun handleSignInResult(task: Task<GoogleSignInAccount>) {
         try {
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
-            startActivity(Intent(this,SignUp::class.java))
+            startActivity(Intent(this,CourtListActivity::class.java))
             // Signed in successfully, show authenticated UI.
             //updateUI(account)
         } catch (e: ApiException) {

@@ -1,5 +1,6 @@
 package com.example.sportbooking_owner
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,17 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class CourtListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_list)
-        val cour1=Courts(0,0,"San cau long 1","San cau long")
-        val cour2=Courts(1,0,"San cau long 2","San cau long")
-        val cour3=Courts(2,0,"San da banh","San da banh")
+        val cour1=Courts(0,0,"San cau long 1","Badminton")
+        val cour2=Courts(1,0,"San cau long 2","Badminton")
+        val cour3=Courts(2,0,"San da banh","Football")
         val courtList= arrayListOf<Courts>(cour1,cour2,cour3)
         var courtTemp= arrayListOf<Courts>()
         courtTemp.addAll(courtList)
@@ -28,10 +31,16 @@ class CourtListActivity : AppCompatActivity() {
         val courtRv=findViewById<RecyclerView>(R.id.CourtRv)
         courtRv.adapter=adapter
         courtRv.layoutManager=LinearLayoutManager(this)
+        adapter.onItemClick={court ->
+            var intent=Intent(this,UpdateCourtActivity::class.java)
+            intent.putExtra("UpdateCourt",court)
+            startActivity(intent)
+
+        }
+        //Search adapter
         var searchView=findViewById<AutoCompleteTextView>(R.id.SearchView)
         val item=courtList.map {  it.Name }
         val adapterSearchview=ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,item)
-        //Search adapter
         searchView.setAdapter(adapterSearchview)
         searchView!!.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
@@ -49,21 +58,26 @@ class CourtListActivity : AppCompatActivity() {
             }
         })
     }
+
 }
 class CustomAdapter(private val dataSet: ArrayList<Courts>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-
+    var onItemClick:((Courts)->Unit)?=null
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+   inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val courtName: TextView
         val courtType:TextView
+
         init {
             // Define click listener for the ViewHolder's View.
             courtName = view.findViewById(R.id.CourtNameTV)
             courtType = view.findViewById(R.id.CourtTypeTV)
+            view.setOnClickListener {
+                onItemClick?.invoke(dataSet[adapterPosition])
+            }
         }
     }
 
@@ -83,6 +97,8 @@ class CustomAdapter(private val dataSet: ArrayList<Courts>) :
         // contents of the view with that element
         viewHolder.courtName.text = dataSet[position].Name
         viewHolder.courtType.text = dataSet[position].Type
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
