@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -80,6 +81,9 @@ class DetailCourtActivity : AppCompatActivity() {
             val uri = Uri.parse("tel:$phoneNumber")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.backButtonDetail).setOnClickListener {
+            finish()
         }
     }
     fun formatPrice(price: Int): String {

@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.shuhart.stepview.StepView
+import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.sql.Timestamp
@@ -22,12 +23,11 @@ class NewTimelineActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View
     lateinit var stepView: StepView
 
-    lateinit var timeStart:EditText
-    lateinit var timeEnd:EditText
-    var hourStart:Int = -1
-    var minuteStart:Int = -1
-    var hourEnd:Int = -1
-    var minuteEnd:Int = -1
+    lateinit var timeRangePicker:TimeRangePicker
+
+    lateinit var timeStart:TextView
+    lateinit var timeEnd:TextView
+
     lateinit var datePickerView: View
     lateinit var tM:ToggleButton
     lateinit var tTue:ToggleButton
@@ -49,9 +49,7 @@ class NewTimelineActivity : AppCompatActivity() {
         stepView.go(2, true)
         overridePendingTransition(0, 0)
 
-        timeStart = findViewById(R.id.timeStart)
 
-        timeEnd = findViewById(R.id.timeEnd)
 
         datePickerView = findViewById(R.id.daypicker)
         tM = datePickerView.findViewById(R.id.tM)
@@ -62,75 +60,27 @@ class NewTimelineActivity : AppCompatActivity() {
         tS = datePickerView.findViewById(R.id.tS)
         tSu = datePickerView.findViewById(R.id.tSu)
 
-        val startPicker =
-            MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(hourStart)
-                .setMinute(minuteStart)
-                .setTitleText("Select opening time")
-                .build()
-        val endPicker =
-            MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(hourEnd)
-                .setMinute(minuteEnd)
-                .setTitleText("Select closing time")
-                .build()
-        startPicker.addOnPositiveButtonClickListener {
-            var time = "";
-            if(timeEnd.text.toString().length != 0){
+        timeRangePicker = findViewById(R.id.timeRangePicker)
+        timeRangePicker.startTime = TimeRangePicker.Time(0,0)
 
-                if((hourEnd+minuteEnd/60.0) - (startPicker.hour+startPicker.minute/60.0) <= 0){
-                    Toast.makeText(this, "Opening time must earlier than Closing time",Toast.LENGTH_SHORT).show()
-                    timeStart.setText("")
-                }else
-                    if((hourEnd+minuteEnd/60.0) - (startPicker.hour+startPicker.minute/60.0) < 2){
-                        Toast.makeText(this, "Operating time must at least 2 hour",Toast.LENGTH_SHORT).show()
-                        timeStart.setText("")
-                    }else{
-                        time = startPicker.hour.toString().padStart(2,'0') + ":" +startPicker.minute.toString().padStart(2,'0')
-                        timeStart.setText(time)
-                        hourStart = startPicker.hour
-                        minuteStart = startPicker.minute
-                    }
 
-            }else{
-                time = startPicker.hour.toString().padStart(2,'0') + ":" +startPicker.minute.toString().padStart(2,'0')
-                timeStart.setText(time)
-                hourStart = startPicker.hour
-                minuteStart = startPicker.minute
+        timeStart = findViewById(R.id.startTimeTv)
+        timeEnd = findViewById(R.id.endTimeTv)
+        timeRangePicker.setOnTimeChangeListener(object : TimeRangePicker.OnTimeChangeListener {
+            override fun onStartTimeChange(startTime: TimeRangePicker.Time) {
+                timeStart.text = startTime.hour.toString().padStart(2, '0')+":"+startTime.minute.toString().padStart(2, '0')
             }
-        }
-        endPicker.addOnPositiveButtonClickListener {
-            var time = "";
-            if(timeStart.text.toString().length != 0){
-                if((endPicker.hour+endPicker.minute/60.0) - (hourStart+minuteStart/60.0) <= 0){
-                    Toast.makeText(this, "Opening time must earlier than Closing time",Toast.LENGTH_SHORT).show()
-                    timeEnd.setText("")
-                }else
-                    if((endPicker.hour+endPicker.minute/60.0) - (hourStart+minuteStart/60.0) < 2){
-                        Toast.makeText(this, "Operating time must at least 2 hour ",Toast.LENGTH_SHORT).show()
-                        timeEnd.setText("")
-                    }else{
-                        time = endPicker.hour.toString().padStart(2,'0') + ":" +endPicker.minute.toString().padStart(2,'0')
-                        timeEnd.setText(time)
-                        hourEnd = endPicker.hour
-                        minuteEnd = endPicker.minute
-                    }
-            }else{
-                time = endPicker.hour.toString().padStart(2,'0') + ":" +endPicker.minute.toString().padStart(2,'0')
-                timeEnd.setText(time)
-                hourEnd = endPicker.hour
-                minuteEnd = endPicker.minute
-            }
-        }
 
-        timeStart.setOnClickListener {
-            startPicker.show(supportFragmentManager, "tag");
-        }
-        timeEnd.setOnClickListener {
-            endPicker.show(supportFragmentManager, "tag");
-        }
+            override fun onDurationChange(duration: TimeRangePicker.TimeDuration) {
+                //ignore
+            }
+
+            override fun onEndTimeChange(endTime: TimeRangePicker.Time) {
+                timeEnd.text = endTime.hour.toString().padStart(2, '0')+":"+endTime.minute.toString().padStart(2, '0')
+            }
+
+        })
+
         findViewById<FloatingActionButton>(R.id.backBtn).setOnClickListener {
             val intent = intent
             setResult(RESULT_CANCELED,intent)
@@ -159,12 +109,17 @@ class NewTimelineActivity : AppCompatActivity() {
             if(tSu.isChecked()){
                 weekdaysChoice +="Sun";
             }
-            var startTime = convertToTimestamp("${hourStart}:${minuteStart}")
-            var endTime = convertToTimestamp("${hourEnd}:${minuteEnd}")
-            if(weekdaysChoice.length == 0 || startTime == 0L || endTime == 0L){
+
+
+            if(weekdaysChoice.length == 0 || timeRangePicker.duration.hour<2){
+                var msg = ""
+                if(weekdaysChoice.length == 0)
+                    msg = "Please fill all the details!"
+                else
+                    msg = "Duration must be longer than 2 hours"
                 MotionToast.createColorToast(this,
                     "Warning",
-                    "Please fill all the details!",
+                    msg,
                     MotionToastStyle.WARNING,
                     MotionToast.GRAVITY_BOTTOM,
                     MotionToast.SHORT_DURATION,
@@ -175,7 +130,10 @@ class NewTimelineActivity : AppCompatActivity() {
                 var newCourt = Courts()
                 newCourt.CourtID = id
                 newCourt.ServiceWeekdays = weekdaysChoice
-                newCourt.ServiceHour = arrayListOf(startTime, endTime)
+                val startTimeStamp = convertToTimestamp(timeStart.text.toString())
+                val endTimeStamp = convertToTimestamp(timeEnd.text.toString())
+                newCourt.ServiceHour.add(startTimeStamp)
+                newCourt.ServiceHour.add(endTimeStamp)
                 val intent = intent
                 intent.putExtra("court",newCourt)
                 setResult(RESULT_OK,intent)

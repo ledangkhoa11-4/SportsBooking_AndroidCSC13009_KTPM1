@@ -56,4 +56,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
+    implementation 'nl.joery.timerangepicker:timerangepicker:1.0.0'
 }

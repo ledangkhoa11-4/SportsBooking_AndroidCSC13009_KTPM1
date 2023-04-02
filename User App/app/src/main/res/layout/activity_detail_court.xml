@@ -350,7 +350,7 @@
         app:strokeColor="@color/red" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backButtonDetail"
         android:layout_width="47dp"
         android:layout_height="40dp"
         android:backgroundTint="#FFFEFE"
@@ -366,10 +366,10 @@
         android:fontFamily="@font/lato_bold"
         android:text="Detail Court"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonDetail"
         app:layout_constraintEnd_toStartOf="@+id/favoriteBtn"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+        app:layout_constraintStart_toEndOf="@+id/backButtonDetail"
+        app:layout_constraintTop_toTopOf="@+id/backButtonDetail" />
 
     <ImageButton
         android:id="@+id/favoriteBtn"

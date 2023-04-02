@@ -45,7 +45,7 @@ class NewFormatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_format)
 
 
-        Places.initialize(this, "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y", Locale("vi", "VN"))
+        Places.initialize(this, "AIzaSyA3S6vximWHZsNRtPxicZrx2gZisLkjl5I", Locale("vi", "VN"))
 
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)

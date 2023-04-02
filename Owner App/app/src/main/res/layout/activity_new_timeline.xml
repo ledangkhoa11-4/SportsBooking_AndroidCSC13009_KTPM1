@@ -8,40 +8,17 @@
     tools:context=".NewTimelineActivity">
 
 
-    <EditText
-        android:id="@+id/timeEnd"
-        android:layout_width="100dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="12dp"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toTopOf="@+id/timeStart" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="To"
-        app:layout_constraintBottom_toBottomOf="@+id/timeEnd"
-        app:layout_constraintStart_toEndOf="@+id/timeStart"
-        app:layout_constraintTop_toTopOf="@+id/timeEnd" />
-
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="90dp"
         android:text="Service Hour"
         android:textColor="#505050"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/daypicker" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backBtn"
@@ -120,37 +97,74 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:text=" *You can adjust specific hours later"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/finishBtn"
         app:layout_constraintEnd_toEndOf="@+id/finishBtn"
         app:layout_constraintStart_toStartOf="@+id/finishBtn" />
 
+
+    <nl.joery.timerangepicker.TimeRangePicker
+        android:id="@+id/timeRangePicker"
+        android:layout_width="300dp"
+        android:layout_height="294dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:trp_clockFace="SAMSUNG"
+        app:trp_endTimeMinutes="0"
+        app:trp_hourFormat="FORMAT_24"
+        app:trp_sliderRangeGradientEnd="#085715"
+        app:trp_sliderRangeGradientMiddle="#087724"
+        app:trp_sliderRangeGradientStart="#41FB45"
+        app:trp_sliderWidth="8dp"
+        app:trp_stepTimeMinutes="30" />
+
     <TextView
-        android:id="@+id/Tv"
+        android:id="@+id/startTimeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:text="From"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="00:00"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv15"
+        app:layout_constraintTop_toBottomOf="@+id/tv15" />
 
-        app:layout_constraintBottom_toBottomOf="@+id/timeStart"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timeStart" />
+    <TextView
+        android:id="@+id/tv15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="Start at"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/timeRangePicker"
+        app:layout_constraintStart_toStartOf="@+id/timeRangePicker"
+        app:layout_constraintTop_toTopOf="@+id/timeRangePicker" />
 
-    <EditText
+    <TextView
+        android:id="@+id/endTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="08:00"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/endTimeTv2"
+        app:layout_constraintTop_toBottomOf="@+id/endTimeTv2" />
 
-        android:id="@+id/timeStart"
-        android:layout_width="100dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@+id/Tv"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-
+    <TextView
+        android:id="@+id/endTimeTv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="End at"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/startTimeTv"
+        app:layout_constraintTop_toBottomOf="@+id/startTimeTv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

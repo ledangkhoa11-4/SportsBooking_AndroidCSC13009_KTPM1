@@ -34,8 +34,10 @@ class LocationManager(var activity: Activity) {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult?.lastLocation?.let {
                 val loc = Location()
+
                 loc.latLng.latitude = it.latitude
                 loc.latLng.longitude = it.longitude
+                Log.i("Update location",loc.latLng.latitude.toString() + "-" + loc.latLng.longitude.toString())
                 MainActivity.saveLocation(loc,activity);
                 MainActivity.lastLocation = loc;
                 HomeActivity.updateDistance()

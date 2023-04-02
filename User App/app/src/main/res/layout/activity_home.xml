@@ -61,7 +61,7 @@
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/searchBar"
         style="@style/MaterialSearchBarLight"
-        android:layout_width="330dp"
+        android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:background="@drawable/rounded_corner"
@@ -105,8 +105,8 @@
 
     <com.nex3z.togglebuttongroup.SingleSelectToggleGroup
         android:id="@+id/group_choices"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
@@ -116,12 +116,12 @@
 
         <ToggleButton
             android:id="@+id/nearYouTgBtn"
-            android:fontFamily="@font/lato_regular"
             style="@style/toggleButton"
             android:layout_width="65dp"
             android:layout_height="35dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/toggle_bg"
+            android:fontFamily="@font/lato_regular"
             android:textOff="Near you"
             android:textOn="Near you"
             android:textSize="12sp"
@@ -131,12 +131,12 @@
 
         <ToggleButton
             android:id="@+id/bookMostTgBtn"
-            android:fontFamily="@font/lato_regular"
             style="@style/toggleButton"
             android:layout_width="95dp"
             android:layout_height="35dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/toggle_bg"
+            android:fontFamily="@font/lato_regular"
             android:textOff="Many booking"
             android:textOn="Many booking"
             android:textSize="12sp"
@@ -162,7 +162,7 @@
         <ToggleButton
             android:id="@+id/price"
             style="@style/toggleButton"
-            android:layout_width="110sp"
+            android:layout_width="100dp"
             android:layout_height="35dp"
             android:background="@drawable/toggle_bg"
             android:drawableRight="@drawable/arrowdown_icon"
@@ -182,7 +182,7 @@
         android:id="@+id/homeListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#FFFFFF"
         android:dividerHeight="0dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
