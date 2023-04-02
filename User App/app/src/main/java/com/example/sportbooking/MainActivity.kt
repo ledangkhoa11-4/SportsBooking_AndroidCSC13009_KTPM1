@@ -64,10 +64,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        startActivity(Intent(this,BookingHistory::class.java))
+        //loadCourtList()
+        //finish()
         loadCourtList()
         lastLocation = readLastLocation(this);
-        startActivity(Intent(this, HomeActivity::class.java))
-        finish()
+//        startActivity(Intent(this, HomeActivity::class.java))
+//        finish()
         // startActivity(Intent(this,CalendarViewActivity::class.java))
         // startActivity(Intent(this,RatingActivity::class.java))
 
