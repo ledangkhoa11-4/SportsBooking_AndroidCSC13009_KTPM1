@@ -25,15 +25,20 @@ class LocationManager(var activity: Activity) {
     }
     private val locationRequest: LocationRequest by lazy {
         LocationRequest.create().apply {
-            interval = 500 // request location updates every 10 seconds
-            fastestInterval = 5000 // the fastest interval in which you want to receive updates
+            interval = 10000
+            fastestInterval = 7000 // the fastest interval in which you want to receive updates
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY // set the priority to high accuracy
         }
     }
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult?.lastLocation?.let {
-                Log.i("AA", it.latitude.toString() + " - " + it.longitude.toString())
+                val loc = Location()
+                loc.latLng.latitude = it.latitude
+                loc.latLng.longitude = it.longitude
+                MainActivity.saveLocation(loc,activity);
+                MainActivity.lastLocation = loc;
+                HomeActivity.updateDistance()
             }
         }
     }
@@ -44,7 +49,6 @@ class LocationManager(var activity: Activity) {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-
             turnOnGPS(activity)
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
@@ -63,7 +67,9 @@ class LocationManager(var activity: Activity) {
             )
         }
     }
-
+    fun stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
     private fun turnOnGPS(context: Context) {
         try {
             val builder = LocationSettingsRequest.Builder()
@@ -74,7 +80,6 @@ class LocationManager(var activity: Activity) {
                 context.applicationContext
             )
                 .checkLocationSettings(builder.build())
-
             result.addOnCompleteListener { task ->
                 try {
                     val response = task.getResult(ApiException::class.java)
@@ -100,11 +105,21 @@ class LocationManager(var activity: Activity) {
         }
     }
 
-    private fun isGPSEnabled(): Boolean {
-        var locationManager: LocationManager =
-            activity.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        var isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        return isEnabled
+    fun handleOnRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if(requestCode == 2000){
+            if ((grantResults.isNotEmpty() && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED)) {
+
+                this.startLocationUpdates()
+            } else {
+                this.stopLocationUpdates()
+                Toast.makeText(activity, "Location access permission not granted",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }

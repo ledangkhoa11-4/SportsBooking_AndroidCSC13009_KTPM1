@@ -24,7 +24,7 @@ class homeListViewAdapter(private val context:Activity, private val courtInfo:Ar
         courtLocation.text = courtInfo[position].location!!.addressName
         courtRating.text = courtInfo[position].avgRating.toString() + " (${courtInfo[position].numRating} rate)"
         courtBooking.text = courtInfo[position].numBooking.toString() + " booking"
-        courtDistance.text = courtInfo[position].courtDistance.toString() + "m"
+        courtDistance.text = GetDistance.formatNumber(courtInfo[position].courtDistance)
         return rowView
     }
 }
