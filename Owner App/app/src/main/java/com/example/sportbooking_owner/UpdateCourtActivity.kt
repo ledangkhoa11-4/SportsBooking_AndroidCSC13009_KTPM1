@@ -10,10 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ToggleButton
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -21,6 +18,8 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 
 
 class UpdateCourtActivity : AppCompatActivity() {
@@ -33,15 +32,23 @@ class UpdateCourtActivity : AppCompatActivity() {
     var imageVP2_Update: ViewPager2?=null
     var weekDaysPickerEdt:EditText?=null
     var weekdaysChoice=""
+    lateinit var timeStart:EditText
+    lateinit var timeEnd:EditText
+    var hourStart:Int = 0
+    var minuteStart:Int = 0
+    var hourEnd:Int = 22
+    var minuteEnd:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_court)
-        chooseImageBtn=findViewById(R.id.chooseImageBtn) as ImageButton
-        courtNameEdt=findViewById(R.id.CourtNameEdt) as EditText
-        courtDesEdt=findViewById(R.id.descriptionEdt) as EditText
-        typeEdt=findViewById(R.id.TypeEdt) as EditText
-        imageVP2_Update=findViewById(R.id.imageVP2_Update) as ViewPager2
-        weekDaysPickerEdt=findViewById(R.id.WeekDaysEdt) as EditText
+        chooseImageBtn=findViewById(R.id.chooseImageBtn)
+        courtNameEdt=findViewById(R.id.CourtNameEdt)
+        courtDesEdt=findViewById(R.id.descriptionEdt)
+        typeEdt=findViewById(R.id.TypeEdt)
+        imageVP2_Update=findViewById(R.id.imageVP2_Update)
+        weekDaysPickerEdt= findViewById(R.id.WeekDaysEdt)
+        timeStart=findViewById(R.id.timeStartPickerEdt)
+        timeEnd=findViewById(R.id.timeEndPickerEdt)
         val court=intent.getParcelableExtra<Courts>("UpdateCourt")
         courtNameEdt!!.setText(court!!.Name)
 
@@ -67,6 +74,75 @@ class UpdateCourtActivity : AppCompatActivity() {
         weekDaysPickerEdt!!.setOnClickListener {
             showWeekdayPickerDialog()
 
+        }
+        //Time picker
+        val startPicker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(hourStart)
+                .setMinute(minuteStart)
+                .setTitleText("Select opening time")
+                .build()
+        val endPicker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(hourEnd)
+                .setMinute(minuteEnd)
+                .setTitleText("Select closing time")
+                .build()
+        startPicker.addOnPositiveButtonClickListener {
+            var time = "";
+            if(timeEnd.text.toString().length != 0){
+
+                if((hourEnd+minuteEnd/60.0) - (startPicker.hour+startPicker.minute/60.0) <= 0){
+                    Toast.makeText(this, "Opening time must earlier than Closing time", Toast.LENGTH_SHORT).show()
+                    timeStart.setText("")
+                }else
+                    if((hourEnd+minuteEnd/60.0) - (startPicker.hour+startPicker.minute/60.0) < 2){
+                        Toast.makeText(this, "Operating time must at least 2 hour", Toast.LENGTH_SHORT).show()
+                        timeStart.setText("")
+                    }else{
+                        time = startPicker.hour.toString().padStart(2,'0') + ":" +startPicker.minute.toString().padStart(2,'0')
+                        timeStart.setText(time)
+                        hourStart = startPicker.hour
+                        minuteStart = startPicker.minute
+                    }
+
+            }else{
+                time = startPicker.hour.toString().padStart(2,'0') + ":" +startPicker.minute.toString().padStart(2,'0')
+                timeStart.setText(time)
+                hourStart = startPicker.hour
+                minuteStart = startPicker.minute
+            }
+        }
+        endPicker.addOnPositiveButtonClickListener {
+            var time = "";
+            if(timeStart.text.toString().length != 0){
+                if((endPicker.hour+endPicker.minute/60.0) - (hourStart+minuteStart/60.0) <= 0){
+                    Toast.makeText(this, "Opening time must earlier than Closing time", Toast.LENGTH_SHORT).show()
+                    timeEnd.setText("")
+                }else
+                    if((endPicker.hour+endPicker.minute/60.0) - (hourStart+minuteStart/60.0) < 2){
+                        Toast.makeText(this, "Operating time must at least 2 hour ", Toast.LENGTH_SHORT).show()
+                        timeEnd.setText("")
+                    }else{
+                        time = endPicker.hour.toString().padStart(2,'0') + ":" +endPicker.minute.toString().padStart(2,'0')
+                        timeEnd.setText(time)
+                        hourEnd = endPicker.hour
+                        minuteEnd = endPicker.minute
+                    }
+            }else{
+                time = endPicker.hour.toString().padStart(2,'0') + ":" +endPicker.minute.toString().padStart(2,'0')
+                timeEnd.setText(time)
+                hourEnd = endPicker.hour
+                minuteEnd = endPicker.minute
+            }
+        }
+        timeStart.setOnClickListener {
+            startPicker.show(supportFragmentManager, "tag");
+        }
+        timeEnd.setOnClickListener {
+            endPicker.show(supportFragmentManager, "tag");
         }
 
     }
