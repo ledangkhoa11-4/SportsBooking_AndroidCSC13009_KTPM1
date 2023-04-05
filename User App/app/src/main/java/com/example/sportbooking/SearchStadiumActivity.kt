@@ -9,64 +9,40 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class SearchStadiumActivity : AppCompatActivity() {
-    lateinit var typeOfSportInput: Spinner
-    lateinit var capacityInput: Spinner
-    lateinit var nameOfStadiumInput: EditText
-    lateinit var cityInput: Spinner
-    lateinit var districtInput: Spinner
-    lateinit var depositInput: SeekBar
-    lateinit var clearButton: Button
-    lateinit var searchButton: Button
+    private lateinit var typeOfSportInput: Spinner
+    private lateinit var capacityInput: Spinner
+    private lateinit var nameOfStadiumInput: EditText
+    private lateinit var cityInput: Spinner
+    private lateinit var districtInput: Spinner
+    private lateinit var depositInput: SeekBar
+    private lateinit var clearButton: Button
+    private lateinit var searchButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_stadium)
 
-        val typeOfSportList = arrayListOf<String>(
-            "Football",
-            "Basketball",
-            "Tennis",
-            "Badminton",
-            "Volleyball",
-            "Table tennis",
-            "Other"
+        val typeOfSportList = arrayListOf(
+            "Football", "Basketball", "Tennis", "Badminton", "Volleyball", "Table tennis", "Other"
         )
-        val capacityList = arrayListOf<String>(
-            "1-10",
-            "11-20",
-            "21-30",
-            "31-40",
-            "41-50",
-            "51-60",
-            "61-70",
-            "71-80",
-            "81-90",
-            "91-100",
-            "101-110",
-            "111-120",
-            "121-130",
-            "131-140",
-            "141-150",
-            "151-160",
-            "161-170",
-            "171-180",
-            "181-190",
-            "191-200"
+        val capacityList = arrayListOf(
+            "1-10", "11-20", "21-30", "31-40", "41-50", "51-60", "61-70", "71-80", "81-90", "91-100"
         )
-        val cityList = arrayListOf<String>("Ho Chi Minh", "Binh Duong", "Dong Nai")
-        val hcm_districts = arrayListOf<String>(
+        val cityList = arrayListOf("Ho Chi Minh", "Binh Duong", "Dong Nai")
+        val hoChiMinhDistricts = arrayListOf(
             "Quận 1", "Quận 2", "Quận 3", "Quận 4", "Quận 5", "Quận 6",
             "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12",
             "Bình Tân", "Bình Thạnh", "Gò Vấp", "Phú Nhuận", "Tân Bình",
             "Tân Phú", "Thủ Đức", "Bình Chánh", "Cần Giờ", "Củ Chi", "Hóc Môn",
             "Nhà Bè"
         )
-        val binhduong_districts = arrayListOf<String>(
-            "Thành phố Thủ Dầu Một", "Huyện Bàu Bàng", "Huyện Bắc Tân Uyên",
-            "Huyện Bến Cát", "Huyện Dầu Tiếng", "Huyện Định Quán",
-            "Huyện Phú Giáo", "Huyện Tân Uyên", "Huyện Tân Thành",
-            "Thị xã Bến Cát", "Thành phố Dĩ An", "Thị xã Thuận An"
+        val binhDuongDistricts = arrayListOf(
+            "Thủ Dầu Một", "Bàu Bàng", "Bắc Tân Uyên", "Bến Cát", "Dầu Tiếng",
+            "Định Quán", "Phú Giáo", "Tân Uyên", "Tân Thành", "Dĩ An", "Thuận An"
         )
-
+        val dongNaiDistricts = arrayListOf(
+            "Biên Hòa", "Long Khánh", "Nhơn Trạch", "Long Thành", "Trảng Bom",
+            "Xuân Lộc", "Cẩm Mỹ", "Thống Nhất", "Vĩnh Cửu", "Định Quán"
+        )
 
         typeOfSportInput = findViewById(R.id.typeOfSportSpinner)
         capacityInput = findViewById(R.id.CapacitySpinner)
@@ -78,7 +54,7 @@ class SearchStadiumActivity : AppCompatActivity() {
         searchButton = findViewById(R.id.searchButton)
 
         this.depositInput.max = 10000000
-        this.depositInput.setProgress(100000)
+        this.depositInput.progress = 100000
 
         ArrayAdapter(this, android.R.layout.simple_spinner_item, typeOfSportList).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -102,23 +78,36 @@ class SearchStadiumActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                if (position == 0) {
-                    ArrayAdapter(
-                        this@SearchStadiumActivity,
-                        android.R.layout.simple_spinner_item,
-                        hcm_districts
-                    ).also { adapter ->
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        districtInput.adapter = adapter
+                when (position) {
+                    0 -> {
+                        ArrayAdapter(
+                            this@SearchStadiumActivity,
+                            android.R.layout.simple_spinner_item,
+                            hoChiMinhDistricts
+                        ).also { adapter ->
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            districtInput.adapter = adapter
+                        }
                     }
-                } else if (position == 1) {
-                    ArrayAdapter(
-                        this@SearchStadiumActivity,
-                        android.R.layout.simple_spinner_item,
-                        binhduong_districts
-                    ).also { adapter ->
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        districtInput.adapter = adapter
+                    1 -> {
+                        ArrayAdapter(
+                            this@SearchStadiumActivity,
+                            android.R.layout.simple_spinner_item,
+                            binhDuongDistricts
+                        ).also { adapter ->
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            districtInput.adapter = adapter
+                        }
+                    }
+                    2 -> {
+                        ArrayAdapter(
+                            this@SearchStadiumActivity,
+                            android.R.layout.simple_spinner_item,
+                            dongNaiDistricts
+                        ).also { adapter ->
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            districtInput.adapter = adapter
+                        }
                     }
                 }
             }
