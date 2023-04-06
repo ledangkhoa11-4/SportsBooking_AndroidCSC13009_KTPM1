@@ -53,9 +53,6 @@ class SearchStadiumActivity : AppCompatActivity() {
         clearButton = findViewById(R.id.clearButton)
         searchButton = findViewById(R.id.searchButton)
 
-        this.depositInput.max = 10000000
-        this.depositInput.progress = 100000
-
         ArrayAdapter(this, android.R.layout.simple_spinner_item, typeOfSportList).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             typeOfSportInput.adapter = adapter
@@ -117,17 +114,28 @@ class SearchStadiumActivity : AppCompatActivity() {
             }
         }
 
+        depositInput.max = 20000000
+        this.depositInput.progress = 100000
+
         depositInput.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            var progressChangedValue: Int = 0
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 Log.d("seekbar", "onProgressChanged: $progress")
+                progressChangedValue = progress
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
                 Log.d("seekbar", "onStartTrackingTouch: ")
+                // TODO:
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 Log.d("seekbar", "onStopTrackingTouch: ")
+                Toast.makeText(
+                    this@SearchStadiumActivity,
+                    "Deposit: $progressChangedValue",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
