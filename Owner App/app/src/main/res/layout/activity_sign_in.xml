@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/LayoutName"
+        android:id="@+id/LayoutEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -42,19 +42,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:startIconCheckable="false"
-        app:startIconDrawable="@drawable/baseline_person_24"
+        app:startIconDrawable="@drawable/icon_email_24"
         app:startIconScaleType="centerInside"
         app:startIconTint="@color/purple_200"
         app:startIconTintMode="src_in"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">>
-
+        >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtUsername"
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            android:inputType="textPersonName"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
             android:paddingBottom="20dp"
             android:textColorHint="@color/purple_200" />
 
@@ -79,11 +77,10 @@
         app:endIconTint="@color/purple_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LayoutName"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutEmail"
         app:startIconDrawable="@drawable/baseline_lock_24"
         app:startIconTint="@color/purple_200"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">>
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
