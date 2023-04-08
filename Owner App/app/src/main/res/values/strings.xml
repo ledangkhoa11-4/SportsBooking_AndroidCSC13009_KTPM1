@@ -5,4 +5,8 @@
         <item>Information &amp; Format</item>
         <item>Timeline</item>
     </array>
+    <string name="web_client_id" translatable="false">161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1215744312405169</string>
+    <string name="fb_login_protocol_scheme">fb1215744312405169</string>
+    <string name="facebook_client_token">e60dd8b33040b9b741f248db4d324281</string>
 </resources>

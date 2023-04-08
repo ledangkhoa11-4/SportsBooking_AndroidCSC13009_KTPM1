@@ -80,7 +80,9 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"></include>
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+    </include>
 
     <Button
         android:id="@+id/finishBtn"
@@ -90,8 +92,8 @@
         android:layout_marginBottom="30dp"
         android:text="Finish"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/timeRangePicker"
+        app:layout_constraintStart_toStartOf="@+id/timeRangePicker" />
 
     <TextView
         android:id="@+id/textView12"

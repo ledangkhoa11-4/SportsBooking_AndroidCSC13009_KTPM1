@@ -20,6 +20,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <FrameLayout
+                android:id="@+id/FrameLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/SignInGGBtn"
+                app:layout_constraintStart_toStartOf="@+id/SignInGGBtn"
+                app:layout_constraintTop_toBottomOf="@+id/SignInGGBtn">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/SignInFbBtn"
+                    style="@style/Widget.Material3.Button.ElevatedButton"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Sign in with Facebook"
+                    android:textSize="20dp"
+                    app:icon="@drawable/icons8_facebook"
+
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="1dp" />
+
+            </FrameLayout>
+
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="30dp"
