@@ -10,6 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="411dp"
         android:layout_height="650dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toTopOf="@+id/backBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,5 +58,19 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </Button>
+
+    <Button
+        android:id="@+id/dateScheduleBtn"
+        android:layout_width="202dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#DFDEDE"
+        android:drawableRight="@drawable/calendar"
+        android:text="10/4/2023"
+        android:textColor="#000000"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

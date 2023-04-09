@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 public class Court(
     var CourtID:Long = 0,
-    var OwnerID:Long = 0,
+    var OwnerID:String = "",
     var Name:String = "",
     var Type:String = "",
     var location: Location? = null,
@@ -27,6 +27,7 @@ public class Court(
     var numRating: Int = 0,
     var numBooking: Int = 0,
     var courtDistance: Double = 0.0,
+    var numOfYards:Int = 1
 ):Parcelable {
 
 }

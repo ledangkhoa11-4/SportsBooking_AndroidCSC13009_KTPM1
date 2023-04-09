@@ -1,21 +1,23 @@
 package com.example.sportbooking
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import android.util.Log
 import android.widget.ListView
 import android.widget.ToggleButton
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking.DTO.LocationManager
 import com.google.android.material.navigation.NavigationBarView
+import com.mancj.materialsearchbar.MaterialSearchBar
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
 import java.util.*
-import kotlin.collections.ArrayList
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListener {
     lateinit var nav_bar: NavigationBarView
     lateinit var listView: ListView
     lateinit var locationManager: LocationManager
+    lateinit var searchBar:MaterialSearchBar
+    private val lastSearches: List<String>? = null
     companion object{
         var listViewAdapter:homeListViewAdapter? = null
         var lastCourList:ArrayList<Court>? = null
@@ -55,6 +57,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.priceFilter -> filterByPrice(isChecked)
             }
         }
+        searchBar = findViewById(R.id.searchBar)
+        searchBar.setOnSearchActionListener(this)
 
 
     }
@@ -79,6 +83,8 @@ class HomeActivity : AppCompatActivity() {
                 lastCourList = ArrayList<Court>();
                 lastCourList!!.addAll(courtList_Home!!.toList())
             }
+            locationManager.stopLocationUpdates()
+            locationManager.startLocationUpdates()
             Collections.sort(courtList_Home,DistanceComparator())
         }else{
             courtList_Home!!.clear()
@@ -124,6 +130,28 @@ class HomeActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         locationManager.handleOnRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onSearchStateChanged(enabled: Boolean) {
+
+    }
+
+    override fun onSearchConfirmed(text: CharSequence?) {
+        if(lastCourList == null){
+            lastCourList = ArrayList<Court>();
+            lastCourList!!.addAll(courtList_Home!!.toList())
+        }
+        courtList_Home!!.clear()
+
+        for(court in lastCourList!!){
+            if(court.Name.contains(text!!,true))
+                courtList_Home!!.add(court)
+        }
+        listViewAdapter!!.notifyDataSetChanged()
+    }
+
+    override fun onButtonClicked(buttonCode: Int) {
+        TODO("Not yet implemented")
     }
 
 }

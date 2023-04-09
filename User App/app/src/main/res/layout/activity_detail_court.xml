@@ -324,7 +324,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/ViewSchedule"
+        android:id="@+id/ViewScheduleBtn"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="153dp"
         android:layout_height="52dp"

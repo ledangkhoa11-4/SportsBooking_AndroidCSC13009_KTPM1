@@ -10,7 +10,7 @@ import com.google.android.material.navigation.NavigationBarView
 
 class UserTabActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
-    lateinit var editBtn: FloatingActionButton
+    lateinit var editBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_tab)
