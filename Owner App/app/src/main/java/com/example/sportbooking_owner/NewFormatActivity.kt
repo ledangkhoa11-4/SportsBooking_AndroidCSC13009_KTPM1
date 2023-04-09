@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -33,7 +34,7 @@ class NewFormatActivity : AppCompatActivity() {
     lateinit var finalStepBtn: Button
     lateinit var newCourt: Courts
     lateinit var location: Location
-
+    lateinit var yardPicker: com.shawnlin.numberpicker.NumberPicker
     companion object {
         val PICK_SPORT_TYPE_REQUEST = 200
         val PICK_LOCATION_REQUEST = 201
@@ -45,7 +46,7 @@ class NewFormatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_format)
 
 
-        Places.initialize(this, "AIzaSyA3S6vximWHZsNRtPxicZrx2gZisLkjl5I", Locale("vi", "VN"))
+        Places.initialize(this, "AIzaSyDU9I2YJ0ku0lymwOS5-IzG_NycASeSBZ8", Locale("vi", "VN"))
 
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)
@@ -66,6 +67,7 @@ class NewFormatActivity : AppCompatActivity() {
             val intent = Intent(this, SelectSportActivity::class.java)
             startActivityForResult(intent, PICK_SPORT_TYPE_REQUEST)
         }
+        yardPicker = findViewById(R.id.yardNumberPicker)
         finalStepBtn = findViewById(R.id.finalStepBtn)
         finalStepBtn.setOnClickListener {
             if (typeSport.text.toString().length == 0 || locationInput.text.toString().length == 0 || phoneInput.text.toString().length == 0 || priceInput.text.toString().length == 0) {
@@ -114,6 +116,7 @@ class NewFormatActivity : AppCompatActivity() {
             if(findViewById<CheckBox>(R.id.shoesCb).isChecked)
                 newCourt.AvalableService.add("Shoes for rent")
             newCourt.Price = priceInput.text.toString().toInt()
+            newCourt.numOfYards = yardPicker.value
             val intent = intent
             intent.putExtra("court",newCourt)
             setResult(RESULT_OK, intent)

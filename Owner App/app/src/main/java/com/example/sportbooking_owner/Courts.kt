@@ -9,10 +9,11 @@ import java.sql.Timestamp
 @Parcelize
 public class Courts(
     var CourtID:Long = 0L,
-    var OwnerID:Long = 0L,
+    var OwnerID:String = "",
     var Name:String = "",
     var Type:String = "",
     var Phone:String = "",
+    var numOfYards:Int = 0,
     var location: Location? = null,
     var ServiceWeekdays:String = "",
     var ServiceHour:ArrayList<Long> = ArrayList(),

@@ -1,5 +1,6 @@
 package com.example.sportbooking
 
+import android.util.Log
 import com.example.sportbooking.DTO.Location
 
 class GetDistance() {
@@ -14,6 +15,7 @@ class GetDistance() {
             destinationLocation.longitude = destination.latLng.longitude
 
             val distanceInMeters = originLocation.distanceTo(destinationLocation)
+
            return distanceInMeters
         }
 
@@ -26,10 +28,10 @@ class GetDistance() {
                     String.format("%.2f km", distance / 1000)
                 }
                 distance < 1_000_000_000 -> {
-                    String.format("%.2fM km", distance / 1_000_000)
+                    String.format("%.2fK km", distance / 1_000_000)
                 }
                 else -> {
-                    String.format("%.2fB km", distance / 1_000_000_000)
+                    String.format("%.2fM km", distance / 1_000_000_000)
                 }
             }
         }

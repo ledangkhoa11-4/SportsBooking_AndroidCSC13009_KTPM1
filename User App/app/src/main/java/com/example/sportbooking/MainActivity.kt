@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                             val court: Court? = dataSnapshot.getValue(Court::class.java)
                             for (imageName in court!!.Images) {
                                 var imageRef = storageRef.child(imageName)
-                                val ONE_MEGABYTE: Long = 1024 * 1024
+                                val ONE_MEGABYTE: Long = 1024 * 1024 * 5
                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
                                     val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
                                     court.bitmapArrayList.add(bitmap)

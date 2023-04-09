@@ -58,5 +58,5 @@ dependencies {
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
     implementation 'nl.joery.timerangepicker:timerangepicker:1.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
-
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 }
