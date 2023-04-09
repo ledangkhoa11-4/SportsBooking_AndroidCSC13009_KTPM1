@@ -1,12 +1,10 @@
 package com.example.sportbooking
 
-import android.util.Log
-import java.text.DecimalFormat
-import kotlin.math.pow
+import com.example.sportbooking.DTO.Location
 
 class GetDistance() {
     companion object{
-        fun getDistance(original:Location, destination:Location):Float{
+        fun getDistance(original: Location, destination: Location):Float{
             val originLocation = android.location.Location("")
             originLocation.latitude = original.latLng.latitude
             originLocation.longitude = original.latLng.longitude

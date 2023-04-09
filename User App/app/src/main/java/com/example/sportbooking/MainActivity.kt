@@ -3,10 +3,9 @@ package com.example.sportbooking
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportbooking.DTO.Location
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val storageRef =
             Firebase.storage.getReferenceFromUrl("gs://sportbooking2-b3fa8.appspot.com")
         var listCourt: ArrayList<Court> = ArrayList()
-        var lastLocation:Location = Location()
+        var lastLocation: Location = Location()
         val GG_MAP_API =
             "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y" //Vì api free nên hay bị hết lược :((
         fun readLastLocation(context: Context): Location {
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             }
             return loc
         }
-        fun saveLocation(loc:Location, context: Context){
+        fun saveLocation(loc: Location, context: Context){
             try {
                 val out = OutputStreamWriter(context.openFileOutput("last_location.txt", 0))
                 out.write("${loc.latLng.latitude},${loc.latLng.longitude}")
@@ -64,13 +63,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        startActivity(Intent(this,BookingHistory::class.java))
+        //startActivity(Intent(this,BookingHistory::class.java))
         //loadCourtList()
         //finish()
         loadCourtList()
         lastLocation = readLastLocation(this);
-//        startActivity(Intent(this, HomeActivity::class.java))
-//        finish()
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
         // startActivity(Intent(this,CalendarViewActivity::class.java))
         // startActivity(Intent(this,RatingActivity::class.java))
 
@@ -113,7 +112,6 @@ class MainActivity : AppCompatActivity() {
                                 HomeActivity.listViewAdapter!!.notifyDataSetChanged()
                             }
                         }
-
                         override fun onCancelled(databaseError: DatabaseError) {}
                     }
                     courtRef.addListenerForSingleValueEvent(eventListener)
@@ -123,5 +121,4 @@ class MainActivity : AppCompatActivity() {
         }
         courtsRef.addValueEventListener(valueEventListener)
     }
-
 }

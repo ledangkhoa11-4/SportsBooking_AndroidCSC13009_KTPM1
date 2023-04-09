@@ -4,6 +4,7 @@ package com.example.sportbooking
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Parcelable
+import com.example.sportbooking.DTO.Location
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,7 +13,7 @@ public class Court(
     var OwnerID:Long = 0,
     var Name:String = "",
     var Type:String = "",
-    var location:Location? = null,
+    var location: Location? = null,
     var Phone:String = "",
     var ServiceWeekdays:String = "",
     var ServiceHour:ArrayList<Long> = ArrayList(),
@@ -28,4 +29,15 @@ public class Court(
     var courtDistance: Double = 0.0,
 ):Parcelable {
 
+}
+class DistanceComparator : Comparator<Court?> {
+    override fun compare(p0: Court?, p1: Court?): Int {
+        return p0!!.courtDistance!!.compareTo(p1!!.courtDistance)
+    }
+}
+class PriceComparator : Comparator<Court?> {
+    override fun compare(p0: Court?, p1: Court?): Int {
+
+        return p0!!.Price!!.compareTo(p1!!.Price)
+    }
 }

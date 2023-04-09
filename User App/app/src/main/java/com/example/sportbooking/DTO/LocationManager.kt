@@ -1,4 +1,4 @@
-package com.example.sportbooking
+package com.example.sportbooking.DTO
 
 import android.Manifest
 import android.app.Activity
@@ -6,13 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
+import com.example.sportbooking.HomeActivity
+import com.example.sportbooking.MainActivity
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 
@@ -38,7 +39,7 @@ class LocationManager(var activity: Activity) {
                 loc.latLng.latitude = it.latitude
                 loc.latLng.longitude = it.longitude
                 Log.i("Update location",loc.latLng.latitude.toString() + "-" + loc.latLng.longitude.toString())
-                MainActivity.saveLocation(loc,activity);
+                MainActivity.saveLocation(loc, activity);
                 MainActivity.lastLocation = loc;
                 HomeActivity.updateDistance()
             }
