@@ -3,6 +3,7 @@ package com.example.sportbooking
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,14 +33,21 @@ class Booking : AppCompatActivity() {
     lateinit var timeEnd:TextView
     lateinit var priceBooking:TextView
     var durationBooking:Int = 0;
+    var index = -1
+    var date = -1L
+    var yard = -1
+    var start = -1L
+    var end = -1L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
-
+        val formatter = java.text.DecimalFormat("#,###")
         val intent = intent
-        val index = intent.getIntExtra("index",0)
+        index = intent.getIntExtra("index",0)
+        date = intent.getLongExtra("date",-1)
+        yard = intent.getIntExtra("yard",-1)
+        var hour = intent.getIntExtra("hour",-1)
         court = MainActivity.listCourt[index]
-
         courtNameTv = findViewById(R.id.courtNameBookingTv)
         courtLocation = findViewById(R.id.courtLocation)
         sportType = findViewById(R.id.typeSport)
@@ -54,7 +62,6 @@ class Booking : AppCompatActivity() {
 
 
         val pickTimeView:View = LayoutInflater.from(this).inflate(R.layout.time_picker_layout,null);
-
         timeRangePicker = pickTimeView.findViewById(R.id.timeRangePicker)
         timeRangePicker.startTime = TimeRangePicker.Time(0,0)
         timeStart = pickTimeView.findViewById(R.id.startTimeTv)
@@ -62,6 +69,7 @@ class Booking : AppCompatActivity() {
         timeRangePicker.setOnTimeChangeListener(object : TimeRangePicker.OnTimeChangeListener {
             override fun onStartTimeChange(startTime: TimeRangePicker.Time) {
                 timeStart.text = startTime.hour.toString().padStart(2, '0')+":"+startTime.minute.toString().padStart(2, '0')
+                start = timeStringToTimestamp(timeStart.text.toString())
             }
 
             override fun onDurationChange(duration: TimeRangePicker.TimeDuration) {
@@ -70,10 +78,19 @@ class Booking : AppCompatActivity() {
 
             override fun onEndTimeChange(endTime: TimeRangePicker.Time) {
                 timeEnd.text = endTime.hour.toString().padStart(2, '0')+":"+endTime.minute.toString().padStart(2, '0')
+                end = timeStringToTimestamp(timeEnd.text.toString())
             }
 
         })
-        val formatter = java.text.DecimalFormat("#,###")
+        if(hour != -1){
+            timeStart.text = hour.toString().padStart(2, '0')+":"+0.toString().padStart(2, '0')
+            timeEnd.text = (hour+1).toString().padStart(2, '0')+":"+0.toString().padStart(2, '0')
+            timeRangePicker.startTimeMinutes = hour*60
+            timeRangePicker.endTimeMinutes = (hour+1)*60
+            timeTv.setText(timeStart.text.toString() + " - " + timeEnd.text.toString())
+            priceBooking.setText(formatter.format(court.Price)  + "đ")
+        }
+
         timeTv.setOnClickListener {
             if(pickTimeView.parent != null){
                 var vg = pickTimeView.parent as ViewGroup
@@ -92,11 +109,19 @@ class Booking : AppCompatActivity() {
         val constraintsBuilder = CalendarConstraints.Builder()
         constraintsBuilder.setStart(today.timeInMillis)
         constraintsBuilder.setValidator(DateValidator(court.ServiceWeekdays))
-        val datePicker =
+        val datePickerBuilder =
             MaterialDatePicker.Builder.datePicker()
                 .setCalendarConstraints(constraintsBuilder.build())
                 .setTitleText("Select date")
-                .build()
+
+        val datePicker:MaterialDatePicker<Long>
+        if(date != -1L){
+            datePicker = datePickerBuilder.setSelection(date).build()
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            dateTv.setText(sdf.format(Date(date)))
+        }else{
+            datePicker = datePickerBuilder.build()
+        }
         dateTv.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
@@ -109,140 +134,31 @@ class Booking : AppCompatActivity() {
         val numberPicker:NumberPicker =numberPickerView.findViewById(R.id.yardNumberPicker)
         numberPicker.minValue = 1
         numberPicker.maxValue = court.numOfYards
+        val pickYardDialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Pick yard number")
+            .setView(numberPickerView)
+            .setPositiveButton("Apply") { dialog, which ->
+                yardNum.setText("Field " + numberPicker.value)
+            }
         yardNum.setOnClickListener {
             if(numberPickerView.parent != null){
                 var vg = numberPickerView.parent as ViewGroup
                 vg.removeView(numberPickerView)
             }
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Pick yard number")
-                .setView(numberPickerView)
-                .setPositiveButton("Apply") { dialog, which ->
-                    yardNum.setText("Field " + numberPicker.value)
-                }.show()
+            pickYardDialog.show()
+        }
+        if(yard != -1){
+            yardNum.setText("Field " + yard)
         }
         findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
             finish()
         }
 
-
-
-//        dateButton = findViewById(R.id.pick_date_button)
-//        dateSelected = findViewById(R.id.show_selected_date)
-//        timeButton = findViewById(R.id.pick_time_button)
-//        timeSelected = findViewById(R.id.show_selected_time)
-//        checkoutButton = findViewById(R.id.checkout_button)
-//
-//        val materialDateBuilder: MaterialDatePicker.Builder<*> = MaterialDatePicker.Builder.datePicker()
-//
-//        materialDateBuilder.setTitleText("Select a date")
-//        val materialDatePicker = materialDateBuilder.build()
-//
-//        dateButton.setOnClickListener {
-//            materialDatePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
-//        }
-//
-//        materialDatePicker.addOnPositiveButtonClickListener {
-//            dateSelected.text = materialDatePicker.headerText
-//        }
-//
-//        timeButton.setOnClickListener {
-//            val materialTimePicker: MaterialTimePicker = MaterialTimePicker.Builder()
-//                .setTitleText("SELECT YOUR TIMING")
-//
-//                .setHour(12) // set the default hour for the dialog when the dialog opens
-//
-//                .setMinute(10) // set the default minute for the dialog when the dialog opens
-//
-//                .setTimeFormat(TimeFormat.CLOCK_12H) // set the time format according to the region
-//                .build()
-//
-//            materialTimePicker.show(supportFragmentManager, "Booking")
-//            materialTimePicker.addOnPositiveButtonClickListener {
-//
-//                val pickedHour: Int = materialTimePicker.hour
-//                val pickedMinute: Int = materialTimePicker.minute
-//
-//                // check for single digit hour hour and minute and update TextView accordingly
-//                val formattedTime: String = when {
-//                    pickedHour > 12 -> {
-//                        if (pickedMinute < 10) {
-//                            "${materialTimePicker.hour - 12}:0${materialTimePicker.minute} pm"
-//                        } else {
-//                            "${materialTimePicker.hour - 12}:${materialTimePicker.minute} pm"
-//                        }
-//                    }
-//                    pickedHour == 12 -> {
-//                        if (pickedMinute < 10) {
-//                            "${materialTimePicker.hour}:0${materialTimePicker.minute} pm"
-//                        } else {
-//                            "${materialTimePicker.hour}:${materialTimePicker.minute} pm"
-//                        }
-//                    }
-//                    pickedHour == 0 -> {
-//                        if (pickedMinute < 10) {
-//                            "${materialTimePicker.hour + 12}:0${materialTimePicker.minute} am"
-//                        } else {
-//                            "${materialTimePicker.hour + 12}:${materialTimePicker.minute} am"
-//                        }
-//                    }
-//                    else -> {
-//                        if (pickedMinute < 10) {
-//                            "${materialTimePicker.hour}:0${materialTimePicker.minute} am"
-//                        } else {
-//                            "${materialTimePicker.hour}:${materialTimePicker.minute} am"
-//                        }
-//                    }
-//                }
-//                timeSelected.text = formattedTime // update the preview TextView
-//            }
-//        }
-//
-//        checkoutButton.setOnClickListener {
-//            val intent = Intent(this@Booking, Checkout::class.java)
-//            startActivity(intent)
-//        }
+    }
+    fun timeStringToTimestamp(timeString: String): Long {
+        val format = SimpleDateFormat("hh:mm", Locale.getDefault())
+        val date = format.parse(timeString)
+        return date?.time ?: 0
     }
 }
 
-class DateValidator(var ServiceWeekdays:String) : CalendarConstraints.DateValidator{
-    private val today: Long = MaterialDatePicker.todayInUtcMilliseconds()
-    constructor(parcel: Parcel) : this("") {}
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {}
-
-    override fun isValid(date: Long): Boolean {
-        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.timeInMillis = date
-
-        when(calendar.get(Calendar.DAY_OF_WEEK)){
-            Calendar.MONDAY -> if(!ServiceWeekdays.contains("Mon",true)) return false
-            Calendar.TUESDAY -> if(!ServiceWeekdays.contains("Tue",true)) return false
-            Calendar.WEDNESDAY -> if(!ServiceWeekdays.contains("Wed",true)) return false
-            Calendar.THURSDAY -> if(!ServiceWeekdays.contains("Thu",true)) return false
-            Calendar.FRIDAY -> if(!ServiceWeekdays.contains("Fri",true)) return false
-            Calendar.SATURDAY -> if(!ServiceWeekdays.contains("Sat",true)) return false
-            Calendar.SUNDAY -> if(!ServiceWeekdays.contains("Sun",true)) return false
-        }
-
-        // Disable all dates before today
-        if (date < today) {
-            return false
-        }
-        // Allow all other dates
-        return true
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-    companion object CREATOR : Parcelable.Creator<DateValidator> {
-        override fun createFromParcel(parcel: Parcel): DateValidator {
-            return DateValidator(parcel)
-        }
-
-        override fun newArray(size: Int): Array<DateValidator?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
