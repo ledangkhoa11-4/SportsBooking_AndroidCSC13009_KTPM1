@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.example.sportbooking.DTO.SportBooking
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.islandparadise14.mintable.MinTimeTableView
@@ -19,13 +20,15 @@ class CourtScheduleActivity : AppCompatActivity() {
     private val scheduleList: ArrayList<ScheduleEntity> = ArrayList()
     lateinit var pickDateBtn:Button
     lateinit var court:Court
+    lateinit var bookHistory:kotlin.collections.ArrayList<SportBooking>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_schedule)
         val intent = intent
         val index = intent.getIntExtra("index",0)
+        bookHistory = intent.getParcelableArrayListExtra("bookHistory")!!
         court = HomeActivity.courtList_Home!![index]
-
+        var table = findViewById<MinTimeTableView>(R.id.table)
         val today = Calendar.getInstance()
 
         val constraintsBuilder = CalendarConstraints.Builder()
@@ -51,8 +54,8 @@ class CourtScheduleActivity : AppCompatActivity() {
                 "${timeend}","#73fcae68","#000000")
         )
 
-        pickDateBtn = findViewById<Button>(R.id.dateScheduleBtn)
-        pickDateBtn.setText(convertDate(datePicker.selection!!))
+        pickDateBtn = findViewById(R.id.dateScheduleBtn)
+        pickDateBtn.setText("Pick a date")
         pickDateBtn.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
@@ -60,10 +63,23 @@ class CourtScheduleActivity : AppCompatActivity() {
             var datePicked = convertDate(it);
             Log.i("AAAAAAAAAAA",it.toString())
             pickDateBtn.setText(datePicked)
+
+            for(book in bookHistory){
+                if(book.Date == it){
+                    var startTime = convertTime(book.Time[0])
+                    var endTime = convertTime(book.Time[1])
+                    scheduleList.add(
+                        ScheduleEntity(0,book.UserID,"${startTime} - ${endTime}",book.Yard-1,"${startTime}",
+                            "${endTime}","#73fcae68","#000000")
+                    )
+                }
+            }
+
+            table.updateSchedules(scheduleList)
         }
         day = Array(court.numOfYards) { i -> "F"+(i+1).toString() }
 
-        var table = findViewById<MinTimeTableView>(R.id.table)
+
         table.setOnTimeCellClickListener(object : OnTimeCellClickListener {
             override fun timeCellClicked(scheduleDay: Int, time: Int) {
                 val yardNum = scheduleDay+1

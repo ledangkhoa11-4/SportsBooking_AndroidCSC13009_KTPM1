@@ -14,9 +14,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.DTO.SportBooking
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -31,6 +36,7 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
+    var listBooking:ArrayList<SportBooking> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
@@ -40,7 +46,7 @@ class DetailCourtActivity : AppCompatActivity() {
         courtDetail = HomeActivity.courtList_Home!![index]
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
-
+        loadBookingList()
         Log.i("AAAAAAAAAAA",courtDetail.CourtID.toString())
 
         val vpAdapter = ImageViewPagerAdapter(courtDetail.bitmapArrayList)
@@ -92,6 +98,7 @@ class DetailCourtActivity : AppCompatActivity() {
         findViewById<Button>(R.id.ViewScheduleBtn).setOnClickListener {
             val intent = Intent(this, CourtScheduleActivity::class.java)
             intent.putExtra("index",index)
+            intent.putParcelableArrayListExtra("bookHistory",listBooking);
             startActivity(intent);
         }
         findViewById<Button>(R.id.BookBtn).setOnClickListener {
@@ -112,5 +119,18 @@ class DetailCourtActivity : AppCompatActivity() {
     fun loadBookingList(){
         val bookingRef = MainActivity.database.getReference("Booking");
         val queryRef = bookingRef.orderByChild("CourtID").equalTo(courtDetail.CourtID)
+        queryRef.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    val bookHistory = ds.getValue(SportBooking::class.java)
+                    listBooking.add(bookHistory!!)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 public class Court(
-    var CourtID:Long = 0,
+    var CourtID:String = "",
     var OwnerID:String = "",
     var Name:String = "",
     var Type:String = "",
