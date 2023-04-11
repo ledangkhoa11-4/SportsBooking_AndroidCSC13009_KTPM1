@@ -83,7 +83,7 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonDetail).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
             finish()
         }
 
@@ -91,6 +91,11 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(this, CourtScheduleActivity::class.java)
             intent.putExtra("index",index)
             startActivity(intent);
+        }
+        findViewById<Button>(R.id.BookBtn).setOnClickListener {
+            val intent = Intent(this, Booking::class.java)
+            intent.putExtra("index",index)
+            startActivity(intent)
         }
     }
     fun formatPrice(price: Int): String {
