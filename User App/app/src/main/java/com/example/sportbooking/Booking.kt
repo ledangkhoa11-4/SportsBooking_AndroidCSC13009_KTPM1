@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -152,6 +153,10 @@ class Booking : AppCompatActivity() {
         }
         findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
             finish()
+        }
+        findViewById<Button>(R.id.BookBtn).setOnClickListener {
+            Log.i("AAAAAAAA",start.toString())
+            Log.i("AAAAAAAA",end.toString())
         }
 
     }

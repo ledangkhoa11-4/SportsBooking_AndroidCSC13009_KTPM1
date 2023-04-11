@@ -58,6 +58,7 @@ class CourtScheduleActivity : AppCompatActivity() {
         }
         datePicker.addOnPositiveButtonClickListener {
             var datePicked = convertDate(it);
+            Log.i("AAAAAAAAAAA",it.toString())
             pickDateBtn.setText(datePicked)
         }
         day = Array(court.numOfYards) { i -> "F"+(i+1).toString() }

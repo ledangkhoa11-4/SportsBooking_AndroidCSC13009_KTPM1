@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -29,17 +30,18 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var hourServiceTv:TextView
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
+    lateinit var courtDetail:Court
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
 
         val intent = intent
         val index = intent.getIntExtra("index",0)
-        val courtDetail = HomeActivity.courtList_Home!![index]
+        courtDetail = HomeActivity.courtList_Home!![index]
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
 
-
+        Log.i("AAAAAAAAAAA",courtDetail.CourtID.toString())
 
         val vpAdapter = ImageViewPagerAdapter(courtDetail.bitmapArrayList)
         viewPager.setPageTransformer(MarginPageTransformer(37));
@@ -106,5 +108,9 @@ class DetailCourtActivity : AppCompatActivity() {
         val date = Date(timestamp)
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(date)
+    }
+    fun loadBookingList(){
+        val bookingRef = MainActivity.database.getReference("Booking");
+        val queryRef = bookingRef.orderByChild("CourtID").equalTo(courtDetail.CourtID)
     }
 }

@@ -8,7 +8,7 @@ import java.sql.Timestamp
 
 @Parcelize
 public class Courts(
-    var CourtID:Long = 0L,
+    var CourtID:String = "",
     var OwnerID:String = "",
     var Name:String = "",
     var Type:String = "",
