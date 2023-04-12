@@ -7,7 +7,7 @@ import com.islandparadise14.mintable.MinTimeTableView
 import com.islandparadise14.mintable.model.ScheduleEntity
 
 class CourtScheduleActivity : AppCompatActivity() {
-    private val day = arrayOf("Field1", "Field2", "Field3", "Field4", "Field5", "Field6")
+    private val day = arrayOf("Field1", "Field2", "Field3", "Field4", "Field5", "Field6", "Field7", "Field8", "Field9", "Field10")
     private val scheduleList: ArrayList<ScheduleEntity> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
