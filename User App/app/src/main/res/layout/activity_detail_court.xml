@@ -67,7 +67,7 @@
             </com.tbuonomo.viewpagerdotsindicator.DotsIndicator>
 
             <TextView
-                android:id="@+id/courtName"
+                android:id="@+id/courtNameDetailBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
             <TextView
-                android:id="@+id/courtLocation"
+                android:id="@+id/courtLocationDetailBooking"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -110,7 +110,7 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
             <TextView
-                android:id="@+id/courtPrice"
+                android:id="@+id/rentPriceDetailBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -187,10 +187,10 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/courtName"
+                app:layout_constraintEnd_toStartOf="@+id/courtNameDetailBooking"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/courtName"
+                app:layout_constraintTop_toBottomOf="@+id/courtNameDetailBooking"
                 app:srcCompat="@drawable/location_icon"
                 app:tint="#838282" />
 
@@ -263,9 +263,9 @@
                 android:layout_marginStart="10dp"
                 android:text="|"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/courtName"
-                app:layout_constraintStart_toEndOf="@+id/courtName"
-                app:layout_constraintTop_toTopOf="@+id/courtName" />
+                app:layout_constraintBottom_toBottomOf="@+id/courtNameDetailBooking"
+                app:layout_constraintStart_toEndOf="@+id/courtNameDetailBooking"
+                app:layout_constraintTop_toTopOf="@+id/courtNameDetailBooking" />
 
             <Button
                 android:id="@+id/button4"

@@ -1,8 +1,6 @@
 package com.example.sportbooking
 
 import android.app.Activity
-import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -16,7 +14,7 @@ class MyBookingListViewAdapter(private val context: Activity, private val bookin
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.my_booking_item_layout, null, true)
-        val timeBookingTv = rowView.findViewById(R.id.datetimeBooking) as TextView
+        val timeBookingTv = rowView.findViewById(R.id.datetimeDetailBooking) as TextView
         val courtName = rowView.findViewById(R.id.courtNameBooking) as TextView
         val courtImage = rowView.findViewById(R.id.courtImageBooking) as ImageView
         val typeBookingTv = rowView.findViewById(R.id.typeBooking) as TextView

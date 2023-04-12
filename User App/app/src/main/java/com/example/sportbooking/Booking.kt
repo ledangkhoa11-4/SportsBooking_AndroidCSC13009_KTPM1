@@ -53,7 +53,7 @@ class Booking : AppCompatActivity() {
         var hour = intent.getIntExtra("hour",-1)
         court = MainActivity.listCourt[index]
         courtNameTv = findViewById(R.id.courtNameBooking)
-        courtLocation = findViewById(R.id.courtLocation)
+        courtLocation = findViewById(R.id.courtLocationDetailBooking)
         sportType = findViewById(R.id.typeSport)
         yardNum = findViewById(R.id.yardNumChoose)
         dateTv = findViewById(R.id.dateChoose)

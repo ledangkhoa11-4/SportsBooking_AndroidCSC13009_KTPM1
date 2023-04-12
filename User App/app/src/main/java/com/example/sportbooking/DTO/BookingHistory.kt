@@ -12,5 +12,7 @@ class BookingHistory(var ID:String = "",
                      var Yard:Int = 0,
                      var Time:ArrayList<Long> = ArrayList(),
                      var TotalPrice:Int = 0,
-                     var Court: Court? = null) :Parcelable{
+                     var Court: Court? = null,
+                     var SecretID: Long = 0L,
+                     var Status: Boolean = false ) :Parcelable{
 }

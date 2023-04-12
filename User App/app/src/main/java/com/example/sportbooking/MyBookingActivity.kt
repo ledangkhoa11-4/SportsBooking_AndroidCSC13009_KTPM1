@@ -15,7 +15,10 @@ class MyBookingActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
     lateinit var bookingListView:ListView
     lateinit var bookingListViewAdapter: MyBookingListViewAdapter
-    lateinit var bookingHistories: ArrayList<com.example.sportbooking.DTO.BookingHistory>
+    companion object{
+        var bookingHistories: ArrayList<com.example.sportbooking.DTO.BookingHistory> = ArrayList()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_booking)
@@ -25,11 +28,14 @@ class MyBookingActivity : AppCompatActivity() {
 
         bookingListView = findViewById(R.id.bookingListView)
         bookingListView.divider = null
-        bookingHistories = ArrayList()
         bookingListViewAdapter = MyBookingListViewAdapter(this,bookingHistories)
         bookingListView.adapter = bookingListViewAdapter
 
-
+        bookingListView.setOnItemClickListener { adapterView, view, i, l ->
+            val intent = Intent(this, DetailBookingHistory::class.java)
+            intent.putExtra("index",i)
+            startActivity(intent)
+        }
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_schedule
@@ -59,6 +65,7 @@ class MyBookingActivity : AppCompatActivity() {
         val queryRef = bookingRef.orderByChild("UserID").equalTo("daylamotuserid")
         queryRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                bookingHistories.clear()
                 for(ds in snapshot.children){
                     val bookHistory = ds.getValue(BookingHistory::class.java)
                     bookingHistories.add(bookHistory!!)

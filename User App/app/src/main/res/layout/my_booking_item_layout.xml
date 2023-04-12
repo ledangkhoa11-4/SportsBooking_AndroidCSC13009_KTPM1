@@ -9,7 +9,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
 
-        android:layout_height="152dp"
+        android:layout_height="160dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginTop="15dp"
@@ -40,7 +40,7 @@
                 app:tint="#848383" />
 
             <TextView
-                android:id="@+id/datetimeBooking"
+                android:id="@+id/datetimeDetailBooking"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="15dp"
@@ -62,7 +62,7 @@
                 android:elevation="10dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toBottomOf="@+id/datetimeBooking">
+                app:layout_constraintTop_toBottomOf="@+id/datetimeDetailBooking">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -128,8 +128,8 @@
                 android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_bold"
                 android:gravity="right"

@@ -54,18 +54,18 @@ class DetailCourtActivity : AppCompatActivity() {
         viewPager.adapter = vpAdapter
         dot.attachTo(viewPager)
 
-        courtName = findViewById(R.id.courtName)
+        courtName = findViewById(R.id.courtNameDetailBooking)
         courtName.setText(courtDetail.Name)
 
         typeSportImage = findViewById(R.id.typeSportImage)
         val drawableID = resources.getIdentifier("${courtDetail.Type.lowercase()}_icon","drawable",packageName)
         typeSportImage.setImageDrawable(resources.getDrawable(drawableID))
-        courtLocation = findViewById(R.id.courtLocation)
+        courtLocation = findViewById(R.id.courtLocationDetailBooking)
         courtLocation.setText(courtDetail.location!!.addressName)
         courtLocation.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         courtPhone =  findViewById(R.id.courtPhone)
         courtPhone.setText(courtDetail.Phone)
-        courtPrice =  findViewById(R.id.courtPrice)
+        courtPrice =  findViewById(R.id.rentPriceDetailBooking)
         courtPrice.setText(formatPrice(courtDetail.Price))
         hourServiceTv = findViewById(R.id.hourServiceTv)
         hourServiceTv.setText(convertTimestampToTime(courtDetail.ServiceHour[0]) + " - " + convertTimestampToTime(courtDetail.ServiceHour[1]))
