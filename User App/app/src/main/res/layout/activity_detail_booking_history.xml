@@ -7,7 +7,7 @@
     tools:context=".DetailBookingHistory">
 
     <ImageButton
-        android:id="@+id/backButtonBooking"
+        android:id="@+id/backButtonFiltering"
         android:layout_width="47dp"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
@@ -27,9 +27,9 @@
         android:text="Detail Booking"
         android:textSize="20sp"
 
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonBooking"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonFiltering"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonBooking"
+        app:layout_constraintStart_toEndOf="@+id/backButtonFiltering"
         app:layout_constraintTop_toTopOf="parent" />
 
 

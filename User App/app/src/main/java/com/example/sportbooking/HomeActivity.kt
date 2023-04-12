@@ -7,6 +7,7 @@ import android.widget.ListView
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking.DTO.LocationManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
@@ -18,6 +19,7 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
     lateinit var locationManager: LocationManager
     lateinit var searchBar:MaterialSearchBar
     private val lastSearches: List<String>? = null
+    lateinit var filterBtn:FloatingActionButton
     companion object{
         var listViewAdapter:homeListViewAdapter? = null
         var lastCourList:ArrayList<Court>? = null
@@ -60,6 +62,11 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
         searchBar = findViewById(R.id.searchBar)
         searchBar.setOnSearchActionListener(this)
 
+        filterBtn = findViewById(R.id.filterBtn)
+        filterBtn.setOnClickListener {
+            val intent = Intent(this, SearchStadiumActivity::class.java)
+            startActivity(intent)
+        }
 
     }
     fun clearAllToggle(except:Int, isChecked:Boolean){

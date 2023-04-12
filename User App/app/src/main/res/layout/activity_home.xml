@@ -43,7 +43,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
+        android:id="@+id/filterBtn"
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -65,9 +65,9 @@
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/rounded_corner"
-        app:layout_constraintBottom_toBottomOf="@+id/floating_action_button"
+        app:layout_constraintBottom_toBottomOf="@+id/filterBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/floating_action_button"
+        app:layout_constraintTop_toTopOf="@+id/filterBtn"
         app:layout_constraintVertical_bias="0.0"
         app:mt_borderlessRippleEnabled="true"
         app:mt_hint="Search by court name"

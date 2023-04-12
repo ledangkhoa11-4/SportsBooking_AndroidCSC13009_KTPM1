@@ -91,7 +91,7 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonFiltering).setOnClickListener {
             finish()
         }
 

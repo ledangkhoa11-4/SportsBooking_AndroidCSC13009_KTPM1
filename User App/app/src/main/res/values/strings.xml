@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Sport Booking</string>
+    <array name="initial_slider_values">
+        <item>0</item>
+        <item>100000</item>
+    </array>
 </resources>

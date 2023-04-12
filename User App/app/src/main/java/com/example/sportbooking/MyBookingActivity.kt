@@ -72,6 +72,8 @@ class MyBookingActivity : AppCompatActivity() {
                     Log.i("AAAAAAAAAAAA",MainActivity.listCourt.size.toString())
                     val court = MainActivity.listCourt.filter { it.CourtID == bookHistory.CourtID }[0]
                     bookHistory.Court = court
+                    bookingHistories.add(bookHistory!!)
+                    bookingHistories.add(bookHistory!!)
                 }
                 bookingListViewAdapter.notifyDataSetChanged()
             }

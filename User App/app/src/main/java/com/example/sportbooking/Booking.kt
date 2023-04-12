@@ -166,7 +166,7 @@ class Booking : AppCompatActivity() {
         if(yard != -1){
             yardNum.setText("Field " + yard)
         }
-        findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonFiltering).setOnClickListener {
             finish()
         }
         findViewById<Button>(R.id.BookBtn).setOnClickListener {
