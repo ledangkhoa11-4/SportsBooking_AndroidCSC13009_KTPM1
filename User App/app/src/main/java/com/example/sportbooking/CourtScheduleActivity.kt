@@ -5,13 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import com.example.sportbooking.DTO.SportBooking
+import com.example.sportbooking.DTO.BookingHistory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.islandparadise14.mintable.MinTimeTableView
 import com.islandparadise14.mintable.model.ScheduleEntity
 import com.islandparadise14.mintable.tableinterface.OnTimeCellClickListener
 import java.text.SimpleDateFormat
+import java.time.ZoneId
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,7 +21,8 @@ class CourtScheduleActivity : AppCompatActivity() {
     private val scheduleList: ArrayList<ScheduleEntity> = ArrayList()
     lateinit var pickDateBtn:Button
     lateinit var court:Court
-    lateinit var bookHistory:kotlin.collections.ArrayList<SportBooking>
+    lateinit var bookHistory:kotlin.collections.ArrayList<BookingHistory>
+    lateinit var table: MinTimeTableView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_schedule)
@@ -28,8 +30,8 @@ class CourtScheduleActivity : AppCompatActivity() {
         val index = intent.getIntExtra("index",0)
         bookHistory = intent.getParcelableArrayListExtra("bookHistory")!!
         court = HomeActivity.courtList_Home!![index]
-        var table = findViewById<MinTimeTableView>(R.id.table)
-        val today = Calendar.getInstance()
+        table = findViewById<MinTimeTableView>(R.id.table)
+
 
         val constraintsBuilder = CalendarConstraints.Builder()
         constraintsBuilder.setValidator(DateValidator(court.ServiceWeekdays))
@@ -39,7 +41,7 @@ class CourtScheduleActivity : AppCompatActivity() {
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Pick a day to view schedule")
                 .setCalendarConstraints(constraintsBuilder.build())
-                .setSelection(today.timeInMillis)
+                .setSelection(System.currentTimeMillis())
                 .build()
 
 
@@ -55,28 +57,17 @@ class CourtScheduleActivity : AppCompatActivity() {
         )
 
         pickDateBtn = findViewById(R.id.dateScheduleBtn)
-        pickDateBtn.setText("Pick a date")
+        pickDateBtn.setText(convertDate(System.currentTimeMillis()))
         pickDateBtn.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
         datePicker.addOnPositiveButtonClickListener {
             var datePicked = convertDate(it);
-            Log.i("AAAAAAAAAAA",it.toString())
             pickDateBtn.setText(datePicked)
+            updateScheduleByDate(it);
 
-            for(book in bookHistory){
-                if(book.Date == it){
-                    var startTime = convertTime(book.Time[0])
-                    var endTime = convertTime(book.Time[1])
-                    scheduleList.add(
-                        ScheduleEntity(0,book.UserID,"${startTime} - ${endTime}",book.Yard-1,"${startTime}",
-                            "${endTime}","#73fcae68","#000000")
-                    )
-                }
-            }
-
-            table.updateSchedules(scheduleList)
         }
+        updateScheduleByDate(System.currentTimeMillis())
         day = Array(court.numOfYards) { i -> "F"+(i+1).toString() }
 
 
@@ -89,6 +80,7 @@ class CourtScheduleActivity : AppCompatActivity() {
                 intent.putExtra("date",datePicker.selection)
                 intent.putExtra("yard",yardNum)
                 intent.putExtra("hour",hour)
+                intent.putParcelableArrayListExtra("bookHistory",bookHistory);
                 startActivity(intent)
             }
         })
@@ -99,6 +91,20 @@ class CourtScheduleActivity : AppCompatActivity() {
         findViewById<Button>(R.id.backBtn).setOnClickListener{
             finish()
         }
+    }
+    fun updateScheduleByDate(time:Long){
+        scheduleList.subList(2,scheduleList.size).clear()
+        for(book in bookHistory){
+            if(convertDate(time) == convertDate(book.Date)){
+                var startTime = convertTime(book.Time[0])
+                var endTime = convertTime(book.Time[1])
+                scheduleList.add(
+                    ScheduleEntity(0,book.UserID,"${startTime} - ${endTime}",book.Yard-1,"${startTime}",
+                        "${endTime}","#73fcae68","#000000")
+                )
+            }
+        }
+        table.updateSchedules(scheduleList)
     }
     fun convertTime(timeStamp:Long):String{
         val sdf = SimpleDateFormat("HH:mm") // create a SimpleDateFormat object with desired format

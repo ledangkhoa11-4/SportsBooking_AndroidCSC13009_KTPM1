@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.sportbooking.DTO.SportBooking
+import com.example.sportbooking.DTO.BookingHistory
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -36,7 +36,7 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
-    var listBooking:ArrayList<SportBooking> = ArrayList()
+    var listBooking:ArrayList<BookingHistory> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
@@ -104,6 +104,7 @@ class DetailCourtActivity : AppCompatActivity() {
         findViewById<Button>(R.id.BookBtn).setOnClickListener {
             val intent = Intent(this, Booking::class.java)
             intent.putExtra("index",index)
+            intent.putParcelableArrayListExtra("bookHistory",listBooking);
             startActivity(intent)
         }
     }
@@ -122,7 +123,7 @@ class DetailCourtActivity : AppCompatActivity() {
         queryRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    val bookHistory = ds.getValue(SportBooking::class.java)
+                    val bookHistory = ds.getValue(BookingHistory::class.java)
                     listBooking.add(bookHistory!!)
                 }
             }

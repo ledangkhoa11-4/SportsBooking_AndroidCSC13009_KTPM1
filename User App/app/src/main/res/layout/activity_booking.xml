@@ -22,6 +22,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button15" />
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/courtNameBookingTv"
+        app:layout_constraintTop_toBottomOf="@+id/courtNameBookingTv"
+        app:srcCompat="@drawable/clock_icon"
+        app:tint="#848383" />
+
+
+    <TextView
+        android:id="@+id/hourServiceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato_bold"
+        android:maxLines="1"
+        android:text="06:00 - 23:00"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
     <TextView
         android:id="@+id/sport"
         android:layout_width="wrap_content"
@@ -176,16 +202,16 @@
         android:id="@+id/courtLocation"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:fontFamily="@font/lato_bold"
         android:maxLines="1"
         android:text="213/26 Nguyễn Thiện Thuật, P1, Q3, HCM"
-        android:textColor="#0243FB"
 
+        android:textColor="#0243FB"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/courtNameBookingTv"
-        app:layout_constraintTop_toBottomOf="@+id/courtNameBookingTv" />
+        app:layout_constraintTop_toBottomOf="@+id/hourServiceTv" />
 
     <ImageButton
         android:id="@+id/backButtonBooking"
@@ -225,7 +251,7 @@
         android:id="@+id/button16"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:backgroundTint="#DFDEDE"
         android:text="BOOKING DETAIL"
         android:textAlignment="textStart"
@@ -257,16 +283,13 @@
         app:layout_constraintTop_toBottomOf="@+id/sport9">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/payByPaypal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Paypal" />
 
-        <RadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pay at facility" />
+
     </RadioGroup>
 
     <Button

@@ -14,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -46,7 +47,7 @@ class NewFormatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_format)
 
 
-        Places.initialize(this, "AIzaSyDU9I2YJ0ku0lymwOS5-IzG_NycASeSBZ8", Locale("vi", "VN"))
+        Places.initialize(this, "AIzaSyBGTXMYRLRllMjYMXcXMi13p2i2SbdY19s", Locale("vi", "VN"))
 
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)
@@ -57,10 +58,13 @@ class NewFormatActivity : AppCompatActivity() {
         locationInput.isFocusable = false
         phoneInput = findViewById(R.id.phoneInput)
         priceInput = findViewById(R.id.priceInput)
+
         locationInput.setOnClickListener {
             var fieldList = arrayListOf<Place.Field>(Place.Field.ADDRESS, Place.Field.LAT_LNG)
             val intent =
-                Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(this)
+                Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList)
+                    .setCountries(listOf("VN"))
+                    .build(this)
             startActivityForResult(intent, PICK_LOCATION_REQUEST)
         }
         typeSport.setOnClickListener {

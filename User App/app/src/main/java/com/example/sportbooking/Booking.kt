@@ -11,17 +11,23 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import com.example.sportbooking.DTO.BookingHistory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.shawnlin.numberpicker.NumberPicker
 import nl.joery.timerangepicker.TimeRangePicker
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.*
 
 
 class Booking : AppCompatActivity() {
+    lateinit var hourServiceTv:TextView
     lateinit var courtNameTv:TextView
     lateinit var courtLocation:TextView
     lateinit var sportType:TextView
@@ -39,6 +45,7 @@ class Booking : AppCompatActivity() {
     var yard = -1
     var start = -1L
     var end = -1L
+    lateinit var bookHistory:kotlin.collections.ArrayList<BookingHistory>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
@@ -61,6 +68,10 @@ class Booking : AppCompatActivity() {
         courtLocation.setText(court.location!!.addressName)
         sportType.setText(court.Type)
 
+        bookHistory = intent.getParcelableArrayListExtra("bookHistory")!!
+
+        hourServiceTv = findViewById(R.id.hourServiceTv)
+        hourServiceTv.setText(convertTimestampToTime(court.ServiceHour[0]) + " - " + convertTimestampToTime(court.ServiceHour[1]))
 
         val pickTimeView:View = LayoutInflater.from(this).inflate(R.layout.time_picker_layout,null);
         timeRangePicker = pickTimeView.findViewById(R.id.timeRangePicker)
@@ -86,6 +97,8 @@ class Booking : AppCompatActivity() {
         if(hour != -1){
             timeStart.text = hour.toString().padStart(2, '0')+":"+0.toString().padStart(2, '0')
             timeEnd.text = (hour+1).toString().padStart(2, '0')+":"+0.toString().padStart(2, '0')
+            start = timeStringToTimestamp(timeStart.text.toString())
+            end = timeStringToTimestamp(timeEnd.text.toString())
             timeRangePicker.startTimeMinutes = hour*60
             timeRangePicker.endTimeMinutes = (hour+1)*60
             timeTv.setText(timeStart.text.toString() + " - " + timeEnd.text.toString())
@@ -101,6 +114,10 @@ class Booking : AppCompatActivity() {
                 .setTitle("Pick booking time")
                 .setView(pickTimeView)
                 .setPositiveButton("Apply") { dialog, which ->
+                    timeStart.text = timeRangePicker.startTime.hour.toString().padStart(2, '0')+":"+timeRangePicker.startTime.minute.toString().padStart(2, '0')
+                    start = timeStringToTimestamp(timeStart.text.toString())
+                    timeEnd.text = timeRangePicker.endTime.hour.toString().padStart(2, '0')+":"+timeRangePicker.endTime.minute.toString().padStart(2, '0')
+                    end = timeStringToTimestamp(timeEnd.text.toString())
                     timeTv.setText(timeStart.text.toString() + " - " + timeEnd.text.toString())
                     priceBooking.setText(formatter.format((court.Price * durationBooking)/60) + "đ")
                 }.show()
@@ -129,6 +146,7 @@ class Booking : AppCompatActivity() {
         datePicker.addOnPositiveButtonClickListener {
             val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             dateTv.setText(sdf.format(Date(it)))
+            date = it
         }
 
         val numberPickerView:View = LayoutInflater.from(this).inflate(R.layout.yard_picker,null);
@@ -140,6 +158,7 @@ class Booking : AppCompatActivity() {
             .setView(numberPickerView)
             .setPositiveButton("Apply") { dialog, which ->
                 yardNum.setText("Field " + numberPicker.value)
+                yard = numberPicker.value;
             }
         yardNum.setOnClickListener {
             if(numberPickerView.parent != null){
@@ -155,15 +174,61 @@ class Booking : AppCompatActivity() {
             finish()
         }
         findViewById<Button>(R.id.BookBtn).setOnClickListener {
-            Log.i("AAAAAAAA",start.toString())
-            Log.i("AAAAAAAA",end.toString())
+            if(yard == -1 || date == -1L || start == -1L || end == -1L){
+                Log.i("A",yard.toString())
+                Log.i("A",date.toString())
+                Log.i("A",start.toString())
+                Log.i("A",end.toString())
+                createToast("Sorry","Please enter full information", false);
+                return@setOnClickListener
+            }
+            val working = Date(court.ServiceHour[0])
+            val closing = Date(court.ServiceHour[1])
+            val startBook = Date(start)
+            val endBook= Date(end)
+            if(startBook.before(working) || endBook.after(closing)){
+                createToast("Wrong time line","Booking time is outside of the court's operating hours", false);
+                return@setOnClickListener
+            }
+            for(booking in bookHistory){
+                if(date == booking.Date && yard == booking.Yard){
+                    val another_start_book = Date(booking.Time[0])
+                    val another_end_book = Date(booking.Time[1])
+                    Log.i("AAAAAAAAAAAAA",another_start_book.toString())
+                    Log.i("AAAAAAAAAAAAA",another_end_book.toString())
+                    Log.i("AAAAAAAAAAAAA",startBook.toString())
+                   if((startBook==another_start_book || startBook.after(another_start_book)) && startBook.before(another_end_book)){
+                       createToast("Sorry"," This time range is already booked", false);
+                       return@setOnClickListener
+                   }
+                }
+            }
+            createToast("Horray","Successfuly booking", true);
         }
-
+    }
+    fun createToast(title:String, message:String, isSuccess:Boolean){
+        var style:MotionToastStyle
+        if(isSuccess)
+            style = MotionToastStyle.SUCCESS
+        else
+            style = MotionToastStyle.ERROR
+        MotionToast.createToast(this,
+            title,
+            message,
+            style,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.SHORT_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
     }
     fun timeStringToTimestamp(timeString: String): Long {
         val format = SimpleDateFormat("hh:mm", Locale.getDefault())
         val date = format.parse(timeString)
         return date?.time ?: 0
+    }
+    fun convertTimestampToTime(timestamp: Long): String {
+        val date = Date(timestamp)
+        val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return formatter.format(date)
     }
 }
 
