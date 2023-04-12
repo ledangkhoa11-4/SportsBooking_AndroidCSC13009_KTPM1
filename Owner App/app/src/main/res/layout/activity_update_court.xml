@@ -20,6 +20,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintStart_toStartOf="@+id/TypeEdt"
+                app:layout_constraintTop_toTopOf="@+id/textView20"
+                app:srcCompat="@drawable/price_icon" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                app:layout_constraintStart_toStartOf="@+id/PriceEdt"
+                app:layout_constraintTop_toTopOf="@+id/textView21" />
+
             <Button
                 android:id="@+id/UpdateBtn"
                 android:layout_width="wrap_content"
@@ -180,9 +197,10 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="32dp"
                 android:text="Price"
-                app:layout_constraintStart_toStartOf="@+id/TypeEdt"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/TypeEdt" />
 
             <EditText
@@ -193,8 +211,8 @@
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="@+id/TypeEdt"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                app:layout_constraintStart_toStartOf="@+id/imageView7"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
             <TextView
                 android:id="@+id/textView26"
@@ -240,7 +258,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="Location"
-                app:layout_constraintStart_toStartOf="@+id/PriceEdt"
+                app:layout_constraintStart_toEndOf="@+id/imageView8"
                 app:layout_constraintTop_toBottomOf="@+id/PriceEdt" />
 
             <EditText
@@ -250,7 +268,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/PriceEdt"
-                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintStart_toStartOf="@+id/imageView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
             <TextView

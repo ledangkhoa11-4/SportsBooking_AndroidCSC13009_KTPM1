@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,9 +14,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.DTO.BookingHistory
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -28,35 +35,37 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var hourServiceTv:TextView
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
+    lateinit var courtDetail:Court
+    var listBooking:ArrayList<BookingHistory> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
 
         val intent = intent
         val index = intent.getIntExtra("index",0)
-        val courtDetail = HomeActivity.courtList_Home!![index]
+        courtDetail = HomeActivity.courtList_Home!![index]
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
-
-
+        loadBookingList()
+        Log.i("AAAAAAAAAAA",courtDetail.CourtID.toString())
 
         val vpAdapter = ImageViewPagerAdapter(courtDetail.bitmapArrayList)
         viewPager.setPageTransformer(MarginPageTransformer(37));
         viewPager.adapter = vpAdapter
         dot.attachTo(viewPager)
 
-        courtName = findViewById(R.id.courtName)
+        courtName = findViewById(R.id.courtNameDetailBooking)
         courtName.setText(courtDetail.Name)
 
         typeSportImage = findViewById(R.id.typeSportImage)
         val drawableID = resources.getIdentifier("${courtDetail.Type.lowercase()}_icon","drawable",packageName)
         typeSportImage.setImageDrawable(resources.getDrawable(drawableID))
-        courtLocation = findViewById(R.id.courtLocation)
+        courtLocation = findViewById(R.id.courtLocationDetailBooking)
         courtLocation.setText(courtDetail.location!!.addressName)
         courtLocation.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         courtPhone =  findViewById(R.id.courtPhone)
         courtPhone.setText(courtDetail.Phone)
-        courtPrice =  findViewById(R.id.courtPrice)
+        courtPrice =  findViewById(R.id.rentPriceDetailBooking)
         courtPrice.setText(formatPrice(courtDetail.Price))
         hourServiceTv = findViewById(R.id.hourServiceTv)
         hourServiceTv.setText(convertTimestampToTime(courtDetail.ServiceHour[0]) + " - " + convertTimestampToTime(courtDetail.ServiceHour[1]))
@@ -82,8 +91,21 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonDetail).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBooking).setOnClickListener {
             finish()
+        }
+
+        findViewById<Button>(R.id.ViewScheduleBtn).setOnClickListener {
+            val intent = Intent(this, CourtScheduleActivity::class.java)
+            intent.putExtra("index",index)
+            intent.putParcelableArrayListExtra("bookHistory",listBooking);
+            startActivity(intent);
+        }
+        findViewById<Button>(R.id.BookBtn).setOnClickListener {
+            val intent = Intent(this, Booking::class.java)
+            intent.putExtra("index",index)
+            intent.putParcelableArrayListExtra("bookHistory",listBooking);
+            startActivity(intent)
         }
     }
     fun formatPrice(price: Int): String {
@@ -94,5 +116,22 @@ class DetailCourtActivity : AppCompatActivity() {
         val date = Date(timestamp)
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(date)
+    }
+    fun loadBookingList(){
+        val bookingRef = MainActivity.database.getReference("Booking");
+        val queryRef = bookingRef.orderByChild("CourtID").equalTo(courtDetail.CourtID)
+        queryRef.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    val bookHistory = ds.getValue(BookingHistory::class.java)
+                    listBooking.add(bookHistory!!)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }

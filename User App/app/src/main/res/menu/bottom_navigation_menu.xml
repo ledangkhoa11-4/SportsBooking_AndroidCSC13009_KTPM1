@@ -5,6 +5,16 @@
         android:icon="@drawable/football_pitch_icon"
         android:title="Home"/>
     <item
+        android:id="@+id/item_schedule"
+        android:enabled="true"
+        android:icon="@drawable/schedule_icon"
+        android:title="My booking"/>
+    <item
+        android:id="@+id/item_notification"
+        android:enabled="true"
+        android:icon="@drawable/bell"
+        android:title="Notification"/>
+    <item
         android:id="@+id/item_user"
         android:enabled="true"
         android:icon="@drawable/user_icon"

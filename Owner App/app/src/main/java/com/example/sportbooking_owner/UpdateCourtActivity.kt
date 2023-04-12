@@ -255,7 +255,7 @@ class UpdateCourtActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.action = Intent.ACTION_GET_CONTENT;
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),
             NewInfoActivity.PICK_IMAGE_REQUEST
         );

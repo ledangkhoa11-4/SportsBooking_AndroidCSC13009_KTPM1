@@ -192,6 +192,18 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/shoesCb" />
 
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Number of yards"
+                android:textColor="#505050"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/priceInput" />
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="30dp"
@@ -214,7 +226,7 @@
 
             <CheckBox
                 android:id="@+id/freeParkCb"
-                android:layout_width="186dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
 
 
@@ -229,7 +241,7 @@
 
             <CheckBox
                 android:id="@+id/freeWifiCb"
-                android:layout_width="186dp"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
 
 
@@ -271,14 +283,13 @@
 
             <Button
                 android:id="@+id/finalStepBtn"
-                android:layout_width="110dp"
+                android:layout_width="180dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:text="Final step"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/priceInput" />
+                app:layout_constraintTop_toBottomOf="@+id/yardNumberPicker" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -309,6 +320,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/finalStepBtn" />
 
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/yardNumberPicker"
+                android:layout_width="354dp"
+                android:layout_height="145dp"
+                android:layout_centerInParent="true"
+
+                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toBottomOf="@+id/textView15"
+
+                app:np_dividerColor="@color/black"
+
+
+                app:np_height="160dp"
+                app:np_max="5"
+                app:np_min="1"
+                app:np_selectedTextColor="@color/teal_700"
+                app:np_textColor="@color/black"
+                app:np_value="2"
+                app:np_width="60dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

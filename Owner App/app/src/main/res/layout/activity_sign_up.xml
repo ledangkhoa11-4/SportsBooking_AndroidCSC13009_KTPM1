@@ -24,7 +24,7 @@
     <Button
         android:id="@+id/SignUpBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="320dp"
+        android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="40dp"
@@ -33,9 +33,10 @@
         android:text="Sign Up"
         android:textColor="@color/white"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintEnd_toEndOf="@+id/LayoutRepassword"
+        app:layout_constraintStart_toStartOf="@+id/LayoutRepassword"
         app:layout_constraintTop_toBottomOf="@+id/LayoutRepassword" />
 
 

@@ -20,9 +20,9 @@ class CourtListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_list)
-        val cour1=Courts(0,0,"San cau long 1","Badminton")
-        val cour2=Courts(1,0,"San cau long 2","Badminton")
-        val cour3=Courts(2,0,"San da banh","Football")
+        val cour1=Courts("0","0","San cau long 1","Badminton")
+        val cour2=Courts("1","0","San cau long 2","Badminton")
+        val cour3=Courts("2","0","San da banh","Football")
         val courtList= arrayListOf<Courts>(cour1,cour2,cour3)
         var courtTemp= arrayListOf<Courts>()
         courtTemp.addAll(courtList)

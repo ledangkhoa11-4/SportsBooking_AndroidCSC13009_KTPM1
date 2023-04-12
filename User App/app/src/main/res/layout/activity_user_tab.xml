@@ -4,7 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg2"
     tools:context=".UserTabActivity">
+
+    <Button
+        android:id="@+id/editBtn3"
+        android:layout_width="364dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#F6F6F6"
+        android:drawableLeft="@drawable/padlock"
+        android:text="Change password"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editBtn"
+        app:layout_constraintTop_toBottomOf="@+id/editBtn2" />
+
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="364dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#F6F6F6"
+        android:drawableLeft="@drawable/pen_icon"
+        android:text="Edit information"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/editBtn2"
+        android:layout_width="364dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#F6F6F6"
+        android:drawableLeft="@drawable/heart"
+        android:text="Favorite court"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/editBtn"
+        app:layout_constraintStart_toStartOf="@+id/editBtn"
+        app:layout_constraintTop_toBottomOf="@+id/editBtn" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_bar"
@@ -19,10 +66,10 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="314dp"
+        android:layout_width="416dp"
+        android:layout_height="288dp"
         android:layout_marginTop="-50dp"
-        android:backgroundTint="#B0D6E5"
+        android:backgroundTint="#5400BCD4"
         android:enabled="false"
         app:cornerRadius="35dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +81,7 @@
         android:id="@+id/avatarIv"
         android:layout_width="124dp"
         android:layout_height="121dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:scaleType="centerCrop"
         android:src="@drawable/avt"
         app:civ_border_color="#54ACCE"
@@ -48,7 +95,7 @@
         android:id="@+id/user_nameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
         android:text="Le Dang Khoa"
         android:textColor="#000000"
@@ -68,17 +115,19 @@
         app:layout_constraintStart_toStartOf="@+id/user_nameTv"
         app:layout_constraintTop_toBottomOf="@+id/user_nameTv" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="Edit"
-        android:text="Edit information"
-        app:backgroundTint="#AFD5E4"
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="364dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#E19F9F"
+        android:fontFamily="@font/lato"
+        android:text="Log out"
+        android:textColor="#000000"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/pen_icon" />
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
