@@ -9,7 +9,7 @@
     tools:context=".Booking">
 
     <TextView
-        android:id="@+id/courtNameBookingTv"
+        android:id="@+id/courtNameBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,8 +28,8 @@
         android:layout_height="20dp"
 
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/courtNameBookingTv"
-        app:layout_constraintTop_toBottomOf="@+id/courtNameBookingTv"
+        app:layout_constraintStart_toStartOf="@+id/courtNameBooking"
+        app:layout_constraintTop_toBottomOf="@+id/courtNameBooking"
         app:srcCompat="@drawable/clock_icon"
         app:tint="#848383" />
 
@@ -210,7 +210,7 @@
 
         android:textColor="#0243FB"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/courtNameBookingTv"
+        app:layout_constraintStart_toStartOf="@+id/courtNameBooking"
         app:layout_constraintTop_toBottomOf="@+id/hourServiceTv" />
 
     <ImageButton

@@ -35,6 +35,12 @@ class UserTabActivity : AppCompatActivity() {
                 R.id.item_user->{
                     true
                 }
+                R.id.item_schedule->{
+                    startActivity(Intent(this,MyBookingActivity::class.java))
+                    overridePendingTransition(0,0)
+                    finish()
+                    true
+                }
                 else -> {
                     false
                 }

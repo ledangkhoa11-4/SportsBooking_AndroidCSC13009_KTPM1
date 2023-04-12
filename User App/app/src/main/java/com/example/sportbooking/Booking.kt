@@ -1,8 +1,6 @@
 package com.example.sportbooking
 
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.sportbooking.DTO.BookingHistory
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.shawnlin.numberpicker.NumberPicker
@@ -22,7 +19,6 @@ import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.*
 
 
@@ -56,7 +52,7 @@ class Booking : AppCompatActivity() {
         yard = intent.getIntExtra("yard",-1)
         var hour = intent.getIntExtra("hour",-1)
         court = MainActivity.listCourt[index]
-        courtNameTv = findViewById(R.id.courtNameBookingTv)
+        courtNameTv = findViewById(R.id.courtNameBooking)
         courtLocation = findViewById(R.id.courtLocation)
         sportType = findViewById(R.id.typeSport)
         yardNum = findViewById(R.id.yardNumChoose)

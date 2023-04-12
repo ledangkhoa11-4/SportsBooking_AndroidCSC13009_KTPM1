@@ -111,8 +111,13 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
             when(it.itemId){
                 R.id.item_home-> true
                 R.id.item_user->{
-
                     startActivity(Intent(this,UserTabActivity::class.java))
+                    overridePendingTransition(0,0)
+                    finish()
+                    true
+                }
+                R.id.item_schedule->{
+                    startActivity(Intent(this,MyBookingActivity::class.java))
                     overridePendingTransition(0,0)
                     finish()
                     true
