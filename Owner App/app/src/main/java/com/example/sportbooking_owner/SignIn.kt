@@ -46,7 +46,6 @@ class SignIn : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var emailEdt:TextInputLayout
     lateinit var passwordEdt:TextInputLayout
-    var currentUser:User_Owner?=null
     private val REQ_ONE_TAP = 2  // Can be any integer unique to the Activity
     private var showOneTapUI = true
     private lateinit var  oneTapClient:SignInClient
@@ -244,7 +243,7 @@ class SignIn : AppCompatActivity() {
         //auth.signOut()
          //Check if user is signed in (non-null) and update UI accordingly.
          user = auth.currentUser
-        if(currentUser != null){
+        if(user != null){
            startActivity(Intent(this, CourtListActivity::class.java))
         }
     }
@@ -350,9 +349,6 @@ class SignIn : AppCompatActivity() {
         })
 
 
-    }
-    fun writeNewUser(user:User_Owner) {
-        database.reference.child("Owner").push().setValue(user)
     }
 
     }

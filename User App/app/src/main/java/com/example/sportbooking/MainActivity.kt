@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity() {
         //finish()
         loadCourtList()
         lastLocation = readLastLocation(this);
-        startActivity(Intent(this, HomeActivity::class.java))
+        //startActivity(Intent(this, HomeActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
         finish()
         // startActivity(Intent(this,CalendarViewActivity::class.java))
         // startActivity(Intent(this,RatingActivity::class.java))
