@@ -220,16 +220,10 @@ class SignIn : AppCompatActivity() {
                     Log.i("tag","\nsignInWithCredential:success")
                      user = auth.currentUser
                     if(user!=null){
-                        if(IsSignUp(user!!.uid)){
-                            loadCourtList()
-                            startActivity(Intent(this, CourtListActivity::class.java))
-                        }
-                        else{
-                            loadCourtList()
-                            var currentUser= User_Owner(user!!.uid, user!!.displayName, user!!.email)
-                            writeNewUser(currentUser!!)
-                            startActivity(Intent(this, CourtListActivity::class.java))
-                        }
+                        IsSignUp(user!!.uid)
+                        loadCourtList()
+                        startActivity(Intent(this, CourtListActivity::class.java))
+
 
 
                     }
@@ -279,16 +273,10 @@ class SignIn : AppCompatActivity() {
 
                                         //Log.i("VerifyEmail", user!!.isEmailVerified.toString())
                                         if(user!=null){
-                                            if(IsSignUp(user!!.uid)){
+                                                IsSignUp(user!!.uid)
                                                 loadCourtList()
                                                 startActivity(Intent(this, CourtListActivity::class.java))
-                                            }
-                                            else{
-                                                loadCourtList()
-                                                var currentUser= User_Owner(user!!.uid,user!!.displayName,user!!.email)
-                                                writeNewUser(currentUser!!)
-                                                startActivity(Intent(this, CourtListActivity::class.java))
-                                            }
+
 
 
                                         }
@@ -344,17 +332,24 @@ class SignIn : AppCompatActivity() {
                 }
             }
     }
-    fun IsSignUp(id:String):Boolean{
-        val userOwner=database.reference.child("Owner").orderByChild("id").equalTo(id).get()
-            .addOnCompleteListener{
-                Log.i("firebase", "Got value ${it.result}")
+    fun IsSignUp(id:String){
+        val userOwnerQuery=database.reference.child("Owner").orderByChild("id").equalTo(id)
+        userOwnerQuery.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val numOwner=snapshot.childrenCount
+                if(numOwner<1){
+                    val owner=User_Owner(user!!.uid, user!!.displayName, user!!.email)
+                    val ownerRef=database.reference.child("Owner")
+                    ownerRef.push().setValue(owner)
+                }
             }
 
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
-        if(userOwner!=null){
-            return true
-        }
-        return false
+
     }
     fun writeNewUser(user:User_Owner) {
         database.reference.child("Owner").push().setValue(user)

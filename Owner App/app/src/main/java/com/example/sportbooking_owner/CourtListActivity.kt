@@ -29,70 +29,21 @@ class CourtListActivity : AppCompatActivity() {
         var courtList=ArrayList<Courts>()
 
     }
-//    private fun loadCourtList() {
-//
-//        var courtsRef = MainActivity.database.getReference("Courts");
-//        var valueEventListener: ValueEventListener = object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                courtList!!.clear()
-//                for (ds in dataSnapshot.children) {
-//                    val courtDbId: String = ds.key!!
-//                    val courtRef: DatabaseReference =
-//                        MainActivity.database.reference.child("Courts").child(courtDbId)
-//                    val eventListener: ValueEventListener = object : ValueEventListener {
-//                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                            val court: Courts? = dataSnapshot.getValue(Courts::class.java)
-//                            for (imageName in court!!.Images) {
-//                                var imageRef = MainActivity.storageRef.child(imageName)
-//                                val ONE_MEGABYTE: Long = 1024 * 1024
-//                                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
-//                                    val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-//                                    court.bitmapArrayList.add(bitmap)
-//                                    if (CourtListActivity.adapter != null) {
-//                                        CourtListActivity.adapter!!.notifyDataSetChanged()
-//                                    }
-//                                }.addOnFailureListener {
-//                                    // Handle any errors
-//                                }
-//                            }
-////                            if(MainActivity.lastLocation.latLng.latitude != 0.0 && MainActivity.lastLocation.latLng.longitude != 0.0){
-////                                court.courtDistance = GetDistance.getDistance(MainActivity.lastLocation,court.location!!).toDouble()
-////                            }
-//
-//                            courtList.add(court)
-//                            if (CourtListActivity.adapter != null) {
-//                                CourtListActivity.adapter!!.notifyDataSetChanged()
-//                            }
-//                        }
-//
-//                        override fun onCancelled(databaseError: DatabaseError) {}
-//                    }
-//                    courtRef.addListenerForSingleValueEvent(eventListener)
-//                }
-//            }
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        }
-//        courtsRef.addValueEventListener(valueEventListener)
-//    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_list)
-//        val cour1=Courts(0,0,"San cau long 1","Badminton")
-//        val cour2=Courts(1,0,"San cau long 2","Badminton")
-//        val cour3=Courts(2,0,"San da banh","Football")
-//        courtList= arrayListOf<Courts>(cour1,cour2,cour3)
+
 
         courtList=SignIn.listCourt
-        //var courtTemp= courtList
-        //Set Recycler view adapter
         adapter=CustomAdapter(courtList)
         val courtRv=findViewById<RecyclerView>(R.id.CourtRv)
         courtRv.adapter=adapter
         courtRv.layoutManager=LinearLayoutManager(this)
         adapter!!.onItemClick={court ->
             var intent=Intent(this,UpdateCourtActivity::class.java)
-            //intent.putExtra("UpdateCourt",court)
+            intent.putExtra("pos", adapter!!.click_position)
             startActivity(intent)
 
         }
@@ -122,6 +73,7 @@ class CourtListActivity : AppCompatActivity() {
 class CustomAdapter(private val dataSet: ArrayList<Courts>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     var onItemClick:((Courts)->Unit)?=null
+    var click_position:Int=0
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -137,6 +89,7 @@ class CustomAdapter(private val dataSet: ArrayList<Courts>) :
             courtType = view.findViewById(R.id.CourtTypeTV)
             image=view.findViewById(R.id.CourtImageView)
             view.setOnClickListener {
+                click_position=adapterPosition
                 onItemClick?.invoke(dataSet[adapterPosition])
             }
         }

@@ -58,12 +58,17 @@ class UpdateCourtActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        val court=intent.getParcelableExtra<Courts>("UpdateCourt")
+        val courtpos=intent.getIntExtra("pos",0)
+        val court=SignIn.listCourt[courtpos]
+        for(i in 0 until court.bitmapArrayList.size){
+
+        }
         courtNameEdt!!.setText(court!!.Name)
         dot=findViewById<DotsIndicator>(R.id.dots_indicator)
         typeEdt!!.setText(court.Type)
         //view page slider
-        imageVP2_Update!!.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY))
+        val vpa=ImageViewPagerAdapter(court.bitmapArrayList)
+        imageVP2_Update!!.adapter = vpa
         val transformer = CompositePageTransformer()
         transformer.addTransformer(MarginPageTransformer(40))
         transformer.addTransformer(ViewPager2.PageTransformer { page, position ->
