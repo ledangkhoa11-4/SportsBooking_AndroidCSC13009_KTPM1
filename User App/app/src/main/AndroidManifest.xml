@@ -23,6 +23,12 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
+            android:name=".DetailBookingHistory"
+            android:exported="false" />
+        <activity
+            android:name=".MyBookingActivity"
+            android:exported="false" />
+        <activity
             android:name=".Checkout"
             android:exported="false" />
         <activity

@@ -112,7 +112,7 @@ class NewTimelineActivity : AppCompatActivity() {
 
 
             if(weekdaysChoice.length == 0 || timeRangePicker.duration.hour<2){
-                var msg = ""
+                var msg :String = ""
                 if(weekdaysChoice.length == 0)
                     msg = "Please fill all the details!"
                 else
@@ -128,7 +128,7 @@ class NewTimelineActivity : AppCompatActivity() {
                 var calendar = Calendar.getInstance()
                 val id = calendar.timeInMillis
                 var newCourt = Courts()
-                newCourt.CourtID = id
+                newCourt.CourtID = id.toString()
                 newCourt.ServiceWeekdays = weekdaysChoice
                 val startTimeStamp = convertToTimestamp(timeStart.text.toString())
                 val endTimeStamp = convertToTimestamp(timeEnd.text.toString())

@@ -96,8 +96,7 @@
             android:id="@+id/courtImage"
             android:layout_width="110dp"
             android:layout_height="90dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/illustration" />
+            android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
     <TextView

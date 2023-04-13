@@ -6,106 +6,95 @@
     android:layout_height="match_parent"
     tools:context=".SearchStadiumActivity">
 
+
+    <ImageButton
+        android:id="@+id/backButtonFiltering"
+        android:layout_width="47dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FFFEFE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
+
     <TextView
-        android:id="@+id/typeOfStadiumTV"
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
-        android:text="Loại sân"
+        android:fontFamily="@font/lato_bold"
+        android:text="Court Filtering"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonFiltering"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toEndOf="@+id/backButtonFiltering"
+        app:layout_constraintTop_toTopOf="@+id/backButtonFiltering"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <Button
+        android:id="@+id/typeOfStadiumTV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#DFDEDE"
+        android:text="FORMAT"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/backButtonFiltering" />
 
     <TextView
         android:id="@+id/typeOfSportTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:text="Chọn loại thể thao"
+        android:fontFamily="@font/lato"
+        android:text="Choose type sport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typeOfStadiumTV" />
 
-    <EditText
-        android:id="@+id/typeOfSportEV"
-        android:layout_width="190dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfSportTV" />
-
     <Spinner
         android:id="@+id/typeOfSportSpinner"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/typeOfSportTV" />
 
-    <TextView
-        android:id="@+id/CapacityTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Kích thước sân"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfStadiumTV" />
 
-    <EditText
-        android:id="@+id/CapacityEV"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toEndOf="@+id/typeOfSportEV"
-        app:layout_constraintTop_toBottomOf="@+id/CapacityTV" />
-
-    <Spinner
-        android:id="@+id/CapacitySpinner"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.862"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CapacityTV" />
-
-    <TextView
+    <Button
         android:id="@+id/LocationTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="Địa điểm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#DFDEDE"
+        android:text="LOCATION"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/typeOfSportEV" />
+        app:layout_constraintTop_toBottomOf="@+id/typeOfSportSpinner" />
 
     <TextView
         android:id="@+id/nameOfStadTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:text="Tên sân"
+        android:fontFamily="@font/lato"
+        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,32 +120,20 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Thành phố"
+        android:fontFamily="@font/lato"
+        android:text="Province/City"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameOfStadEV" />
 
-    <EditText
-        android:id="@+id/CityEV"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CityTV" />
-
     <Spinner
         android:id="@+id/CitySpinner"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="-5dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/CityTV"
         app:layout_constraintTop_toBottomOf="@+id/CityTV" />
 
     <TextView
@@ -164,57 +141,67 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Quận"
+        android:fontFamily="@font/lato"
+        android:text="District"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.635"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameOfStadEV" />
 
-    <EditText
-        android:id="@+id/districtEV"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.313"
-        app:layout_constraintStart_toEndOf="@+id/CityEV"
-        app:layout_constraintTop_toBottomOf="@+id/districtTV" />
-
     <Spinner
         android:id="@+id/districtSpinner"
-        android:layout_width="150dp"
+        android:layout_width="165dp"
+        android:layout_height="55dp"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/CitySpinner"
+        app:layout_constraintStart_toStartOf="@+id/districtTV"
+        app:layout_constraintTop_toTopOf="@+id/CitySpinner" />
+
+
+    <Button
+        android:id="@+id/priceTv"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#DFDEDE"
+        android:text="PRICING"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.847"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/districtTV" />
+        app:layout_constraintTop_toBottomOf="@+id/button20" />
 
     <TextView
         android:id="@+id/depositTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/lato"
         android:text="Tiền cọc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CityEV" />
+        app:layout_constraintTop_toBottomOf="@+id/priceTv" />
 
-    <SeekBar
+    <com.google.android.material.slider.RangeSlider
         android:id="@+id/seekBar"
-        android:layout_width="350dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:max="20000000"
+        android:valueFrom="0"
+        android:valueTo="100000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/depositTV" />
+        app:layout_constraintTop_toBottomOf="@+id/depositTV"
+        app:values="@array/initial_slider_values" />
 
     <Button
         android:id="@+id/clearButton"
@@ -223,7 +210,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="Đặt lại bộ lọc"
+        android:text="Reset filter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
@@ -236,10 +223,42 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="Tìm kiếm sân"
+        android:text="Find"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
+    <Button
+        android:id="@+id/button20"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="-10dp"
+        android:backgroundTint="#828181"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/CitySpinner"
+        app:layout_constraintStart_toStartOf="@+id/CitySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/CitySpinner" />
+
+    <Button
+        android:id="@+id/button21"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#828181"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/typeOfSportSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/typeOfSportSpinner"
+        app:layout_constraintStart_toStartOf="@+id/typeOfSportSpinner" />
+
+    <Button
+        android:id="@+id/button22"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#828181"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/districtSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/districtSpinner"
+        app:layout_constraintStart_toStartOf="@+id/districtSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

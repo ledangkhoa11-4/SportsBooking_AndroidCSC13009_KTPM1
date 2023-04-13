@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="calendar_icon" />
-                            <entry key="sourceFile" value="D:\Semester 2 22-23\LapTrinhAndroid\Project\calendar_icon.svg" />
+                            <entry key="outputName" value="qr_code" />
+                            <entry key="sourceFile" value="D:\Semester 2 22-23\LapTrinhAndroid\Project\qr-code.svg" />
                           </map>
                         </option>
                       </PersistentState>

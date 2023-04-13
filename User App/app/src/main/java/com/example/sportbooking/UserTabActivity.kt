@@ -10,7 +10,7 @@ import com.google.android.material.navigation.NavigationBarView
 
 class UserTabActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
-    lateinit var editBtn: FloatingActionButton
+    lateinit var editBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_tab)
@@ -33,6 +33,12 @@ class UserTabActivity : AppCompatActivity() {
                     true
                 }
                 R.id.item_user->{
+                    true
+                }
+                R.id.item_schedule->{
+                    startActivity(Intent(this,MyBookingActivity::class.java))
+                    overridePendingTransition(0,0)
+                    finish()
                     true
                 }
                 else -> {

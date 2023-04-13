@@ -50,8 +50,6 @@ class SignUp : AppCompatActivity() {
 
         auth= Firebase.auth
         database=MainActivity.database.reference
-
-
         signUpBtn.setOnClickListener {
             val email=emailEdt.text.toString()
             val password=passwordEdt.text.toString()
