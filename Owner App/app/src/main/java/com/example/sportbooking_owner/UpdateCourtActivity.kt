@@ -22,6 +22,9 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import androidx.appcompat.widget.Toolbar
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UpdateCourtActivity : AppCompatActivity() {
@@ -29,11 +32,19 @@ class UpdateCourtActivity : AppCompatActivity() {
     var courtNameEdt:EditText?=null
     var courtDesEdt:EditText?=null
     var typeEdt:EditText?=null
+    var typeIcon:ImageView?=null
     var listUri=ArrayList<Uri>()
     var listBitmap=ArrayList<Bitmap>()
     var imageVP2_Update: ViewPager2?=null
-    var weekDaysPickerEdt:EditText?=null
-    var weekdaysChoice=""
+    lateinit var tM:ToggleButton
+    lateinit var tTue:ToggleButton
+    lateinit var tW:ToggleButton
+    lateinit var tT:ToggleButton
+    lateinit var tF:ToggleButton
+    lateinit var tS:ToggleButton
+    lateinit var tSu:ToggleButton
+    lateinit var weekdaysChoice:String
+
     lateinit var timeStart:EditText
     lateinit var timeEnd:EditText
     var hourStart:Int = 0
@@ -42,6 +53,12 @@ class UpdateCourtActivity : AppCompatActivity() {
     var minuteEnd:Int = 0
     lateinit var dot:DotsIndicator
     lateinit var toolbar: Toolbar
+    lateinit var PriceEdt:EditText
+    lateinit var DesEdt:EditText
+    lateinit var FreeParking:CheckBox
+    lateinit var FreeWifi:CheckBox
+    lateinit var ShoeRent:CheckBox
+    lateinit var Referees:CheckBox
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_court)
@@ -49,23 +66,102 @@ class UpdateCourtActivity : AppCompatActivity() {
         courtNameEdt=findViewById(R.id.CourtNameEdt)
         courtDesEdt=findViewById(R.id.descriptionEdt)
         typeEdt=findViewById(R.id.TypeEdt)
+        typeIcon=findViewById(R.id.TypeIcon)
         imageVP2_Update=findViewById(R.id.imageVP2_Update)
-        weekDaysPickerEdt= findViewById(R.id.WeekDaysEdt)
+        DesEdt=findViewById(R.id.descriptionEdt)
+        FreeParking=findViewById(R.id.freeParkCb2)
+        FreeWifi=findViewById(R.id.freeWifiCb2)
+        ShoeRent=findViewById(R.id.shoesCb2)
+        Referees=findViewById(R.id.refereesCb2)
+
         timeStart=findViewById(R.id.timeStartPickerEdt)
         timeEnd=findViewById(R.id.timeEndPickerEdt)
         toolbar=findViewById(R.id.toolbar2)
+        PriceEdt=findViewById(R.id.PriceEdt)
+        dot=findViewById<DotsIndicator>(R.id.dots_indicator)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        //load data from database to view
         val courtpos=intent.getIntExtra("pos",0)
         val court=SignIn.listCourt[courtpos]
-        for(i in 0 until court.bitmapArrayList.size){
+
+        courtNameEdt!!.setText(court!!.Name)
+
+        typeEdt!!.setText(court.Type)
+        var imageName=court.Type.lowercase()+"_icon"
+        val imageResource=resources.getIdentifier(imageName,"drawable",packageName)
+        if (imageResource != 0) { // Check if the image resource was found
+            typeIcon!!.setImageResource(imageResource)
+        } else {
+            // Image resource not found, handle error or show default image
+        }
+
+        val start=convertTimestampToTime(court.ServiceHour[0])
+        var temp=start.split(":")
+        hourStart=temp[0].toInt()
+        minuteStart=temp[1].toInt()
+        val end=convertTimestampToTime(court.ServiceHour[1])
+         temp=end.split(":")
+        hourEnd=temp[0].toInt()
+        minuteEnd=temp[1].toInt()
+        timeStart.setText(start)
+        timeEnd.setText(end)
+        PriceEdt.setText(formatPrice(court.Price))
+
+        val datePickerView:View = findViewById(R.id.daypicker)
+         tM = datePickerView.findViewById(R.id.tM) as ToggleButton
+         tTue = datePickerView.findViewById(R.id.tTue) as ToggleButton
+         tW = datePickerView.findViewById(R.id.tW) as ToggleButton
+         tT = datePickerView.findViewById(R.id.tT) as ToggleButton
+         tF = datePickerView.findViewById(R.id.tF) as ToggleButton
+         tS = datePickerView.findViewById(R.id.tS) as ToggleButton
+         tSu = datePickerView.findViewById(R.id.tSu) as ToggleButton
+        val weekday=court.ServiceWeekdays.split(",")
+        for(i in weekday.indices){
+            if(weekday[i]=="Mon"){
+                tM.isChecked=true
+            }
+            if(weekday[i]=="Tue"){
+                tTue.isChecked=true
+            }
+            if(weekday[i]=="Wed"){
+                tW.isChecked=true
+            }
+            if(weekday[i]=="Thu"){
+                tT.isChecked=true
+            }
+            if(weekday[i]=="Fri"){
+                tF.isChecked=true
+            }
+            if(weekday[i]=="Sat"){
+                tS.isChecked=true
+            }
+            if(weekday[i]=="Sun"){
+                tSu.isChecked=true
+            }
+        }
+
+        DesEdt.setText(court.Description)
+
+        for(i in court.AvalableService.indices){
+            if(court.AvalableService[i].lowercase()=="Free Parking".lowercase()){
+                FreeParking.isChecked=true
+            }
+            if(court.AvalableService[i].lowercase()=="Free wifi".lowercase()){
+                FreeWifi.isChecked=true
+            }
+            if(court.AvalableService[i].lowercase()=="Shoes for rent".lowercase()){
+                ShoeRent.isChecked=true
+            }
+            if(court.AvalableService[i].lowercase()=="Referees available".lowercase()){
+                Referees.isChecked=true
+            }
 
         }
-        courtNameEdt!!.setText(court!!.Name)
-        dot=findViewById<DotsIndicator>(R.id.dots_indicator)
-        typeEdt!!.setText(court.Type)
+
+
         //view page slider
         val vpa=ImageViewPagerAdapter(court.bitmapArrayList)
         imageVP2_Update!!.adapter = vpa
@@ -85,11 +181,8 @@ class UpdateCourtActivity : AppCompatActivity() {
             var intent= Intent(this,SelectSportActivity::class.java)
             startActivityForResult(intent,NewFormatActivity.PICK_SPORT_TYPE_REQUEST)
         }
-        //Day picker
-        weekDaysPickerEdt!!.setOnClickListener {
-            showWeekdayPickerDialog()
 
-        }
+
         //Time picker
         val startPicker =
             MaterialTimePicker.Builder()
@@ -161,12 +254,48 @@ class UpdateCourtActivity : AppCompatActivity() {
         }
 
     }
-
+    fun formatPrice(price: Int): String {
+        val formatter = java.text.DecimalFormat("#,###")
+        return formatter.format(price) + "đ / 60min"
+    }
+    fun convertFromToggoleBtnPickedDayToString(){
+        weekdaysChoice=""
+        if(tM.isChecked()){
+            weekdaysChoice +="Mon,";
+        }
+        if(tTue.isChecked()){
+            weekdaysChoice +="Tue,";
+        }
+        if(tW.isChecked()){
+            weekdaysChoice +="Wed,";
+        }
+        if(tT.isChecked()){
+            weekdaysChoice +="Thu,";
+        }
+        if(tF.isChecked()){
+            weekdaysChoice +="Fri,";
+        }
+        if(tS.isChecked()){
+            weekdaysChoice +="Sat,";
+        }
+        if(tSu.isChecked()){
+            weekdaysChoice +="Sun";
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == NewFormatActivity.PICK_SPORT_TYPE_REQUEST && resultCode == RESULT_OK){
             var typeSportStr = data!!.getStringExtra("type")
             typeEdt!!.setText(typeSportStr)
+            var imageName=typeSportStr!!.lowercase()+"_icon"
+            val imageResource=resources.getIdentifier(imageName,"drawable",packageName)
+            if (imageResource != 0) { // Check if the image resource was found
+                typeIcon!!.setImageResource(imageResource)
+            } else {
+                // Image resource not found, handle error or show default image
+            }
+
+
         }
         if (requestCode == NewInfoActivity.PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             listUri=ArrayList<Uri>()
@@ -211,61 +340,12 @@ class UpdateCourtActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-
-    private fun showWeekdayPickerDialog() {
-        val datePickerView = layoutInflater.inflate(R.layout.weekdays_picker_dialog, null)
-        var tM = datePickerView.findViewById(R.id.tM) as ToggleButton
-        var tTue = datePickerView.findViewById(R.id.tTue) as ToggleButton
-        var tW = datePickerView.findViewById(R.id.tW) as ToggleButton
-        var tT = datePickerView.findViewById(R.id.tT) as ToggleButton
-        var tF = datePickerView.findViewById(R.id.tF) as ToggleButton
-        var tS = datePickerView.findViewById(R.id.tS) as ToggleButton
-        var tSu = datePickerView.findViewById(R.id.tSu) as ToggleButton
-
-        var dialog:AlertDialog?=null
-        val builder=AlertDialog.Builder(this)
-
-        builder.setView(datePickerView)
-        builder.setTitle("A dialog with a list of options")
-        builder
-            .setPositiveButton("Done", DialogInterface.OnClickListener { dialog, id ->
-                weekdaysChoice=""
-                if(tM.isChecked()){
-                    weekdaysChoice +="Mon,";
-                }
-                if(tTue.isChecked()){
-                    weekdaysChoice +="Tue,";
-                }
-                if(tW.isChecked()){
-                    weekdaysChoice +="Wed,";
-                }
-                if(tT.isChecked()){
-                    weekdaysChoice +="Thu,";
-                }
-                if(tF.isChecked()){
-                    weekdaysChoice +="Fri,";
-                }
-                if(tS.isChecked()){
-                    weekdaysChoice +="Sat,";
-                }
-                if(tSu.isChecked()){
-                    weekdaysChoice +="Sun";
-                }
-                weekDaysPickerEdt!!.setText(weekdaysChoice)
-
-            })
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-
-            })
-        dialog=builder.create()
-
-
-
-
-
-
-        dialog!!.show()
+    fun convertTimestampToTime(timestamp: Long): String {
+        val date = Date(timestamp)
+        val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return formatter.format(date)
     }
+
 
     fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -281,26 +361,5 @@ class UpdateCourtActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, NewInfoActivity.TAKE_IMAGE_REQUEST)
     }
-    class WeekdaysPicker : DialogFragment() {
 
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            return activity?.let {
-
-// Use the Builder class for convenient dialog construction
-                val builder = AlertDialog.Builder(it)
-                val datePickerView = layoutInflater.inflate(R.layout.weekdays_picker, null)
-                var tM = datePickerView.findViewById(R.id.tM) as ToggleButton
-                var tTue = datePickerView.findViewById(R.id.tTue) as ToggleButton
-                var tW = datePickerView.findViewById(R.id.tW) as ToggleButton
-                var tT = datePickerView.findViewById(R.id.tT) as ToggleButton
-                var tF = datePickerView.findViewById(R.id.tF) as ToggleButton
-                var tS = datePickerView.findViewById(R.id.tS) as ToggleButton
-                var tSu = datePickerView.findViewById(R.id.tSu) as ToggleButton
-                var weekdaysChoice = ""
-
-// Create the AlertDialog object and return it
-                builder.create()
-            } ?: throw IllegalStateException("Activity cannot be null")
-        }
-    }
 }

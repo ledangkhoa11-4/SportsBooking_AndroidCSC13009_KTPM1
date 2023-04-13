@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +25,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView20"
-                app:layout_constraintStart_toStartOf="@+id/TypeEdt"
+                app:layout_constraintStart_toStartOf="@+id/TypeIcon"
                 app:layout_constraintTop_toTopOf="@+id/textView20"
                 app:srcCompat="@drawable/price_icon" />
 
@@ -192,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="@+id/textView23"
-                app:layout_constraintStart_toStartOf="@+id/WeekDaysEdt"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
                 app:layout_constraintTop_toTopOf="@+id/textView23"
                 app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/baseline_access_time_24" />
@@ -232,13 +233,14 @@
                 android:id="@+id/TypeEdt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:ems="10"
                 android:focusable="false"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/descriptionEdt"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/imageView10"
+                app:layout_constraintStart_toEndOf="@+id/TypeIcon"
                 app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
             <TextView
@@ -373,27 +375,27 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/LocationEdt" />
 
-            <EditText
-                android:id="@+id/WeekDaysEdt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="textPersonName"
+            <include
+                android:id="@+id/daypicker"
+                layout="@layout/weekdays_picker_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/LocationEdt"
                 app:layout_constraintStart_toStartOf="@+id/imageView15"
-                app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView15">
+
+            </include>
 
             <TextView
                 android:id="@+id/textView23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="22dp"
                 android:text="Time"
                 app:layout_constraintStart_toEndOf="@+id/imageView13"
-                app:layout_constraintTop_toBottomOf="@+id/WeekDaysEdt" />
+                app:layout_constraintTop_toBottomOf="@+id/daypicker" />
 
             <EditText
                 android:id="@+id/timeStartPickerEdt"
@@ -444,6 +446,7 @@
                 android:id="@+id/toolbar2"
                 android:layout_width="417dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -453,6 +456,15 @@
                 app:navigationIcon="@drawable/back_icon"
                 app:title="Update court"
                 tools:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <ImageView
+                android:id="@+id/TypeIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/TypeEdt"
+                app:layout_constraintStart_toStartOf="@+id/imageView10"
+                app:layout_constraintTop_toTopOf="@+id/TypeEdt"
+                app:srcCompat="@drawable/archery_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

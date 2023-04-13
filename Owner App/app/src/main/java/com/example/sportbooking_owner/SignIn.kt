@@ -240,12 +240,12 @@ class SignIn : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        //auth.signOut()
+        auth.signOut()
          //Check if user is signed in (non-null) and update UI accordingly.
-         user = auth.currentUser
-        if(user != null){
-           startActivity(Intent(this, CourtListActivity::class.java))
-        }
+//         user = auth.currentUser
+//        if(user != null){
+//           startActivity(Intent(this, CourtListActivity::class.java))
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

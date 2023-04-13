@@ -18,12 +18,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
 class CourtListActivity : AppCompatActivity() {
+    lateinit var addBtn:FloatingActionButton
     companion object{
         var adapter:CustomAdapter?=null
         var courtList=ArrayList<Courts>()
@@ -38,6 +40,10 @@ class CourtListActivity : AppCompatActivity() {
 
         courtList=SignIn.listCourt
         adapter=CustomAdapter(courtList)
+        addBtn=findViewById(R.id.addCourtBtn)
+        addBtn.setOnClickListener{
+            startActivity(Intent(this,NewFormatActivity::class.java))
+        }
         val courtRv=findViewById<RecyclerView>(R.id.CourtRv)
         courtRv.adapter=adapter
         courtRv.layoutManager=LinearLayoutManager(this)
