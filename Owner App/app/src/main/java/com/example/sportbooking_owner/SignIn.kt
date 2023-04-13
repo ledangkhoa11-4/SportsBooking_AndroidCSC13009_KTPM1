@@ -1,8 +1,11 @@
 package com.example.sportbooking_owner
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentSender
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -21,13 +24,16 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -47,11 +53,52 @@ class SignIn : AppCompatActivity() {
     private lateinit var signInRequest:BeginSignInRequest
     private lateinit var login_btn:LoginButton
     lateinit var callbackManager : CallbackManager
+    lateinit var database:FirebaseDatabase
+    lateinit var userRef:DatabaseReference
+    companion object{
+        var listCourt: ArrayList<Courts> = ArrayList()
+        var user=Firebase.auth.currentUser
+        fun loadCourtList() {
+            var courtsRef = MainActivity.database.getReference("Courts")
+            var query=courtsRef.orderByChild("ownerID").equalTo(user!!.uid)
+            var valueEventListener:ValueEventListener=object :ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (child_snapshot in snapshot.children) {
+                        val court: Courts? = child_snapshot.getValue(Courts::class.java)
+                        for (imageName in court!!.Images) {
+                            var imageRef = MainActivity.storageRef.child(imageName)
+                            val ONE_MEGABYTE: Long = 1024 * 1024
+                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                                court.bitmapArrayList.add(bitmap)
+                                if (CourtListActivity.adapter != null) {
+                                    CourtListActivity.adapter!!.notifyDataSetChanged()
+                                }
+                            }
+
+
+                        }
+                        listCourt.add(court)
+                        if (CourtListActivity.adapter != null) {
+                            CourtListActivity.adapter!!.notifyDataSetChanged()
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            }
+
+            query.addListenerForSingleValueEvent(valueEventListener)
+        }
+    }
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        val database = Firebase.database
+        database = Firebase.database
+
         signInBtn=findViewById<Button>(R.id.SignInBtn)
         signInGGBtn=findViewById<Button>(R.id.SignInGGBtn)
         signInFbBtn=findViewById<Button>(R.id.SignInFbBtn)
@@ -60,6 +107,7 @@ class SignIn : AppCompatActivity() {
         passwordEdt=findViewById(R.id.LayoutPassword)
         auth = Firebase.auth
         login_btn=findViewById(R.id.login_button)
+
 
         //Sign Up
         signUp!!.setOnClickListener {
@@ -77,13 +125,23 @@ class SignIn : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success")
-                            val user = auth.currentUser
-                            currentUser= User_Owner(user!!.uid,user.displayName,user.email)
-                            startActivity(Intent(this, CourtListActivity::class.java))
+                            user = auth.currentUser
+
+                                if(!user?.isEmailVerified!!){
+
+                                    startActivity(Intent(this, VerifyEmailActivity::class.java))
+                                }
+                            else{
+                                    loadCourtList()
+                                    startActivity(Intent(this, CourtListActivity::class.java))
+                            }
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
+                            Toast.makeText(baseContext, "Email or password is not correct",
                                 Toast.LENGTH_SHORT).show()
 
                         }
@@ -99,13 +157,14 @@ class SignIn : AppCompatActivity() {
                     // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.web_client_id))
                     // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(false)
+                    .setFilterByAuthorizedAccounts(true)
                     .build())
             .build()
         oneTapClient = Identity.getSignInClient(this)
 
 
         signInGGBtn!!.setOnClickListener {
+           if(showOneTapUI){
             oneTapClient.beginSignIn(signInRequest)
                 .addOnSuccessListener(this) { result ->
                     try {
@@ -122,6 +181,7 @@ class SignIn : AppCompatActivity() {
                     Log.d("TAG", e.localizedMessage)
                     Log.e("TAG", GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE.toString())
                 }
+           }
 
         }
 
@@ -136,16 +196,12 @@ class SignIn : AppCompatActivity() {
                 override fun onError(error: FacebookException) {
                     Log.i("tag","\nfacebook:onError")
                 }
-
-
-
                 override fun onSuccess(result: LoginResult) {
                     Log.i("tag","\nfacebook:onSuccess:$result")
                     val accessToken = result.accessToken
                             accessToken?.let {
                                 handleFacebookAccessToken(it)
                             }
-
                 }
             })
         signInFbBtn!!.setOnClickListener {
@@ -156,13 +212,28 @@ class SignIn : AppCompatActivity() {
     }
     fun handleFacebookAccessToken(token: AccessToken) {
         val credential = FacebookAuthProvider.getCredential(token.token)
+
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
     // Sign in success, update UI with the signed-in user's info
                     Log.i("tag","\nsignInWithCredential:success")
-                    val user = auth.currentUser
-                    //updateUI(user)
+                     user = auth.currentUser
+                    if(user!=null){
+                        if(IsSignUp(user!!.uid)){
+                            loadCourtList()
+                            startActivity(Intent(this, CourtListActivity::class.java))
+                        }
+                        else{
+                            loadCourtList()
+                            var currentUser= User_Owner(user!!.uid, user!!.displayName, user!!.email)
+                            writeNewUser(currentUser!!)
+                            startActivity(Intent(this, CourtListActivity::class.java))
+                        }
+
+
+                    }
+
                 } else {
     // If sign in fails, display a message to the user.
                     Log.i("tag","\nsignInWithCredential:failure")
@@ -171,29 +242,27 @@ class SignIn : AppCompatActivity() {
                 }
             }
     }
-    private fun updateUI(user: User_Owner?) {
-        startActivity(Intent(this, CourtListActivity::class.java))
-    }
+
 
 
     public override fun onStart() {
         super.onStart()
         //auth.signOut()
          //Check if user is signed in (non-null) and update UI accordingly.
-//        val user = auth.currentUser
-//        currentUser=User_Owner(user?.uid,user?.displayName.toString(),user?.email)
-//        if(currentUser != null){
-//           startActivity(Intent(this, CourtListActivity::class.java))
-//        }
+         user = auth.currentUser
+        if(currentUser != null){
+           startActivity(Intent(this, CourtListActivity::class.java))
+        }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         when (requestCode) {
             REQ_ONE_TAP -> {
                 try{
                     val googleCredential = oneTapClient.getSignInCredentialFromIntent(data)
                     val idToken = googleCredential.googleIdToken
-
                     when {
                         idToken != null -> {
                             // Got an ID token from Google. Use it to authenticate
@@ -203,10 +272,28 @@ class SignIn : AppCompatActivity() {
                                 .addOnCompleteListener(this) { task ->
                                     if (task.isSuccessful) {
                                         // Sign in success, update UI with the signed-in user's information
+
                                         Log.d("TAG", "signInWithCredential:success")
-                                        val user = auth.currentUser
-                                        currentUser= User_Owner(user!!.uid,user.displayName,user.email)
-                                        startActivity(Intent(this, CourtListActivity::class.java))
+
+                                         user = auth.currentUser
+
+                                        //Log.i("VerifyEmail", user!!.isEmailVerified.toString())
+                                        if(user!=null){
+                                            if(IsSignUp(user!!.uid)){
+                                                loadCourtList()
+                                                startActivity(Intent(this, CourtListActivity::class.java))
+                                            }
+                                            else{
+                                                loadCourtList()
+                                                var currentUser= User_Owner(user!!.uid,user!!.displayName,user!!.email)
+                                                writeNewUser(currentUser!!)
+                                                startActivity(Intent(this, CourtListActivity::class.java))
+                                            }
+
+
+                                        }
+
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("TAG", "signInWithCredential:failure", task.exception)
@@ -220,9 +307,23 @@ class SignIn : AppCompatActivity() {
                         }
                     }
                 }catch (e: ApiException) {
-                    Log.d("TAG", e.message.toString())
+                    when (e.statusCode) {
+                        CommonStatusCodes.CANCELED -> {
+                            Log.d(TAG, "One-tap dialog was closed.")
+                            // Don't re-prompt the user.
+                            showOneTapUI = false
+                        }
+                        CommonStatusCodes.NETWORK_ERROR -> {
+                            Log.d(TAG, "One-tap encountered a network error.")
+                            // Try again or just ignore.
+                        }
+                        else -> {
+                            Log.d(TAG, "Couldn't get credential from result." +
+                                    " (${e.localizedMessage})")
+                        }
                 }
             }
+        }
         }
         callbackManager.onActivityResult(requestCode, resultCode, data)
 
@@ -243,6 +344,22 @@ class SignIn : AppCompatActivity() {
                 }
             }
     }
+    fun IsSignUp(id:String):Boolean{
+        val userOwner=database.reference.child("Owner").orderByChild("id").equalTo(id).get()
+            .addOnCompleteListener{
+                Log.i("firebase", "Got value ${it.result}")
+            }
+
+
+        if(userOwner!=null){
+            return true
+        }
+        return false
+    }
+    fun writeNewUser(user:User_Owner) {
+        database.reference.child("Owner").push().setValue(user)
+    }
+
     }
 
 

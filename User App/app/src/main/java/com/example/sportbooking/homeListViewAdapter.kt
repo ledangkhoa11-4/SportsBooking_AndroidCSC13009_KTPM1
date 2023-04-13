@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-class homeListViewAdapter(private val context:Activity, private val courtInfo:ArrayList<Court>): ArrayAdapter<Court>(context,R.layout.list_court_item,courtInfo) {
+class   homeListViewAdapter(private val context:Activity, private val courtInfo:ArrayList<Court>): ArrayAdapter<Court>(context,R.layout.list_court_item,courtInfo) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.list_court_item, null, true)

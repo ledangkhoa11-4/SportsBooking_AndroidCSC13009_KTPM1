@@ -20,6 +20,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import androidx.appcompat.widget.Toolbar
 
 
 class UpdateCourtActivity : AppCompatActivity() {
@@ -38,6 +40,8 @@ class UpdateCourtActivity : AppCompatActivity() {
     var minuteStart:Int = 0
     var hourEnd:Int = 22
     var minuteEnd:Int = 0
+    lateinit var dot:DotsIndicator
+    lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_court)
@@ -49,9 +53,14 @@ class UpdateCourtActivity : AppCompatActivity() {
         weekDaysPickerEdt= findViewById(R.id.WeekDaysEdt)
         timeStart=findViewById(R.id.timeStartPickerEdt)
         timeEnd=findViewById(R.id.timeEndPickerEdt)
+        toolbar=findViewById(R.id.toolbar2)
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
         val court=intent.getParcelableExtra<Courts>("UpdateCourt")
         courtNameEdt!!.setText(court!!.Name)
-
+        dot=findViewById<DotsIndicator>(R.id.dots_indicator)
         typeEdt!!.setText(court.Type)
         //view page slider
         imageVP2_Update!!.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY))
@@ -63,6 +72,7 @@ class UpdateCourtActivity : AppCompatActivity() {
             }
         })
         imageVP2_Update!!.setPageTransformer(transformer)
+        dot.attachTo(imageVP2_Update!!)
         chooseImageBtn!!.setOnClickListener {
             showBottomSheetDialog()
         }
@@ -178,6 +188,7 @@ class UpdateCourtActivity : AppCompatActivity() {
             imageVP2_Update!!.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY), img)
 
         }
+        dot.attachTo(imageVP2_Update!!)
     }
     private fun showBottomSheetDialog() {
         val view = layoutInflater.inflate(R.layout.modal_bottom_sheet_content, null)
@@ -236,10 +247,10 @@ class UpdateCourtActivity : AppCompatActivity() {
                     weekdaysChoice +="Sun";
                 }
                 weekDaysPickerEdt!!.setText(weekdaysChoice)
-// FIRE ZE MISSILES!
+
             })
             .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-// User cancelled the dialog
+
             })
         dialog=builder.create()
 

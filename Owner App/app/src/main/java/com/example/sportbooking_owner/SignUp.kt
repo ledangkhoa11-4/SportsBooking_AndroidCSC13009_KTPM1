@@ -1,6 +1,7 @@
 package com.example.sportbooking_owner
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -66,8 +67,16 @@ class SignUp : AppCompatActivity() {
                                 Log.d("stream", "createUserWithEmail:success")
                                 val user = auth.currentUser
                                 if (user != null) {
-                                    var currentUser=User_Owner(user.uid,username,email)
-                                    writeNewUser(currentUser)
+                                    if(!user!!.isEmailVerified)
+                                    {
+                                        var currentUser= User_Owner(user!!.uid,user.displayName,user.email)
+                                        writeNewUser(currentUser!!)
+                                        startActivity(Intent(this, VerifyEmailActivity::class.java))
+                                    }
+                                    else{
+                                        startActivity(Intent(this, CourtListActivity::class.java))
+                                    }
+
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.

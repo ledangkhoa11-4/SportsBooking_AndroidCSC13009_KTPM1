@@ -11,7 +11,6 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
@@ -99,7 +98,7 @@ class NewFormatActivity : AppCompatActivity() {
         if (requestCode == PICK_LOCATION_REQUEST && resultCode == RESULT_OK) {
             var place = Autocomplete.getPlaceFromIntent(data)
             locationInput.setText(place.address)
-            var latLng: LatLng = LatLng(place.latLng.latitude, place.latLng.longitude)
+            var latLng= LatLng(place.latLng.latitude, place.latLng.longitude)
             location = Location(place.address, latLng)
         }
         if (requestCode == PICK_SPORT_TYPE_REQUEST && resultCode == RESULT_OK) {
