@@ -44,6 +44,7 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
         locationManager = LocationManager(this);
         locationManager.startLocationUpdates()
         listView = findViewById(R.id.homeListView)
+        listView.divider = null
         courtList_Home = MainActivity.listCourt
 
         listViewAdapter = homeListViewAdapter(this,courtList_Home!!)

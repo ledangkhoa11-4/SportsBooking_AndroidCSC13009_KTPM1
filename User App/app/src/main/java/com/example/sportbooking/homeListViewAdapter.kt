@@ -17,7 +17,7 @@ class   homeListViewAdapter(private val context:Activity, private val courtInfo:
         val courtRating = rowView.findViewById<TextView>(R.id.courtRatingTv)
         val courtBooking = rowView.findViewById<TextView>(R.id.numBookingTv)
         val courtDistance = rowView.findViewById<TextView>(R.id.distanceTv)
-
+        val courtPrice = rowView.findViewById<TextView>(R.id.priceHomeTv)
         courtName.text = courtInfo[position].Name
         if(courtInfo[position].bitmapArrayList.size > 0)
             courtImage.setImageBitmap(courtInfo[position].bitmapArrayList[0])
@@ -25,6 +25,11 @@ class   homeListViewAdapter(private val context:Activity, private val courtInfo:
         courtRating.text = courtInfo[position].avgRating.toString() + " (${courtInfo[position].numRating} rate)"
         courtBooking.text = courtInfo[position].numBooking.toString() + " booking"
         courtDistance.text = GetDistance.formatNumber(courtInfo[position].courtDistance)
+        courtPrice.text = formatPrice(courtInfo[position].Price)
         return rowView
+    }
+    fun formatPrice(price: Int): String {
+        val formatter = java.text.DecimalFormat("#,###")
+        return formatter.format(price) + "đ"
     }
 }
