@@ -36,9 +36,6 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
-    companion object{
-        var listBooking:ArrayList<BookingHistory> = ArrayList()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +46,7 @@ class DetailCourtActivity : AppCompatActivity() {
         courtDetail = HomeActivity.courtList_Home!![index]
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
-        loadBookingList()
+
         Log.i("AAAAAAAAAAA",courtDetail.CourtID.toString())
 
         val vpAdapter = ImageViewPagerAdapter(courtDetail.bitmapArrayList)
@@ -101,13 +98,11 @@ class DetailCourtActivity : AppCompatActivity() {
         findViewById<Button>(R.id.ViewScheduleBtn).setOnClickListener {
             val intent = Intent(this, CourtScheduleActivity::class.java)
             intent.putExtra("index",index)
-            intent.putParcelableArrayListExtra("bookHistory",listBooking);
             startActivity(intent);
         }
         findViewById<Button>(R.id.BookBtn).setOnClickListener {
             val intent = Intent(this, Booking::class.java)
             intent.putExtra("index",index)
-            intent.putParcelableArrayListExtra("bookHistory",listBooking);
             startActivity(intent)
         }
     }
@@ -120,22 +115,5 @@ class DetailCourtActivity : AppCompatActivity() {
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(date)
     }
-    fun loadBookingList(){
-        val bookingRef = MainActivity.database.getReference("Booking");
-        val queryRef = bookingRef.orderByChild("CourtID").equalTo(courtDetail.CourtID)
-        queryRef.addValueEventListener(object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for(ds in snapshot.children){
-                    Log.i("AAAAAAAAAAAAA","Change")
-                    val bookHistory = ds.getValue(BookingHistory::class.java)
-                    listBooking.add(bookHistory!!)
-                }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
 }

@@ -5,12 +5,21 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import com.example.sportbooking.DTO.User
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +32,10 @@ class EditInformationActivity : AppCompatActivity() {
     lateinit var phoneInput: EditText
     lateinit var avatarIv: CircleImageView
     lateinit var backBtn:ImageButton
+    lateinit var saveBtn:Button
+    val currentUser: User = MainActivity.user
+    var bitmapSelected:Bitmap? = null
+    var selectedDate:Long = 0L
     companion object{
         val PICK_IMAGE_REQUEST = 201
         val TAKE_IMAGE_REQUEST = 202
@@ -55,18 +68,47 @@ class EditInformationActivity : AppCompatActivity() {
         dobInput.setOnClickListener {
             val datePicker =
                 MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Select date")
+                    .setTitleText("Select your birthday")
                     .build()
 
             datePicker.show(supportFragmentManager, "tag")
             datePicker.addOnPositiveButtonClickListener {
-                val selectedDate = datePicker.selection
+                selectedDate = datePicker.selection!!
                 val dateFormat = SimpleDateFormat("dd/MM/yyyy")
                 var dob = Date(selectedDate!!)
                 dobInput.setText(dateFormat.format(dob))
             }
         }
 
+        if(currentUser.Image != null){
+            avatarIv.setImageBitmap(currentUser.Image)
+        }
+        fullNameInput.setText(currentUser.username)
+        when(currentUser.Gender){
+            "Male"-> genderInput.setSelection(0)
+            "Female"-> genderInput.setSelection(1)
+            "Other"-> genderInput.setSelection(2)
+        }
+        if(currentUser.Dob != 0L){
+            dobInput.setText(convertDate(currentUser.Dob))
+        }
+        phoneInput.setText(currentUser.Phone)
+        saveBtn = findViewById(R.id.saveBtn)
+        saveBtn.setOnClickListener {
+            if(fullNameInput.text.toString() != "")
+                currentUser.username = fullNameInput.text.toString()
+            if(selectedDate != 0L)
+                currentUser.Dob = selectedDate
+            currentUser.Gender = genderList[genderInput.selectedItemId.toInt()]
+            if(phoneInput.text.toString() != "")
+                currentUser.Phone = phoneInput.text.toString()
+
+            if(bitmapSelected != null){
+                uploadUserImage(bitmapSelected!!)
+                currentUser.Image = bitmapSelected
+            }
+            updateUserInfo()
+        }
     }
     fun pickImageGallery(){
         val intent = Intent(Intent.ACTION_PICK)
@@ -82,10 +124,12 @@ class EditInformationActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK){
             avatarIv.setImageURI(data?.data)
+            bitmapSelected = MediaStore.Images.Media.getBitmap(contentResolver, data?.data)
         }
         if(requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK){
             val img = (data?.extras!!.get("data")) as Bitmap
             avatarIv.setImageBitmap(img)
+            bitmapSelected = img
         }
     }
     private fun showBottomSheetDialog() {
@@ -105,5 +149,64 @@ class EditInformationActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+    fun convertDate(timeStamp:Long):String{
+        val sdf = SimpleDateFormat("dd/MM/yyyy") // create a SimpleDateFormat object with desired format
+        val formattedTime = sdf.format(Date(timeStamp)) // convert timestamp to date and format as string
+        return formattedTime
+    }
+    fun uploadUserImage(bitmap: Bitmap):String{
+        var pathStr = "user${currentUser.id}"
+        val baos = ByteArrayOutputStream()
+        val Ref = MainActivity.storageRef.child(pathStr)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = Ref.putBytes(data)
+        uploadTask.addOnFailureListener {
+            pathStr = ""
+        }.addOnSuccessListener { taskSnapshot ->
+        }
+        return pathStr
+    }
+    fun updateUserInfo(){
+        val userRef = MainActivity.database.getReference("User")
+        val userUpdates = HashMap<String, Any>()
+        userUpdates["id"] = currentUser.id
+        userUpdates["email"] = currentUser.email
+        userUpdates["username"] = currentUser.username
+        userUpdates["Dob"] = currentUser.Dob
+        userUpdates["Gender"] = currentUser.Gender
+        userUpdates["Phone"] = currentUser.Phone
+
+        userRef.orderByChild("id").equalTo(currentUser.id).addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (userSnapshot in snapshot.children) {
+                    val keyId = userSnapshot.key
+                    userRef.child(keyId!!).setValue(userUpdates)
+                    createToast("Hooray","Your information was saved!",true);
+                    finish()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+    fun createToast(title:String, message:String, isSuccess:Boolean){
+        var style: MotionToastStyle
+        if(isSuccess)
+            style = MotionToastStyle.SUCCESS
+        else
+            style = MotionToastStyle.ERROR
+        MotionToast.createToast(this,
+            title,
+            message,
+            style,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.SHORT_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
     }
 }

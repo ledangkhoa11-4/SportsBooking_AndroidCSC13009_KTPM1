@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sportbooking.DTO.BookingHistory
 import com.example.sportbooking.DTO.Location
+import com.example.sportbooking.DTO.User
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         var lastLocation: Location = Location()
         val GG_MAP_API =
             "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y"
+        var user: User = User()
         fun readLastLocation(context: Context): Location {
             var loc= Location()
             try {

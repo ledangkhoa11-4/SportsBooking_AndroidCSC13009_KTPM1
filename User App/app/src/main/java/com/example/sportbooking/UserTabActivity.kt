@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 
 class UserTabActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
     lateinit var editBtn: Button
+    lateinit var usernameTv:TextView
+    lateinit var useremailTv:TextView
+    lateinit var avatarIv:ImageView
+    val currentUser = MainActivity.user
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_tab)
@@ -19,6 +24,15 @@ class UserTabActivity : AppCompatActivity() {
         editBtn = findViewById(R.id.editBtn)
         editBtn.setOnClickListener {
             startActivityForResult(Intent(this,EditInformationActivity::class.java),200)
+        }
+
+        usernameTv = findViewById(R.id.user_nameTv)
+        useremailTv = findViewById(R.id.user_emailTv)
+        avatarIv = findViewById(R.id.avatarIv)
+        usernameTv.setText(currentUser.username)
+        useremailTv.setText(currentUser.email)
+        if(currentUser.Image!=null){
+            avatarIv.setImageBitmap(currentUser.Image)
         }
 
     }
@@ -45,6 +59,18 @@ class UserTabActivity : AppCompatActivity() {
                     false
                 }
             }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        usernameTv = findViewById(R.id.user_nameTv)
+        useremailTv = findViewById(R.id.user_emailTv)
+        avatarIv = findViewById(R.id.avatarIv)
+        usernameTv.setText(currentUser.username)
+        useremailTv.setText(currentUser.email)
+        if(currentUser.Image!=null){
+            avatarIv.setImageBitmap(currentUser.Image)
         }
     }
 }
