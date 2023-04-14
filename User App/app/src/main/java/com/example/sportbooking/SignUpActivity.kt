@@ -1,5 +1,6 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking
 
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,23 +11,23 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class SignUp : AppCompatActivity() {
-    var mGoogleSignInClient: GoogleSignInClient?=null
-    var gso:GoogleSignInOptions?=null
-    lateinit var nameEdt:EditText
-    lateinit var emailEdt:EditText
-    lateinit var passwordEdt:EditText
-    lateinit var repasswordEdt:EditText
-    lateinit var auth:FirebaseAuth
-    lateinit var database:DatabaseReference
+class SignUpActivity : AppCompatActivity() {
+    lateinit var nameEdt: EditText
+    lateinit var emailEdt: EditText
+    lateinit var passwordEdt: EditText
+    lateinit var repasswordEdt: EditText
+    lateinit var auth: FirebaseAuth
+    lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -51,6 +52,8 @@ class SignUp : AppCompatActivity() {
 
         auth= Firebase.auth
         database=MainActivity.database.reference
+
+
         signUpBtn.setOnClickListener {
             val email=emailEdt.text.toString()
             val password=passwordEdt.text.toString()
@@ -62,33 +65,25 @@ class SignUp : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
 
-                            if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("stream", "createUserWithEmail:success")
-                                val user = auth.currentUser
-                                if (user != null) {
-                                    if(!user!!.isEmailVerified)
-                                    {
-                                        var currentUser= User_Owner(user!!.uid,user.displayName,user.email)
-                                        writeNewUser(currentUser!!)
-                                        startActivity(Intent(this, VerifyEmailActivity::class.java))
-                                    }
-                                    else{
-                                        startActivity(Intent(this, CourtListActivity::class.java))
-                                    }
-
-                                }
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                //Log.w("stream", "createUserWithEmail:failure", task.exception)
-
-                                Toast.makeText(
-                                    baseContext, "Authentication failed.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                showErrorDialog(task.exception?.message.toString())
-
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("stream", "createUserWithEmail:success")
+                            val user = auth.currentUser
+                            if (user != null) {
+                                var currentUser=User(user.uid,username,email)
+                                writeNewUser(currentUser)
                             }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w("stream", "createUserWithEmail:failure", task.exception)
+
+                            Toast.makeText(
+                                baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showErrorDialog(task.exception?.message.toString())
+
+                        }
                     }
             }
             else{
@@ -110,13 +105,11 @@ class SignUp : AppCompatActivity() {
             })
 
 
-        var dialog:AlertDialog?=null
+        var dialog: AlertDialog?=null
         dialog=builder.create()
         dialog.show()
     }
-    fun writeNewUser(user:User_Owner) {
-        database.child("Owner").push().setValue(user)
+    fun writeNewUser(user:User) {
+        database.child("User").push().setValue(user)
     }
-
-
 }

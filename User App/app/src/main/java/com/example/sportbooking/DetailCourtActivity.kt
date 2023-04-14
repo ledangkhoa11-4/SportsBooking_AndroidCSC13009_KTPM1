@@ -36,7 +36,10 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
-    var listBooking:ArrayList<BookingHistory> = ArrayList()
+    companion object{
+        var listBooking:ArrayList<BookingHistory> = ArrayList()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_court)
@@ -91,7 +94,7 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonFiltering).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
             finish()
         }
 
@@ -123,6 +126,7 @@ class DetailCourtActivity : AppCompatActivity() {
         queryRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
+                    Log.i("AAAAAAAAAAAAA","Change")
                     val bookHistory = ds.getValue(BookingHistory::class.java)
                     listBooking.add(bookHistory!!)
                 }

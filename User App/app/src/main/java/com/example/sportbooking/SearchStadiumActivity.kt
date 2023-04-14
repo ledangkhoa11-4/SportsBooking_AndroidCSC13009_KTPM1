@@ -1,18 +1,14 @@
 package com.example.sportbooking
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
-import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking.DTO.District
 import com.example.sportbooking.DTO.Province
 import com.google.android.material.slider.RangeSlider
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,7 +38,7 @@ class SearchStadiumActivity : AppCompatActivity() {
         clearButton = findViewById(R.id.clearButton)
         searchButton = findViewById(R.id.searchButton)
 
-        findViewById<ImageButton>(R.id.backButtonFiltering).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
             finish()
         }
         val gson = Gson()

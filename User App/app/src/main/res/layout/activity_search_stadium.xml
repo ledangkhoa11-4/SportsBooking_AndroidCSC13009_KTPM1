@@ -8,7 +8,7 @@
 
 
     <ImageButton
-        android:id="@+id/backButtonFiltering"
+        android:id="@+id/backButtonBookingDetail"
         android:layout_width="47dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -25,11 +25,11 @@
         android:fontFamily="@font/lato_bold"
         android:text="Court Filtering"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonFiltering"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintStart_toEndOf="@+id/backButtonFiltering"
-        app:layout_constraintTop_toTopOf="@+id/backButtonFiltering"
+        app:layout_constraintStart_toEndOf="@+id/backButtonBookingDetail"
+        app:layout_constraintTop_toTopOf="@+id/backButtonBookingDetail"
         app:layout_constraintVertical_bias="0.444" />
 
     <Button
@@ -43,7 +43,7 @@
         android:textColor="#000000"
         app:cornerRadius="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backButtonFiltering" />
+        app:layout_constraintTop_toBottomOf="@+id/backButtonBookingDetail" />
 
     <TextView
         android:id="@+id/typeOfSportTV"

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -71,12 +72,15 @@ class DetailBookingHistory : AppCompatActivity() {
                 vg.removeView(enlargeQR)
             }
             MaterialAlertDialogBuilder(this)
-                .setTitle("Enlarge QR-Code")
+                .setTitle(" ")
                 .setView(enlargeQR)
                 .setPositiveButton("Close") { dialog, which ->
 
                 }
                 .show()
+        }
+        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
+            finish()
         }
     }
     fun convertTime(timeStamp:Long):String{
