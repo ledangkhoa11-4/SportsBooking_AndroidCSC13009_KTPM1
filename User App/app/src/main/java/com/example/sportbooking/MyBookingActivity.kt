@@ -69,11 +69,8 @@ class MyBookingActivity : AppCompatActivity() {
                 for(ds in snapshot.children){
                     val bookHistory = ds.getValue(BookingHistory::class.java)
                     bookingHistories.add(bookHistory!!)
-                    Log.i("AAAAAAAAAAAA",MainActivity.listCourt.size.toString())
                     val court = MainActivity.listCourt.filter { it.CourtID == bookHistory.CourtID }[0]
                     bookHistory.Court = court
-                    bookingHistories.add(bookHistory!!)
-                    bookingHistories.add(bookHistory!!)
                 }
                 bookingListViewAdapter.notifyDataSetChanged()
             }

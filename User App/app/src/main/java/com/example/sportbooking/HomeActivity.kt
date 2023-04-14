@@ -11,7 +11,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
+import java.text.Normalizer
 import java.util.*
+import java.util.regex.Pattern
 
 class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListener {
     lateinit var nav_bar: NavigationBarView
@@ -20,6 +22,7 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
     lateinit var searchBar:MaterialSearchBar
     private val lastSearches: List<String>? = null
     lateinit var filterBtn:FloatingActionButton
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
     companion object{
         var listViewAdapter:homeListViewAdapter? = null
         var lastCourList:ArrayList<Court>? = null
@@ -154,9 +157,10 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
             lastCourList!!.addAll(courtList_Home!!.toList())
         }
         courtList_Home!!.clear()
-
+        val keywork = unaccent(text.toString()).lowercase()
         for(court in lastCourList!!){
-            if(court.Name.contains(text!!,true))
+            val courtName = unaccent(court.Name).lowercase()
+            if(courtName.contains(keywork,true))
                 courtList_Home!!.add(court)
         }
         listViewAdapter!!.notifyDataSetChanged()
@@ -164,6 +168,11 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
 
     override fun onButtonClicked(buttonCode: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun unaccent(str:String): String {
+        val temp = Normalizer.normalize(str, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
     }
 
 }
