@@ -351,13 +351,14 @@
 
     <ImageButton
         android:id="@+id/backButtonBookingDetail"
-        android:layout_width="47dp"
-        android:layout_height="40dp"
-        android:backgroundTint="#FFFEFE"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_icon" />
+
 
     <TextView
         android:id="@+id/textView11"
@@ -371,16 +372,17 @@
         app:layout_constraintStart_toEndOf="@+id/backButtonBookingDetail"
         app:layout_constraintTop_toTopOf="@+id/backButtonBookingDetail" />
 
+
     <ImageButton
         android:id="@+id/favoriteBtn"
-        android:layout_width="54dp"
-        android:layout_height="41dp"
-        android:backgroundTint="#FFFFFF"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#00FFFFFF"
         android:scaleType="centerCrop"
-        android:tintMode="src_in"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/un_favorite" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

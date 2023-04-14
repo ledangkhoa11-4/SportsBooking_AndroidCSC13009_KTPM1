@@ -34,7 +34,10 @@ class UserTabActivity : AppCompatActivity() {
         if(currentUser.Image!=null){
             avatarIv.setImageBitmap(currentUser.Image)
         }
-
+        findViewById<Button>(R.id.favoriteCourtBtn).setOnClickListener {
+            val intent = Intent(this, MyFavoriteActivity::class.java)
+            startActivity(intent)
+        }
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_user

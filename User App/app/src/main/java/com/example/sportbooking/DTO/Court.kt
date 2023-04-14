@@ -26,7 +26,8 @@ public class Court(
     var numRating: Int = 0,
     var numBooking: Int = 0,
     var courtDistance: Double = 0.0,
-    var numOfYards:Int = 1
+    var numOfYards:Int = 1,
+    var isFavorite:Boolean = false
 ):Parcelable {
 
 }

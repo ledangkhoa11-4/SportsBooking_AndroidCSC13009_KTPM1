@@ -35,7 +35,6 @@ class VerifyEmailActivity : AppCompatActivity() {
         auth=Firebase.auth
         val curUser=auth.currentUser
         if (curUser != null) {
-
             if(curUser.isEmailVerified){
                 startActivity(Intent(this,CourtListActivity::class.java))
             }

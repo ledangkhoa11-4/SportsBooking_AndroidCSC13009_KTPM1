@@ -2,6 +2,7 @@ package com.example.sportbooking
 
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -36,6 +38,7 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var weekdaysServiceTv:TextView
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
+    lateinit var favoriteBtn:ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +108,20 @@ class DetailCourtActivity : AppCompatActivity() {
             intent.putExtra("index",index)
             startActivity(intent)
         }
+        favoriteBtn = findViewById(R.id.favoriteBtn)
+        getFavoriteStatus()
+        favoriteBtn.setOnClickListener {
+            courtDetail.isFavorite = !courtDetail.isFavorite
+            updateFavoriteStatus(courtDetail.isFavorite)
+        }
+    }
+    fun changeFavoriteStatus(){
+        var drawable:Drawable
+        if(courtDetail.isFavorite == true)
+            drawable = resources.getDrawable(R.drawable.favorite)
+        else
+            drawable = resources.getDrawable(R.drawable.un_favorite)
+        favoriteBtn.setImageDrawable(drawable)
     }
     fun formatPrice(price: Int): String {
         val formatter = java.text.DecimalFormat("#,###")
@@ -116,4 +133,55 @@ class DetailCourtActivity : AppCompatActivity() {
         return formatter.format(date)
     }
 
+    fun getFavoriteStatus(){
+        val favoriteRef = MainActivity.database.getReference("Favorite")
+        val queryRef = favoriteRef.orderByChild("id").equalTo(MainActivity.user.id)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                courtDetail.isFavorite = false
+                for(ds in snapshot.children){
+                    if(ds.child("courtID").getValue(String::class.java).equals(courtDetail.CourtID)){
+                        courtDetail.isFavorite = true
+                        break
+                    }
+                }
+                changeFavoriteStatus()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun updateFavoriteStatus(checked:Boolean){
+        Log.i("AAAAAAAAAA",checked.toString())
+        val favoriteRef = MainActivity.database.getReference("Favorite")
+        if(checked == true){
+            val newFavorite = HashMap<String,String>()
+            newFavorite["courtID"] = courtDetail.CourtID
+            newFavorite["id"] = MainActivity.user.id
+            favoriteRef.push().setValue(newFavorite)
+            CreateToast.createToast(this,"Hooray","This court will be in your wishlist",true)
+            return
+        }else{
+            val queryRef = favoriteRef.orderByChild("id").equalTo(MainActivity.user.id)
+            queryRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(ds in snapshot.children){
+
+                        if(ds.child("courtID").getValue(String::class.java).equals(courtDetail.CourtID)){
+                            val keyRef = ds.key
+                            favoriteRef.child(keyRef!!).removeValue()
+                            CreateToast.createToast(this@DetailCourtActivity,"Hooray","This court was removed from your wishlist",true)
+                            break
+                        }
+                    }
+                    changeFavoriteStatus()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
 }
