@@ -4,33 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg2"
     tools:context=".SignInActivity">
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/LayoutEmail"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="#011595"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/purple_200"
+        app:boxStrokeColor="#030757"
         app:endIconMode="clear_text"
         app:hintTextColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
         app:startIconCheckable="false"
         app:startIconDrawable="@drawable/icon_email_24"
         app:startIconScaleType="centerInside"
-        app:startIconTint="@color/purple_200"
-        app:startIconTintMode="src_in"
-        >
+        app:startIconTint="#0008A1"
+        app:startIconTintMode="src_in">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
@@ -38,7 +40,7 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +52,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="@color/purple_700"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -58,13 +60,12 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:endIconMode="password_toggle"
-        app:endIconTint="@color/purple_200"
+        app:endIconTint="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LayoutEmail"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:startIconTint="@color/purple_200"
-        >
+        app:startIconTint="@color/purple_700">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
@@ -73,7 +74,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -82,7 +83,7 @@
         android:layout_width="320dp"
         android:layout_height="66dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/purple_700"
         android:text="Sign In"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -96,6 +97,7 @@
         android:layout_width="205dp"
         android:layout_height="23dp"
         android:layout_marginTop="192dp"
+        android:fontFamily="@font/lato"
         android:text="New to Sport Booking ?"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/SignInBtn"
@@ -109,8 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/purple_500"
-        android:text="Create a new Sport Booking account"
+        android:backgroundTint="@color/purple_700"
+        android:text="Create a new account"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
@@ -133,6 +135,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#FFFFFF"
         android:text="Sign in with Google"
         android:textSize="20dp"
         app:icon="@drawable/icons8_google"
@@ -162,10 +165,11 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFFFF"
             android:text="Sign in with Facebook"
             android:textSize="20dp"
-            app:icon="@drawable/icons8_facebook"
 
+            app:icon="@drawable/icons8_facebook"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
