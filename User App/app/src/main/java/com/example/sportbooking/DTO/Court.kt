@@ -19,7 +19,6 @@ public class Court(
     var ServiceHour:ArrayList<Long> = ArrayList(),
     var Images:ArrayList<String> = ArrayList(),
     var bitmapArrayList:ArrayList<Bitmap> = ArrayList(),
-    var ImagesTemp:ArrayList<Uri> = ArrayList(),
     var Description: String = "",
     var AvalableService:ArrayList<String> = ArrayList(),
     var Price:Int = 0,

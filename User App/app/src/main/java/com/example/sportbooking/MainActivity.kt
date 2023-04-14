@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportbooking.DTO.BookingHistory
 import com.example.sportbooking.DTO.Location
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         var listCourt: ArrayList<Court> = ArrayList()
         var lastLocation: Location = Location()
         val GG_MAP_API =
-            "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y" //Vì api free nên hay bị hết lược :((
+            "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y"
         fun readLastLocation(context: Context): Location {
             var loc= Location()
             try {
@@ -78,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         //startActivity(Intent(this,CourtScheduleActivity::class.java))
         //startActivity(Intent(this,CalendarViewActivity::class.java))
     }
-
     private fun loadCourtList() {
         var courtsRef = database.getReference("Courts");
         var valueEventListener: ValueEventListener = object : ValueEventListener {
@@ -104,10 +105,10 @@ class MainActivity : AppCompatActivity() {
                                     // Handle any errors
                                 }
                             }
+                            updateBookingNumber(court)
                             if(MainActivity.lastLocation.latLng.latitude != 0.0 && MainActivity.lastLocation.latLng.longitude != 0.0){
                                 court.courtDistance = GetDistance.getDistance(MainActivity.lastLocation,court.location!!).toDouble()
                             }
-
                             listCourt.add(court)
                             if (HomeActivity.listViewAdapter != null) {
                                 HomeActivity.listViewAdapter!!.notifyDataSetChanged()
@@ -121,5 +122,18 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(databaseError: DatabaseError) {}
         }
         courtsRef.addValueEventListener(valueEventListener)
+    }
+    fun updateBookingNumber(court:Court){
+        val bookingRef = MainActivity.database.getReference("Booking");
+        val queryRef = bookingRef.orderByChild("CourtID").equalTo(court.CourtID)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val numbook = snapshot.childrenCount
+                court.numBooking = numbook.toInt()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
