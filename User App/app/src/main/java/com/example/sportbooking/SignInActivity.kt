@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.sportbooking.DTO.User
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -22,6 +24,7 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -75,28 +78,34 @@ class SignInActivity : AppCompatActivity() {
         //Sign In
 
         signInBtn!!.setOnClickListener {
+            val loadingStatus = findViewById<CircularProgressIndicator>(R.id.loading)
+
             val email= emailEdt.editText?.text.toString()
             val password=passwordEdt.editText?.text.toString()
             if (email!="" && password!="" ){
+                loadingStatus.visibility = View.VISIBLE
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(ContentValues.TAG, "signInWithEmail:success")
-                             user = auth.currentUser
+                            CreateToast.createToast(this, "Sign in successfully","Welcome to Sport Booking", true)
+
+                            user = auth.currentUser
                             if(user!=null){
                                 startActivity(Intent(this, HomeActivity::class.java))
                                 getUser(user!!.uid)
+                                loadingStatus.visibility = View.INVISIBLE
                                 finish()
                             }
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
-                            Toast.makeText(baseContext, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
+                            CreateToast.createToast(this, "Error","Authentication Failed", false)
 
                         }
+                        loadingStatus.visibility = View.INVISIBLE
                     }
             }
 

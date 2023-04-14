@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg2"
     tools:context=".SignUpActivity">
+
     <TextView
 
         android:id="@+id/textView"
@@ -13,7 +15,7 @@
         android:layout_marginTop="40dp"
         android:text="SIGN UP"
         android:textAlignment="center"
-        android:textColor="@color/purple_200"
+        android:textColor="@color/purple_700"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -29,7 +31,7 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="46dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/purple_700"
         android:text="Sign Up"
         android:textColor="@color/white"
         android:textSize="20dp"
@@ -47,15 +49,18 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="@color/purple_700"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/purple_200"
+        app:boxStrokeColor="@color/purple_700"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="clear_text"
+        app:errorEnabled="true"
         app:hintTextColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -63,11 +68,8 @@
         app:startIconCheckable="false"
         app:startIconDrawable="@drawable/baseline_person_24"
         app:startIconScaleType="centerInside"
-        app:startIconTint="@color/purple_200"
-        app:startIconTintMode="src_in"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:errorEnabled="true">
+        app:startIconTint="@color/purple_700"
+        app:startIconTintMode="src_in">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtUsername"
@@ -76,7 +78,7 @@
             android:hint="Username"
             android:inputType="textPersonName"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -88,22 +90,22 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="@color/purple_700"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="password_toggle"
-        app:endIconTint="@color/purple_200"
+        app:endIconTint="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LayoutEmail"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:startIconTint="@color/purple_200"
-        app:counterEnabled="true"
-        app:counterMaxLength="20">
+        app:startIconTint="@color/purple_700">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtPassword"
@@ -112,7 +114,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -122,7 +124,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="@color/purple_700"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -130,14 +132,13 @@
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
         app:endIconMode="clear_text"
-        app:endIconTint="@color/purple_200"
+        app:endIconTint="@color/purple_700"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LayoutName"
         app:startIconDrawable="@drawable/icon_email_24"
-        app:startIconTint="@color/purple_200"
-        app:errorEnabled="true"
-        >
+        app:startIconTint="@color/purple_700">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtEmail"
@@ -146,7 +147,7 @@
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -156,23 +157,23 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textColorHint="@color/purple_200"
+        android:textColorHint="@color/purple_700"
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
         app:endIconMode="password_toggle"
-        app:endIconTint="@color/purple_200"
+        app:endIconTint="@color/purple_700"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LayoutPassword"
         app:startIconDrawable="@drawable/baseline_lock_24"
-        app:startIconTint="@color/purple_200"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:errorEnabled="true">
+        app:startIconTint="@color/purple_700">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtConfirmPassword"
@@ -181,6 +182,6 @@
             android:hint="Confirm Password"
             android:inputType="textPassword"
             android:paddingBottom="20dp"
-            android:textColorHint="@color/purple_200" />
+            android:textColorHint="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

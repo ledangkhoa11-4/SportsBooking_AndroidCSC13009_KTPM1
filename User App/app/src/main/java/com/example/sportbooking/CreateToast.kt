@@ -14,7 +14,7 @@ class CreateToast {
                 style = MotionToastStyle.SUCCESS
             else
                 style = MotionToastStyle.ERROR
-            MotionToast.createToast(context,
+            MotionToast.createColorToast(context,
                 title,
                 message,
                 style,
