@@ -1,16 +1,57 @@
 package com.example.sportbooking
 
+import android.media.Rating
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.EditText
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.DTO.RatingCourt
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.hadi.emojiratingbar.EmojiRatingBar
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToast.Companion.createToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.lang.Math.floor
 
 class RatingActivity : AppCompatActivity() {
+    lateinit var detailBooking:com.example.sportbooking.DTO.BookingHistory
+    lateinit var viewPager: ViewPager2
+    lateinit var dot: DotsIndicator
+    lateinit var fieldName:TextView
+    lateinit var ratingBar1: RatingBar
+    lateinit var ratingBar2: RatingBar
+    lateinit var commitButton: Button
+    lateinit var comment: EditText
+    var listRating: ArrayList<RatingCourt> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
-
+        val intent = intent
+        val index = intent.getIntExtra("index",0)
+        detailBooking = MyBookingActivity.bookingHistories[index]
+        loadRatingList()
+        viewPager = findViewById(R.id.listImageDetailVP)
+        dot = findViewById(R.id.dots_indicator)
+        fieldName = findViewById(R.id.fieldName)
+        ratingBar1 = findViewById(R.id.ratingbar1)
+        ratingBar2 = findViewById(R.id.ratingbar2)
+        commitButton = findViewById(R.id.commit)
+        comment = findViewById(R.id.commentEditText)
+        fieldName.text = detailBooking!!.Court!!.Name
+        val vpAdapter = ImageViewPagerAdapter(detailBooking.Court!!.bitmapArrayList)
+        viewPager.setPageTransformer(MarginPageTransformer(37));
+        viewPager.adapter = vpAdapter
+        dot.attachTo(viewPager)
         val b1 = findViewById<Button>(R.id.button1)
         val b2 = findViewById<Button>(R.id.button2)
         val b3 = findViewById<Button>(R.id.button3)
@@ -78,10 +119,56 @@ class RatingActivity : AppCompatActivity() {
                 isTrue[5] = false
             }
         }
+        commitButton.setOnClickListener {
+            if(ratingBar2.rating == 0.0f){
+                createToast("Sorry","Please rating before submit", false);
+                return@setOnClickListener
+            }
+            else{
+                val ratingRef = MainActivity.database.getReference("Rating");
+                val rating = com.example.sportbooking.DTO.RatingCourt("", detailBooking!!.ID,detailBooking!!.CourtID,ratingBar2.rating,
+                    comment.text.toString(),isTrue)
+                ratingRef.push().setValue(rating)
+                createToast("Rate success","Thank you for choosing us",true )
+
+            }
+        }
     }
 
-    fun loadRatingList(){
+    fun loadRatingList() {
         val ratingRef = MainActivity.database.getReference("Rating");
-
+        val queryRef = ratingRef.orderByChild("courtID").equalTo(detailBooking.CourtID)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var sum = 0.0f
+                listRating.clear()
+                for (ds in dataSnapshot.children) {
+                    val rating = ds.getValue(RatingCourt::class.java)
+                    listRating.add(rating!!)
+                    sum += rating.star!!
+                }
+                var ratingResult = sum/listRating.size
+                ratingBar1.rating = ratingResult
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
+
+    fun createToast(title:String, message:String, isSuccess:Boolean){
+        var style: MotionToastStyle
+        if(isSuccess)
+            style = MotionToastStyle.SUCCESS
+        else
+            style = MotionToastStyle.ERROR
+        MotionToast.createToast(this,
+            title,
+            message,
+            style,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.SHORT_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+    }
+
 }

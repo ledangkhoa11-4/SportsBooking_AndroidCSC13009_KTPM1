@@ -1,11 +1,13 @@
 package com.example.sportbooking
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -81,6 +83,11 @@ class DetailBookingHistory : AppCompatActivity() {
         }
         findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
             finish()
+        }
+        findViewById<Button>(R.id.ratingButton).setOnClickListener {
+            val rating = Intent(this, RatingActivity::class.java)
+            rating.putExtra("index",index)
+            startActivity(rating)
         }
     }
     fun convertTime(timeStamp:Long):String{
