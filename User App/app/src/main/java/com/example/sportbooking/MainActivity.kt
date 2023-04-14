@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking.DTO.Location
 import com.google.android.material.navigation.NavigationBarView
@@ -64,18 +65,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //startActivity(Intent(this,BookingHistory::class.java))
-        //loadCourtList()
-        //finish()
+        loadCourtList()
+        finish()
         loadCourtList()
         lastLocation = readLastLocation(this);
-        startActivity(Intent(this, HomeActivity::class.java))
-        finish()
-        // startActivity(Intent(this,CalendarViewActivity::class.java))
-        // startActivity(Intent(this,RatingActivity::class.java))
-
-        //startActivity(Intent(this,SearchStadiumActivity::class.java))
-        //startActivity(Intent(this,CourtScheduleActivity::class.java))
-        //startActivity(Intent(this,CalendarViewActivity::class.java))
+//        startActivity(Intent(this, HomeActivity::class.java))
+//        finish()
+//        startActivity(Intent(this,RatingActivity::class.java))
+//        startActivity(Intent(this,SearchStadiumActivity::class.java))
+//        startActivity(Intent(this,CourtScheduleActivity::class.java))
+//        startActivity(Intent(this,CalendarViewActivity::class.java))
     }
 
     private fun loadCourtList() {

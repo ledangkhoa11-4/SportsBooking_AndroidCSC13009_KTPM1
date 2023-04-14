@@ -10,7 +10,7 @@ class RatingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
-        findViewById<EmojiRatingBar>(R.id.emoji_rating_bar1).setReadOnly(true)
+
         val b1 = findViewById<Button>(R.id.button1)
         val b2 = findViewById<Button>(R.id.button2)
         val b3 = findViewById<Button>(R.id.button3)
@@ -78,5 +78,10 @@ class RatingActivity : AppCompatActivity() {
                 isTrue[5] = false
             }
         }
+    }
+
+    fun loadRatingList(){
+        val ratingRef = MainActivity.database.getReference("Rating");
+
     }
 }
