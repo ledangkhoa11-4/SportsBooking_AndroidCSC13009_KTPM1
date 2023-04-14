@@ -14,12 +14,18 @@ import com.example.sportbooking.DTO.BookingHistory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.shawnlin.numberpicker.NumberPicker
 import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Booking : AppCompatActivity() {
@@ -41,7 +47,7 @@ class Booking : AppCompatActivity() {
     var yard = -1
     var start = -1L
     var end = -1L
-    lateinit var bookHistory:kotlin.collections.ArrayList<BookingHistory>
+    var bookList:kotlin.collections.ArrayList<BookingHistory> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
@@ -52,6 +58,7 @@ class Booking : AppCompatActivity() {
         yard = intent.getIntExtra("yard",-1)
         var hour = intent.getIntExtra("hour",-1)
         court = MainActivity.listCourt[index]
+        loadBookingList()
         courtNameTv = findViewById(R.id.courtNameBooking)
         courtLocation = findViewById(R.id.courtLocationDetailBooking)
         sportType = findViewById(R.id.typeSport)
@@ -64,7 +71,6 @@ class Booking : AppCompatActivity() {
         courtLocation.setText(court.location!!.addressName)
         sportType.setText(court.Type)
 
-        bookHistory = intent.getParcelableArrayListExtra("bookHistory")!!
 
         hourServiceTv = findViewById(R.id.hourServiceTv)
         hourServiceTv.setText(convertTimestampToTime(court.ServiceHour[0]) + " - " + convertTimestampToTime(court.ServiceHour[1]))
@@ -182,18 +188,22 @@ class Booking : AppCompatActivity() {
             val closing = Date(court.ServiceHour[1])
             val startBook = Date(start)
             val endBook= Date(end)
+            Log.i("AAAAAAAAA",startBook.toString())
+            Log.i("AAAAAAAAA",endBook.toString())
+            if(startBook.after(endBook)){
+                createToast("Oops","Do not book over the day!", false);
+                return@setOnClickListener
+            }
             if(startBook.before(working) || endBook.after(closing)){
                 createToast("Wrong time line","Booking time is outside of the court's operating hours", false);
                 return@setOnClickListener
             }
-            for(booking in bookHistory){
+            for(booking in bookList){
                 if(date == booking.Date && yard == booking.Yard){
                     val another_start_book = Date(booking.Time[0])
                     val another_end_book = Date(booking.Time[1])
-                    Log.i("AAAAAAAAAAAAA",another_start_book.toString())
-                    Log.i("AAAAAAAAAAAAA",another_end_book.toString())
-                    Log.i("AAAAAAAAAAAAA",startBook.toString())
-                   if((startBook==another_start_book || startBook.after(another_start_book)) && startBook.before(another_end_book)){
+
+                   if(checkTimeConflict(startBook,endBook, another_start_book, another_end_book)){
                        createToast("Sorry"," This time range is already booked", false);
                        return@setOnClickListener
                    }
@@ -201,6 +211,13 @@ class Booking : AppCompatActivity() {
             }
             createToast("Horray","Successfuly booking", true);
         }
+    }
+    fun checkTimeConflict(x1:Date, x2:Date, y1:Date, y2:Date):Boolean{
+        if(x1.before(y1)&&(x2.before(y1) || x2 == y1))
+            return false
+        if((x1.after(y2)||x1==y2)&&x2.after(y2))
+            return false
+        return true
     }
     fun createToast(title:String, message:String, isSuccess:Boolean){
         var style:MotionToastStyle
@@ -225,6 +242,22 @@ class Booking : AppCompatActivity() {
         val date = Date(timestamp)
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(date)
+    }
+    fun loadBookingList(){
+        val bookingRef = MainActivity.database.getReference("Booking");
+        val queryRef = bookingRef.orderByChild("CourtID").equalTo(court.CourtID)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                bookList.clear()
+                for(ds in snapshot.children){
+                    val bookHistory = ds.getValue(BookingHistory::class.java)
+                    bookList.add(bookHistory!!)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
 

@@ -3,11 +3,13 @@ package com.example.sportbooking
 import android.content.ContentValues
 import android.content.Intent
 import android.content.IntentSender
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import com.example.sportbooking.DTO.User
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -17,11 +19,9 @@ import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
-import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -48,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
     lateinit var passwordEdt: TextInputLayout
     lateinit var callbackManager:CallbackManager
     private lateinit var login_btn: LoginButton
-    var currentUser:User?=null
+    var currentUser: User?=null
     private lateinit var database:FirebaseDatabase
     companion object{
         var user=Firebase.auth.currentUser
@@ -86,6 +86,8 @@ class SignInActivity : AppCompatActivity() {
                              user = auth.currentUser
                             if(user!=null){
                                 startActivity(Intent(this, HomeActivity::class.java))
+                                getUser(user!!.uid)
+                                finish()
                             }
 
                         } else {
@@ -107,7 +109,7 @@ class SignInActivity : AppCompatActivity() {
                     // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.web_client_id))
                     // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
+                    .setFilterByAuthorizedAccounts(false)
                     .build())
             .build()
         oneTapClient = Identity.getSignInClient(this)
@@ -183,6 +185,33 @@ class SignInActivity : AppCompatActivity() {
                     //updateUI(null)
                 }
             }
+    }
+    fun getUser(uid:String){
+
+        val bookingRef = MainActivity.database.getReference("User");
+        val queryRef = bookingRef.orderByChild("id").equalTo(uid)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    val user_db = ds.getValue(User::class.java)
+                    MainActivity.user = user_db!!
+                    var imageRef = MainActivity.storageRef.child("user${user_db.id}")
+                    val ONE_MEGABYTE: Long = 1024 * 1024 * 5
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                        val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                        user_db.Image = bitmap
+                        Log.i("AAAAAAAAAAAAA","AAAAAAAAAAAAAAA")
+                    }.addOnFailureListener {
+                        // Handle any errors
+                        Log.i("AAAAAAAAAAAAA",it.toString())
+                    }
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
     private fun updateUI(user: User?) {
         startActivity(Intent(this, HomeActivity::class.java))
@@ -268,7 +297,7 @@ class SignInActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val numOwner=snapshot.childrenCount
                 if(numOwner<1){
-                    val owner=User(user!!.uid, user!!.displayName, user!!.email)
+                    val owner= User(user!!.uid, user!!.displayName!!, user!!.email!!)
                     val ownerRef=database.reference.child("User")
                     ownerRef.push().setValue(owner)
                 }
