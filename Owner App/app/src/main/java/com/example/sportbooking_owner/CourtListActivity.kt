@@ -42,7 +42,7 @@ class CourtListActivity : AppCompatActivity() {
         adapter=CustomAdapter(courtList)
         addBtn=findViewById(R.id.addCourtBtn)
         addBtn.setOnClickListener{
-            startActivity(Intent(this,NewFormatActivity::class.java))
+            startActivity(Intent(this,NewInfoActivity::class.java))
         }
         val courtRv=findViewById<RecyclerView>(R.id.CourtRv)
         courtRv.adapter=adapter
