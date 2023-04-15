@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteY="79dp">
 
     <ImageButton
-        android:id="@+id/backButtonBookingDetail"
+        android:id="@+id/backButtonFavorite"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -28,8 +28,8 @@
         android:fontFamily="@font/lato_bold"
         android:text="Bookmarked"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/backButtonBookingDetail"
-        app:layout_constraintTop_toBottomOf="@+id/backButtonBookingDetail" />
+        app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/backButtonFavorite" />
 
     <ListView
         android:id="@+id/listFavoriteLV"
@@ -40,5 +40,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/EmptyFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/listFavoriteLV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/empty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

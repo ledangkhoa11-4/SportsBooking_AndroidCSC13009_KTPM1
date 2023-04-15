@@ -15,14 +15,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.sportbooking.DTO.BookingHistory
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class DetailCourtActivity : AppCompatActivity() {
@@ -94,7 +92,7 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
             finish()
         }
 

@@ -42,3 +42,15 @@ class PriceComparator : Comparator<Court?> {
         return p0!!.Price!!.compareTo(p1!!.Price)
     }
 }
+class NumBookComparator : Comparator<Court?> {
+    override fun compare(p0: Court?, p1: Court?): Int {
+
+        return p1!!.numBooking!!.compareTo(p0!!.numBooking)
+    }
+}
+class RatingComparator : Comparator<Court?> {
+    override fun compare(p0: Court?, p1: Court?): Int {
+
+        return p1!!.avgRating!!.compareTo(p0!!.avgRating)
+    }
+}

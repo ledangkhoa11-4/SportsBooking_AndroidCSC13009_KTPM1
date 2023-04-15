@@ -81,7 +81,7 @@ class DetailBookingHistory : AppCompatActivity() {
                 }
                 .show()
         }
-        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
             finish()
         }
         findViewById<Button>(R.id.ratingButton).setOnClickListener {
