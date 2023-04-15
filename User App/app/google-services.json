@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "161293653541-fctisuep1sj3u6lsct80k4kf5tqk09n6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking",
+            "certificate_hash": "b209a757cd38461084d4c412feb49c0a20acc7ca"
+          }
+        },
+        {
+          "client_id": "161293653541-hubbedhqmc179j4gtlmkelr4ecnirjg8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking",
+            "certificate_hash": "8944f6d7c8853cbdd248fc5955e50a5c04ecccc7"
+          }
+        },
+        {
           "client_id": "161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -43,6 +59,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "161293653541-7t831qe7010sgtkgg4159t4i82pf6tfg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking_owner",
+            "certificate_hash": "b209a757cd38461084d4c412feb49c0a20acc7ca"
+          }
+        },
         {
           "client_id": "161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com",
           "client_type": 3
