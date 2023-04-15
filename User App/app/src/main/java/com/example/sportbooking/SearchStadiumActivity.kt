@@ -1,5 +1,7 @@
 package com.example.sportbooking
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -23,7 +25,7 @@ class SearchStadiumActivity : AppCompatActivity() {
     private lateinit var depositInput: RangeSlider
     private lateinit var clearButton: Button
     private lateinit var searchButton: Button
-
+    lateinit var sharedPref:SharedPreferences
     lateinit var provinces:Array<Province>
     var currentDistrict:Array<District>? = null
     lateinit var districtArrayAdapter: DistrictSpinnerAdapter
@@ -31,6 +33,13 @@ class SearchStadiumActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_stadium)
+        sharedPref = getSharedPreferences("filter", Context.MODE_PRIVATE)
+
+        var lastType = sharedPref.getInt("type",0)
+        var lastName = sharedPref.getString("name","")
+        var priceFrom = sharedPref.getInt("priceFrom",-1)
+        var priceTo = sharedPref.getInt("priceTo",-1)
+
         if(HomeActivity.lastCourList!=null){
             listCourt = HomeActivity.lastCourList!!
         }else{
@@ -46,6 +55,8 @@ class SearchStadiumActivity : AppCompatActivity() {
         clearButton = findViewById(R.id.clearButton)
         searchButton = findViewById(R.id.searchButton)
 
+
+        nameOfStadiumInput.setText(lastName)
         findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
             finish()
         }
@@ -73,6 +84,7 @@ class SearchStadiumActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             typeOfSportInput.adapter = adapter
         }
+        typeOfSportInput.setSelection(lastType)
         cityInput.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val code = provinces[p2].code
@@ -108,6 +120,17 @@ class SearchStadiumActivity : AppCompatActivity() {
             depositInput.valueTo = 1f
             values.add((depositInput.valueTo))
         }
+        if(priceFrom<=priceTo && priceFrom >= values[0] && priceTo <= values[1]){
+            if(priceFrom!=-1){
+                depositInput.valueFrom = priceFrom.toFloat()
+            }
+            if(priceTo!=-1){
+                depositInput.valueTo = priceTo.toFloat()
+            }
+        }
+
+
+
         depositInput.values = values
 
 
@@ -126,6 +149,9 @@ class SearchStadiumActivity : AppCompatActivity() {
                 HomeActivity.courtList_Home!!.clear()
                 HomeActivity.courtList_Home!!.addAll(HomeActivity.lastCourList!!.toList())
             }
+            val editor = sharedPref.edit()
+            editor.clear()
+            editor.apply()
         }
 
         searchButton.setOnClickListener {
@@ -148,7 +174,6 @@ class SearchStadiumActivity : AppCompatActivity() {
             }
             var searchedCourt = kotlin.collections.ArrayList<Court>()
             for(c in listCourt!!){
-                Log.i("AAAAAAAAAAAAAA",c.location!!.addressName)
                 if(c.Type.contains(typeOfSport,true) && c.Name.contains(nameOfStadium,true)
                     && c.location!!.addressName.contains(city,true)
                     && c.location!!.addressName.contains(district,true)
@@ -158,8 +183,14 @@ class SearchStadiumActivity : AppCompatActivity() {
             HomeActivity.courtList_Home!!.clear()
             HomeActivity.courtList_Home!!.addAll(searchedCourt)
             HomeActivity.listViewAdapter!!.notifyDataSetChanged()
-
+            Log.i(priceFrom.toString(), priceTo.toString())
             CreateToast.createToast(this,"${searchedCourt.size} results found!", "",true)
+            val editor = sharedPref.edit()
+            editor.putInt("type",typeOfSportInput.selectedItemPosition)
+            editor.putString("name",nameOfStadium)
+            editor.putInt("priceFrom",priceFrom)
+            editor.putInt("priceTo",priceTo)
+            editor.apply()
             finish()
         }
     }
