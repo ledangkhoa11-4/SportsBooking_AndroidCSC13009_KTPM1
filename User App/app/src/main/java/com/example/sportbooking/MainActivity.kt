@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
                 listCourt.clear()
                 for (ds in dataSnapshot.children) {
                     val courtDbId: String = ds.key!!
+                    Log.i("AAAAAAAAAA",courtDbId)
                     val courtRef: DatabaseReference =
                         database.getReference().child("Courts").child(courtDbId)
                     val eventListener: ValueEventListener = object : ValueEventListener {

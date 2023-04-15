@@ -24,21 +24,24 @@
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="16dp"
-        android:text="Court List"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="Your Court"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <AutoCompleteTextView
         android:id="@+id/SearchView"
-        android:layout_width="187dp"
+        android:layout_width="300dp"
         android:layout_height="46dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/baseline_search_24"
         android:drawablePadding="10dp"
-        android:text="Search"
+        android:hint="Search"
         app:layout_constraintEnd_toEndOf="@+id/textView14"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />

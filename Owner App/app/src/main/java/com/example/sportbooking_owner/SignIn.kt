@@ -66,7 +66,7 @@ class SignIn : AppCompatActivity() {
                         val court: Courts? = child_snapshot.getValue(Courts::class.java)
                         for (imageName in court!!.Images) {
                             var imageRef = MainActivity.storageRef.child(imageName)
-                            val ONE_MEGABYTE: Long = 1024 * 1024
+                            val ONE_MEGABYTE: Long = 1024 * 1024 * 5
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
                                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
                                 court.bitmapArrayList.add(bitmap)
@@ -84,7 +84,6 @@ class SignIn : AppCompatActivity() {
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-
                 }
             }
 
@@ -127,16 +126,13 @@ class SignIn : AppCompatActivity() {
                             user = auth.currentUser
 
                                 if(!user?.isEmailVerified!!){
-
                                     startActivity(Intent(this, VerifyEmailActivity::class.java))
                                 }
                             else{
                                     loadCourtList()
                                     startActivity(Intent(this, CourtListActivity::class.java))
+                                    finish()
                             }
-
-
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.exception)
@@ -146,7 +142,6 @@ class SignIn : AppCompatActivity() {
                         }
                     }
             }
-
         }
         //Sign In with google
          signInRequest = BeginSignInRequest.builder()
@@ -222,9 +217,7 @@ class SignIn : AppCompatActivity() {
                         IsSignUp(user!!.uid)
                         loadCourtList()
                         startActivity(Intent(this, CourtListActivity::class.java))
-
-
-
+                        finish()
                     }
 
                 } else {
@@ -275,16 +268,11 @@ class SignIn : AppCompatActivity() {
                                                 IsSignUp(user!!.uid)
                                                 loadCourtList()
                                                 startActivity(Intent(this, CourtListActivity::class.java))
-
-
-
+                                                finish()
                                         }
-
-
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("TAG", "signInWithCredential:failure", task.exception)
-
                                     }
                                 }
                         }
@@ -342,13 +330,10 @@ class SignIn : AppCompatActivity() {
                     ownerRef.push().setValue(owner)
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-
-
     }
 
     }

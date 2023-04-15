@@ -1,6 +1,7 @@
 package com.example.sportbooking_owner
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -15,6 +17,8 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,17 +33,13 @@ class CourtListActivity : AppCompatActivity() {
     companion object{
         var adapter:CustomAdapter?=null
         var courtList=ArrayList<Courts>()
-
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_list)
 
-
         courtList=SignIn.listCourt
-        adapter=CustomAdapter(courtList)
+        adapter=CustomAdapter(this,courtList)
         addBtn=findViewById(R.id.addCourtBtn)
         addBtn.setOnClickListener{
             startActivity(Intent(this,NewInfoActivity::class.java))
@@ -47,11 +47,11 @@ class CourtListActivity : AppCompatActivity() {
         val courtRv=findViewById<RecyclerView>(R.id.CourtRv)
         courtRv.adapter=adapter
         courtRv.layoutManager=LinearLayoutManager(this)
-        adapter!!.onItemClick={court ->
-            var intent=Intent(this,UpdateCourtActivity::class.java)
-            intent.putExtra("pos", adapter!!.click_position)
-            startActivity(intent)
+        adapter!!.onItemClick={idx, view ->
+            //var intent=Intent(this,UpdateCourtActivity::class.java)
 
+            //startActivity(intent)
+            showMenu(this,view, R.menu.popup_menu, idx)
         }
         //Search adapter
         var searchView=findViewById<AutoCompleteTextView>(R.id.SearchView)
@@ -76,32 +76,47 @@ class CourtListActivity : AppCompatActivity() {
     }
 
 }
-class CustomAdapter(private val dataSet: ArrayList<Courts>) :
+private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) {
+    val popup = PopupMenu(context!!, v)
+    popup.menuInflater.inflate(menuRes, popup.menu)
+
+    popup.setOnMenuItemClickListener {
+        var intent=Intent(context,UpdateCourtActivity::class.java)
+        intent.putExtra("pos",pos)
+        context.startActivity(intent)
+        true
+    }
+    popup.setOnDismissListener {
+        // Respond to popup being dismissed.
+    }
+    // Show the popup menu.
+    popup.show()
+}
+class CustomAdapter(private val context:Activity, private val dataSet: ArrayList<Courts>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-    var onItemClick:((Courts)->Unit)?=null
-    var click_position:Int=0
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
+    var onItemClick:((Int, View)->Unit)?=null
+
    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val courtName: TextView
         val courtType:TextView
         val image:ImageView
+       val typeImage:ImageView
+       val courtLocation:TextView
 
         init {
             // Define click listener for the ViewHolder's View.
-            courtName = view.findViewById(R.id.CourtNameTV)
-            courtType = view.findViewById(R.id.CourtTypeTV)
-            image=view.findViewById(R.id.CourtImageView)
+            courtName = view.findViewById(R.id.courtNameTv)
+            courtLocation = view.findViewById(R.id.courtLocationTv)
+            courtType = view.findViewById(R.id.typeSportTv)
+            typeImage = view.findViewById(R.id.typeSportIv)
+            image=view.findViewById(R.id.courtImage)
             view.setOnClickListener {
-                click_position=adapterPosition
-                onItemClick?.invoke(dataSet[adapterPosition])
+
+                onItemClick?.invoke(adapterPosition, it)
             }
         }
     }
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
@@ -117,7 +132,10 @@ class CustomAdapter(private val dataSet: ArrayList<Courts>) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.courtName.text = dataSet[position].Name
-        viewHolder.courtType.text = dataSet[position].Type
+        viewHolder.courtType.text = "Type sport: " + dataSet[position].Type
+        viewHolder.courtLocation.text = dataSet[position].location?.addressName
+        val drawableID =  context.resources.getIdentifier("${dataSet[position].Type.lowercase()}_icon","drawable",context.packageName)
+        viewHolder.typeImage.setImageDrawable(context.resources.getDrawable(drawableID))
         if(dataSet[position].bitmapArrayList.size>0)
         viewHolder.image.setImageBitmap(dataSet[position].bitmapArrayList[0])
 

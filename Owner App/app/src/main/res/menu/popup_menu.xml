@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/option_1"
+        android:icon="@drawable/football_pitch_icon"
+        android:title="Modify" />
+    <item android:id="@+id/option_2"
+        android:title="View booking" />
+</menu>

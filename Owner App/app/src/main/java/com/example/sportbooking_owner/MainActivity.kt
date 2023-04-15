@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //startActivity(Intent(this, NewInfoActivity::class.java))
         startActivity(Intent(this, SignIn::class.java))
+        finish()
         //startActivity(Intent(this, CourtScheduleActivity::class.java))
         //startActivity(Intent(this,CourtListActivity::class.java))
     }

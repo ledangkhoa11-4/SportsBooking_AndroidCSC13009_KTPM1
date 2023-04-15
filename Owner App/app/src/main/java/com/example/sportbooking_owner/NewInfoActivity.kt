@@ -125,7 +125,6 @@ class NewInfoActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             isImagePicked = true
             listUri = ArrayList<Uri>()
@@ -143,7 +142,6 @@ class NewInfoActivity : AppCompatActivity() {
             }
             imageSliderVP2.adapter = SliderImageAdapter(listUri)
             chooseImageBtn.setImageResource(0)
-
         }
         if (requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             val img = (data?.extras!!.get("data")) as Bitmap
@@ -160,6 +158,7 @@ class NewInfoActivity : AppCompatActivity() {
            }
             newCourt.Name = courtNameInput.text.toString()
             newCourt.Description = descriptionInput.text.toString()
+            newCourt.OwnerID = SignIn.user!!.uid
             val Ref = MainActivity.database.getReference("Courts")
             Ref.push().setValue(newCourt)
             MotionToast.createToast(this,
@@ -169,6 +168,7 @@ class NewInfoActivity : AppCompatActivity() {
                 MotionToast.GRAVITY_BOTTOM,
                 MotionToast.LONG_DURATION,
                 ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+            finish()
         }
     }
     fun uploadImage(bitmap: Bitmap):String{
