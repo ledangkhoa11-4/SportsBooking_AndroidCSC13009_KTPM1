@@ -264,8 +264,9 @@ class SignInActivity : AppCompatActivity() {
                                         //Log.i("VerifyEmail", user!!.isEmailVerified.toString())
                                         if(user!=null){
                                             IsSignUp(user!!.uid)
+                                            getUser(user!!.uid)
                                             startActivity(Intent(this, HomeActivity::class.java))
-
+                                            finish()
                                         }
                                     } else {
                                         // If sign in fails, display a message to the user.
