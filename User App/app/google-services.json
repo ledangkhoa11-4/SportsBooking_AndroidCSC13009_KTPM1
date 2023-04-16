@@ -68,6 +68,30 @@
           }
         },
         {
+          "client_id": "161293653541-7t831qe7010sgtkgg4159t4i82pf6tfg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking_owner",
+            "certificate_hash": "b209a757cd38461084d4c412feb49c0a20acc7ca"
+          }
+        },
+        {
+          "client_id": "161293653541-8pttrld95ckta2ocoavljfrsdubgapke.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking_owner",
+            "certificate_hash": "da71381f42c0bab66bdcd1a3c759fb54d5d705c6"
+          }
+        },
+        {
+          "client_id": "161293653541-rs7mvgarm3sdqr7rd5cr3iupem7rl9r9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sportbooking_owner",
+            "certificate_hash": "8944f6d7c8853cbdd248fc5955e50a5c04ecccc7"
+          }
+        },
+        {
           "client_id": "161293653541-2qu2a25ojnapn7r5d06jih1aokni31qf.apps.googleusercontent.com",
           "client_type": 3
         }

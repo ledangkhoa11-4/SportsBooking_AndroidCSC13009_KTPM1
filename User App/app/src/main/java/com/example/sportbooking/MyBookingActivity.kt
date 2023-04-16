@@ -68,6 +68,7 @@ class MyBookingActivity : AppCompatActivity() {
                 bookingHistories.clear()
                 for(ds in snapshot.children){
                     val bookHistory = ds.getValue(BookingHistory::class.java)
+                    bookHistory!!.ID = ds.key!!
                     bookingHistories.add(bookHistory!!)
                     val court = MainActivity.listCourt.filter { it.CourtID == bookHistory.CourtID }[0]
                     bookHistory.Court = court
