@@ -404,7 +404,6 @@ class UpdateCourtActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-
     fun convertTimestampToTime(timestamp: Long): String {
         val date = Date(timestamp)
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
