@@ -28,9 +28,9 @@
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="20dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="16dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="2dp"
                 android:tint="#858383"
                 app:layout_constraintBottom_toBottomOf="@+id/distanceTv"
                 app:layout_constraintEnd_toStartOf="@+id/distanceTv"
@@ -191,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="14dp"
+                android:textSize="12dp"
                 android:fontFamily="@font/lato_italic"
                 android:text="1150km"
                 app:layout_constraintEnd_toEndOf="parent"

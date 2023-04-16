@@ -10,17 +10,27 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
 class PagerVH(itemView: View) : RecyclerView.ViewHolder(itemView)
-class SliderImageAdapter(val listUri:ArrayList<Uri>, val bitmap:Bitmap? = null) : RecyclerView.Adapter<PagerVH>() {
+class SliderImageAdapter(val listUri:ArrayList<Uri>, val bitmap:Bitmap? = null, val bitmapList:ArrayList<Bitmap>? = null) : RecyclerView.Adapter<PagerVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
         PagerVH(LayoutInflater.from(parent.context).inflate(R.layout.item_slider, parent, false))
 
-    override fun getItemCount(): Int = listUri.size
+    override fun getItemCount(): Int{
+        if(bitmap != null)
+            return 1
+        if(bitmapList != null)
+            return bitmapList.size
+        return listUri.size;
+    }
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
-        if(bitmap == null){
+        if(bitmap == null && bitmapList == null){
             this.findViewById<ImageView>(R.id.imageViewItem).setImageURI(listUri[position])
-        }else
-            this.findViewById<ImageView>(R.id.imageViewItem).setImageBitmap(bitmap)
+        }else{
+            if(bitmapList != null){
+                this.findViewById<ImageView>(R.id.imageViewItem).setImageBitmap(bitmapList!![position])
+            }else
+                this.findViewById<ImageView>(R.id.imageViewItem).setImageBitmap(bitmap)
+        }
     }
 }

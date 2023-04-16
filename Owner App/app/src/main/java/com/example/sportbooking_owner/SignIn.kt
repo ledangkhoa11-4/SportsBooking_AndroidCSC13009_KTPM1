@@ -58,37 +58,39 @@ class SignIn : AppCompatActivity() {
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
         fun loadCourtList() {
+
             var courtsRef = MainActivity.database.getReference("Courts")
             var query=courtsRef.orderByChild("ownerID").equalTo(user!!.uid)
             var valueEventListener:ValueEventListener=object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    listCourt.clear()
                     for (child_snapshot in snapshot.children) {
+
                         val court: Courts? = child_snapshot.getValue(Courts::class.java)
                         for (imageName in court!!.Images) {
                             var imageRef = MainActivity.storageRef.child(imageName)
-                            val ONE_MEGABYTE: Long = 1024 * 1024
+                            val ONE_MEGABYTE: Long = 1024 * 1024 * 5
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
                                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
                                 court.bitmapArrayList.add(bitmap)
+                                Log.i("AAAAAAAAAAAAAA","Changeeeeeeeeeee")
                                 if (CourtListActivity.adapter != null) {
                                     CourtListActivity.adapter!!.notifyDataSetChanged()
                                 }
                             }
-
-
                         }
                         listCourt.add(court)
-                        if (CourtListActivity.adapter != null) {
-                            CourtListActivity.adapter!!.notifyDataSetChanged()
-                        }
+
+                    }
+                    if (CourtListActivity.adapter != null) {
+                        CourtListActivity.adapter!!.notifyDataSetChanged()
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-
                 }
             }
 
-            query.addListenerForSingleValueEvent(valueEventListener)
+            query.addValueEventListener(valueEventListener)
         }
     }
     @SuppressLint("SuspiciousIndentation")
@@ -127,16 +129,13 @@ class SignIn : AppCompatActivity() {
                             user = auth.currentUser
 
                                 if(!user?.isEmailVerified!!){
-
                                     startActivity(Intent(this, VerifyEmailActivity::class.java))
                                 }
                             else{
                                     loadCourtList()
                                     startActivity(Intent(this, CourtListActivity::class.java))
+                                    finish()
                             }
-
-
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.exception)
@@ -146,7 +145,6 @@ class SignIn : AppCompatActivity() {
                         }
                     }
             }
-
         }
         //Sign In with google
          signInRequest = BeginSignInRequest.builder()
@@ -156,7 +154,7 @@ class SignIn : AppCompatActivity() {
                     // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.web_client_id))
                     // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
+                    .setFilterByAuthorizedAccounts(false)
                     .build())
             .build()
         oneTapClient = Identity.getSignInClient(this)
@@ -222,9 +220,7 @@ class SignIn : AppCompatActivity() {
                         IsSignUp(user!!.uid)
                         loadCourtList()
                         startActivity(Intent(this, CourtListActivity::class.java))
-
-
-
+                        finish()
                     }
 
                 } else {
@@ -275,16 +271,11 @@ class SignIn : AppCompatActivity() {
                                                 IsSignUp(user!!.uid)
                                                 loadCourtList()
                                                 startActivity(Intent(this, CourtListActivity::class.java))
-
-
-
+                                                finish()
                                         }
-
-
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("TAG", "signInWithCredential:failure", task.exception)
-
                                     }
                                 }
                         }
@@ -342,13 +333,10 @@ class SignIn : AppCompatActivity() {
                     ownerRef.push().setValue(owner)
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-
-
     }
 
     }

@@ -351,7 +351,7 @@
         app:strokeColor="@color/red" />
 
     <ImageButton
-        android:id="@+id/backButtonBookingDetail"
+        android:id="@+id/backButtonFavorite"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -368,10 +368,10 @@
         android:fontFamily="@font/lato_bold"
         android:text="Detail Court"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingDetail"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
         app:layout_constraintEnd_toStartOf="@+id/favoriteBtn"
-        app:layout_constraintStart_toEndOf="@+id/backButtonBookingDetail"
-        app:layout_constraintTop_toTopOf="@+id/backButtonBookingDetail" />
+        app:layout_constraintStart_toEndOf="@+id/backButtonFavorite"
+        app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
 
 
     <ImageButton

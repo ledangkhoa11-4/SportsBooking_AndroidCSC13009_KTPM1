@@ -15,7 +15,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/backButtonBookingDetail"
+                android:id="@+id/backButtonFavorite"
                 android:layout_width="47dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
@@ -35,10 +35,10 @@
                 android:text="Detail Booking"
                 android:textSize="20sp"
 
-                app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingDetail"
+                app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/backButtonBookingDetail"
-                app:layout_constraintTop_toTopOf="@+id/backButtonBookingDetail" />
+                app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"
+                app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
 
 
             <androidx.cardview.widget.CardView

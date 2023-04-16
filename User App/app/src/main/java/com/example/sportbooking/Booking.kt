@@ -22,8 +22,6 @@ import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -172,7 +170,7 @@ class Booking : AppCompatActivity() {
         if(yard != -1){
             yardNum.setText("Field " + yard)
         }
-        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
             finish()
         }
         findViewById<Button>(R.id.BookBtn).setOnClickListener {

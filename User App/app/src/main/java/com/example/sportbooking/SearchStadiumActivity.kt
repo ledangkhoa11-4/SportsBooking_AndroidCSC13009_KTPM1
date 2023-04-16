@@ -1,6 +1,9 @@
 package com.example.sportbooking
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -22,13 +25,27 @@ class SearchStadiumActivity : AppCompatActivity() {
     private lateinit var depositInput: RangeSlider
     private lateinit var clearButton: Button
     private lateinit var searchButton: Button
-
+    lateinit var sharedPref:SharedPreferences
     lateinit var provinces:Array<Province>
-    lateinit var district:Array<District>
+    var currentDistrict:Array<District>? = null
     lateinit var districtArrayAdapter: DistrictSpinnerAdapter
+    var listCourt = kotlin.collections.ArrayList<Court>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_stadium)
+        sharedPref = getSharedPreferences("filter", Context.MODE_PRIVATE)
+
+        var lastType = sharedPref.getInt("type",0)
+        var lastName = sharedPref.getString("name","")
+        var priceFrom = sharedPref.getInt("priceFrom",-1)
+        var priceTo = sharedPref.getInt("priceTo",-1)
+
+        if(HomeActivity.lastCourList!=null){
+            listCourt = HomeActivity.lastCourList!!
+        }else{
+            listCourt = HomeActivity.courtList_Home!!
+        }
+
         typeOfSportInput = findViewById(R.id.typeOfSportSpinner)
 
         nameOfStadiumInput = findViewById(R.id.nameOfStadEV)
@@ -38,7 +55,9 @@ class SearchStadiumActivity : AppCompatActivity() {
         clearButton = findViewById(R.id.clearButton)
         searchButton = findViewById(R.id.searchButton)
 
-        findViewById<ImageButton>(R.id.backButtonBookingDetail).setOnClickListener {
+
+        nameOfStadiumInput.setText(lastName)
+        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
             finish()
         }
         val gson = Gson()
@@ -57,16 +76,15 @@ class SearchStadiumActivity : AppCompatActivity() {
         cityInput.adapter = provinceAdapter
 
 
-
-
         val typeOfSportList = arrayListOf(
-            "Football", "Basketball", "Tennis", "Badminton", "Volleyball", "Table tennis", "Other"
+            "All", "Football", "Basketball", "Tennis", "Badminton", "Volleyball", "Table tennis"
         )
 
         ArrayAdapter(this, android.R.layout.simple_spinner_item, typeOfSportList).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             typeOfSportInput.adapter = adapter
         }
+        typeOfSportInput.setSelection(lastType)
         cityInput.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val code = provinces[p2].code
@@ -75,6 +93,7 @@ class SearchStadiumActivity : AppCompatActivity() {
                 val jsonProvince = task.get()
 
                 val provinceTarget:Province = gson.fromJson(jsonProvince, Province::class.java)
+                currentDistrict = provinceTarget.districts
                 districtArrayAdapter = DistrictSpinnerAdapter(this@SearchStadiumActivity, provinceTarget.districts)
                 districtInput.adapter = districtArrayAdapter
 
@@ -86,76 +105,32 @@ class SearchStadiumActivity : AppCompatActivity() {
 
         }
 
-//        ArrayAdapter(this, android.R.layout.simple_spinner_item, capacityList).also { adapter ->
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            capacityInput.adapter = adapter
-//        }
-//
-//        ArrayAdapter(this, android.R.layout.simple_spinner_item, cityList).also { adapter ->
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            cityInput.adapter = adapter
-//        }
-//
-//        cityInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(
-//                parent: AdapterView<*>,
-//                view: View,
-//                position: Int,
-//                id: Long
-//            ) {
-//                when (position) {
-//                    0 -> {
-//                        ArrayAdapter(
-//                            this@SearchStadiumActivity,
-//                            android.R.layout.simple_spinner_item,
-//                            hoChiMinhDistricts
-//                        ).also { adapter ->
-//                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                            districtInput.adapter = adapter
-//                        }
-//                    }
-//                    1 -> {
-//                        ArrayAdapter(
-//                            this@SearchStadiumActivity,
-//                            android.R.layout.simple_spinner_item,
-//                            binhDuongDistricts
-//                        ).also { adapter ->
-//                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                            districtInput.adapter = adapter
-//                        }
-//                    }
-//                    2 -> {
-//                        ArrayAdapter(
-//                            this@SearchStadiumActivity,
-//                            android.R.layout.simple_spinner_item,
-//                            dongNaiDistricts
-//                        ).also { adapter ->
-//                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//                            districtInput.adapter = adapter
-//                        }
-//                    }
-//                }
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>) {
-//                // Another interface callback
-//            }
-//        }
         var values = ArrayList<Float>()
-        if( MainActivity.listCourt.minByOrNull { it.Price } != null ){
-            depositInput.valueFrom = MainActivity.listCourt.minByOrNull { it.Price }!!.Price.toFloat()
+        if( listCourt.minByOrNull { it.Price } != null ){
+            depositInput.valueFrom = listCourt.minByOrNull { it.Price }!!.Price.toFloat()
             values.add((depositInput.valueFrom))
         }else{
             depositInput.valueFrom = 0f
             values.add((depositInput.valueFrom))
         }
-        if( MainActivity.listCourt.maxByOrNull { it.Price } != null ){
-            depositInput.valueTo = MainActivity.listCourt.maxByOrNull { it.Price }!!.Price!!.toFloat()
-            values.add((depositInput.valueFrom))
+        if( listCourt.maxByOrNull { it.Price } != null ){
+            depositInput.valueTo = listCourt.maxByOrNull { it.Price }!!.Price!!.toFloat()
+            values.add((depositInput.valueTo))
         }else{
             depositInput.valueTo = 1f
-            values.add((depositInput.valueFrom))
+            values.add((depositInput.valueTo))
         }
+        if(priceFrom<=priceTo && priceFrom >= values[0] && priceTo <= values[1]){
+            if(priceFrom!=-1){
+                depositInput.valueFrom = priceFrom.toFloat()
+            }
+            if(priceTo!=-1){
+                depositInput.valueTo = priceTo.toFloat()
+            }
+        }
+
+
+
         depositInput.values = values
 
 
@@ -170,19 +145,53 @@ class SearchStadiumActivity : AppCompatActivity() {
             nameOfStadiumInput.setText("")
             cityInput.setSelection(0)
             districtInput.setSelection(0)
+            if(HomeActivity.lastCourList!=null){
+                HomeActivity.courtList_Home!!.clear()
+                HomeActivity.courtList_Home!!.addAll(HomeActivity.lastCourList!!.toList())
+            }
+            val editor = sharedPref.edit()
+            editor.clear()
+            editor.apply()
         }
 
         searchButton.setOnClickListener {
-            val typeOfSport = typeOfSportInput.selectedItem.toString()
+            val typeOfSport = if(typeOfSportInput.selectedItem.toString() == "All") "" else typeOfSportInput.selectedItem.toString()
             val nameOfStadium = nameOfStadiumInput.text.toString()
-            val city = cityInput.selectedItem.toString()
-            val district = districtInput.selectedItem.toString()
+            var city = provinces[cityInput.selectedItemPosition].name
+            var district =  currentDistrict!![districtInput.selectedItemPosition].name
+            city = city.replace("Tỉnh","").trim()
+            city = city.replace("Thành phố","").trim()
+            district = district.replace("Quận","").trim()
+            district = district.replace("Huyện","").trim()
+            district = district.replace("Thành phố","").trim()
+            district = district.replace("Thị xã","").trim()
 
-            Toast.makeText(
-                this,
-                "Type of sport: $typeOfSport \nName of stadium: $nameOfStadium \nCity: $city \nDistrict: $district",
-                Toast.LENGTH_LONG
-            ).show()
+            val priceFrom = depositInput.valueFrom.toInt()
+            val priceTo = depositInput.valueTo.toInt()
+            if(HomeActivity.lastCourList == null){
+                HomeActivity.lastCourList = java.util.ArrayList<Court>();
+                HomeActivity.lastCourList!!.addAll(HomeActivity.courtList_Home!!.toList())
+            }
+            var searchedCourt = kotlin.collections.ArrayList<Court>()
+            for(c in listCourt!!){
+                if(c.Type.contains(typeOfSport,true) && c.Name.contains(nameOfStadium,true)
+                    && c.location!!.addressName.contains(city,true)
+                    && c.location!!.addressName.contains(district,true)
+                    && c.Price >= priceFrom && c.Price <= priceTo)
+                    searchedCourt.add(c)
+            }
+            HomeActivity.courtList_Home!!.clear()
+            HomeActivity.courtList_Home!!.addAll(searchedCourt)
+            HomeActivity.listViewAdapter!!.notifyDataSetChanged()
+            Log.i(priceFrom.toString(), priceTo.toString())
+            CreateToast.createToast(this,"${searchedCourt.size} results found!", "",true)
+            val editor = sharedPref.edit()
+            editor.putInt("type",typeOfSportInput.selectedItemPosition)
+            editor.putString("name",nameOfStadium)
+            editor.putInt("priceFrom",priceFrom)
+            editor.putInt("priceTo",priceTo)
+            editor.apply()
+            finish()
         }
     }
     fun formatPrice(price: Int): String {

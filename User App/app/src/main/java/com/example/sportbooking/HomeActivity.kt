@@ -61,6 +61,8 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
             when(checkedId) {
                 R.id.distanceFilter -> filterByDistance(isChecked)
                 R.id.priceFilter -> filterByPrice(isChecked)
+                R.id.bookMostTgBtn -> filterByNumBook(isChecked)
+                R.id.ratingFilter -> filterByRating(isChecked)
             }
         }
         searchBar = findViewById(R.id.searchBar)
@@ -110,6 +112,32 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
                 lastCourList!!.addAll(courtList_Home!!.toList())
             }
             Collections.sort(courtList_Home,PriceComparator())
+        }else{
+            courtList_Home!!.clear()
+            courtList_Home!!.addAll(lastCourList!!.toList())
+        }
+        listViewAdapter!!.notifyDataSetChanged()
+    }
+    fun filterByNumBook(isFilter:Boolean){
+        if(isFilter == true){
+            if(lastCourList == null){
+                lastCourList = ArrayList<Court>();
+                lastCourList!!.addAll(courtList_Home!!.toList())
+            }
+            Collections.sort(courtList_Home,NumBookComparator())
+        }else{
+            courtList_Home!!.clear()
+            courtList_Home!!.addAll(lastCourList!!.toList())
+        }
+        listViewAdapter!!.notifyDataSetChanged()
+    }
+    fun filterByRating(isFilter:Boolean){
+        if(isFilter == true){
+            if(lastCourList == null){
+                lastCourList = ArrayList<Court>();
+                lastCourList!!.addAll(courtList_Home!!.toList())
+            }
+            Collections.sort(courtList_Home,RatingComparator())
         }else{
             courtList_Home!!.clear()
             courtList_Home!!.addAll(lastCourList!!.toList())

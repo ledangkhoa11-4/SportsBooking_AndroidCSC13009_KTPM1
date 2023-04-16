@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <nl.joery.timerangepicker.TimeRangePicker
+        android:id="@+id/timeRangePicker"
+        android:layout_width="300dp"
+        android:layout_height="294dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trp_clockFace="SAMSUNG"
+        app:trp_endTimeMinutes="0"
+        app:trp_hourFormat="FORMAT_24"
+        app:trp_sliderRangeGradientEnd="#06286C"
+        app:trp_sliderRangeGradientMiddle="#1A1DAE"
+        app:trp_sliderRangeGradientStart="#41A4FB"
+        app:trp_sliderWidth="8dp"
+        app:trp_stepTimeMinutes="30" />
+
+
+    <TextView
+        android:id="@+id/startTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="00:00"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tv15"
+        app:layout_constraintTop_toBottomOf="@+id/tv15" />
+
+    <TextView
+        android:id="@+id/tv15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="Start at"
+
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="@+id/timeRangePicker"
+        app:layout_constraintStart_toStartOf="@+id/timeRangePicker"
+        app:layout_constraintTop_toTopOf="@+id/timeRangePicker" />
+
+    <TextView
+        android:id="@+id/endTimeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="08:00"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/endTimeTv2"
+        app:layout_constraintTop_toBottomOf="@+id/endTimeTv2" />
+
+    <TextView
+        android:id="@+id/endTimeTv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/lato_regular"
+        android:text="End at"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/startTimeTv"
+        app:layout_constraintTop_toBottomOf="@+id/startTimeTv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

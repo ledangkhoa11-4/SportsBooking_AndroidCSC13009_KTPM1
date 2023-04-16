@@ -214,7 +214,7 @@
         app:layout_constraintTop_toBottomOf="@+id/hourServiceTv" />
 
     <ImageButton
-        android:id="@+id/backButtonBookingDetail"
+        android:id="@+id/backButtonFavorite"
         android:layout_width="47dp"
         android:layout_height="40dp"
         android:backgroundTint="#FFFEFE"
@@ -229,10 +229,10 @@
     android:fontFamily="@font/lato_bold"
     android:text="Confirm Booking"
     android:textSize="18sp"
-    app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingDetail"
+    app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/backButtonBookingDetail"
-    app:layout_constraintTop_toTopOf="@+id/backButtonBookingDetail" />
+    app:layout_constraintStart_toEndOf="@+id/backButtonFavorite"
+    app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
 
     <Button
         android:id="@+id/button15"
