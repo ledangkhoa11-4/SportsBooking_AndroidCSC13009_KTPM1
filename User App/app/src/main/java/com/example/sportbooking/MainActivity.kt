@@ -79,37 +79,32 @@ class MainActivity : AppCompatActivity() {
                 listCourt.clear()
                 for (ds in dataSnapshot.children) {
                     val courtDbId: String = ds.key!!
-                    Log.i("AAAAAAAAAA",courtDbId)
                     val courtRef: DatabaseReference =
                         database.getReference().child("Courts").child(courtDbId)
-                    val eventListener: ValueEventListener = object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val court: Court? = dataSnapshot.getValue(Court::class.java)
-                            for (imageName in court!!.Images) {
-                                var imageRef = storageRef.child(imageName)
-                                val ONE_MEGABYTE: Long = 1024 * 1024 * 5
-                                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
-                                    val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-                                    court.bitmapArrayList.add(bitmap)
-                                    if (HomeActivity.listViewAdapter != null) {
-                                        HomeActivity.listViewAdapter!!.notifyDataSetChanged()
-                                    }
-                                }.addOnFailureListener {
-                                    // Handle any errors
+                    courtRef.get().addOnSuccessListener {
+                        val court: Court? = it.getValue(Court::class.java)
+                        for (imageName in court!!.Images) {
+                            var imageRef = storageRef.child(imageName)
+                            val ONE_MEGABYTE: Long = 1024 * 1024 * 5
+                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                                court.bitmapArrayList.add(bitmap)
+                                if (HomeActivity.listViewAdapter != null) {
+                                    HomeActivity.listViewAdapter!!.notifyDataSetChanged()
                                 }
-                            }
-                            updateBookingNumber(court)
-                            if(MainActivity.lastLocation.latLng.latitude != 0.0 && MainActivity.lastLocation.latLng.longitude != 0.0){
-                                court.courtDistance = GetDistance.getDistance(MainActivity.lastLocation,court.location!!).toDouble()
-                            }
-                            listCourt.add(court)
-                            if (HomeActivity.listViewAdapter != null) {
-                                HomeActivity.listViewAdapter!!.notifyDataSetChanged()
+                            }.addOnFailureListener {
+                                // Handle any errors
                             }
                         }
-                        override fun onCancelled(databaseError: DatabaseError) {}
+                        updateBookingNumber(court)
+                        if(MainActivity.lastLocation.latLng.latitude != 0.0 && MainActivity.lastLocation.latLng.longitude != 0.0){
+                            court.courtDistance = GetDistance.getDistance(MainActivity.lastLocation,court.location!!).toDouble()
+                        }
+                        listCourt.add(court)
+                        if (HomeActivity.listViewAdapter != null) {
+                            HomeActivity.listViewAdapter!!.notifyDataSetChanged()
+                        }
                     }
-                    courtRef.addListenerForSingleValueEvent(eventListener)
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {}

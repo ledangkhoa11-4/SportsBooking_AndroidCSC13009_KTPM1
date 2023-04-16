@@ -45,7 +45,6 @@ class NewInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_info)
 
-
         bitmapList = ArrayList()
         imageSliderVP2 = findViewById(R.id.imageSliderVP2)
         stepViewLayout = findViewById(R.id.step_view_layout)

@@ -35,6 +35,7 @@ class NewFormatActivity : AppCompatActivity() {
     lateinit var newCourt: Courts
     lateinit var location: Location
     lateinit var yardPicker: com.shawnlin.numberpicker.NumberPicker
+
     companion object {
         val PICK_SPORT_TYPE_REQUEST = 200
         val PICK_LOCATION_REQUEST = 201
@@ -46,7 +47,7 @@ class NewFormatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_format)
 
 
-        Places.initialize(this, "AIzaSyB352MaQT56jsnR1N4mDqPUEh3GPEhiRvE", Locale("vi", "VN"))
+        Places.initialize(this, MainActivity.apiPlace, Locale("vi", "VN"))
 
         stepViewLayout = findViewById(R.id.step_view_layout)
         stepView = stepViewLayout.findViewById(R.id.step_view)

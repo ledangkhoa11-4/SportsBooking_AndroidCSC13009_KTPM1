@@ -62,6 +62,7 @@ class SignIn : AppCompatActivity() {
             var query=courtsRef.orderByChild("ownerID").equalTo(user!!.uid)
             var valueEventListener:ValueEventListener=object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    listCourt.clear()
                     for (child_snapshot in snapshot.children) {
                         val court: Courts? = child_snapshot.getValue(Courts::class.java)
                         for (imageName in court!!.Images) {
@@ -151,7 +152,7 @@ class SignIn : AppCompatActivity() {
                     // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.web_client_id))
                     // Only show accounts previously used to sign in.
-                    .setFilterByAuthorizedAccounts(true)
+                    .setFilterByAuthorizedAccounts(false)
                     .build())
             .build()
         oneTapClient = Identity.getSignInClient(this)

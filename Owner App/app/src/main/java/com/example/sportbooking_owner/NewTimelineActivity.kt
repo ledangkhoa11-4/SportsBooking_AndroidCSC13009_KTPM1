@@ -12,6 +12,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.shuhart.stepview.StepView
 import nl.joery.timerangepicker.TimeRangePicker
+import org.w3c.dom.Text
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.sql.Timestamp
@@ -37,6 +38,7 @@ class NewTimelineActivity : AppCompatActivity() {
     lateinit var tS:ToggleButton
     lateinit var tSu:ToggleButton
     lateinit var weekdaysChoice:String
+
     companion object {
 
     }
