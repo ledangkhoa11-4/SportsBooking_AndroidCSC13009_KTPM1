@@ -65,5 +65,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
+    <ImageButton
+        android:id="@+id/scanQrBtn"
+        android:layout_width="56dp"
+        android:layout_height="53dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/barcode_scan" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.3'
 
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
 }
