@@ -71,12 +71,11 @@ class SignIn : AppCompatActivity() {
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
                                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
                                 court.bitmapArrayList.add(bitmap)
+                                Log.i("AAAAAAAAAAAAAA","Changeeeeeeeeeee")
                                 if (CourtListActivity.adapter != null) {
                                     CourtListActivity.adapter!!.notifyDataSetChanged()
                                 }
                             }
-
-
                         }
                         listCourt.add(court)
                         if (CourtListActivity.adapter != null) {
@@ -88,7 +87,7 @@ class SignIn : AppCompatActivity() {
                 }
             }
 
-            query.addListenerForSingleValueEvent(valueEventListener)
+            query.addValueEventListener(valueEventListener)
         }
     }
     @SuppressLint("SuspiciousIndentation")

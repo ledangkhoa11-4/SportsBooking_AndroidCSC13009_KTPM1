@@ -15,7 +15,13 @@ class SliderImageAdapter(val listUri:ArrayList<Uri>, val bitmap:Bitmap? = null, 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerVH =
         PagerVH(LayoutInflater.from(parent.context).inflate(R.layout.item_slider, parent, false))
 
-    override fun getItemCount(): Int = listUri.size
+    override fun getItemCount(): Int{
+        if(bitmap != null)
+            return 1
+        if(bitmapList != null)
+            return bitmapList.size
+        return listUri.size;
+    }
 
     override fun onBindViewHolder(holder: PagerVH, position: Int) = holder.itemView.run {
         if(bitmap == null && bitmapList == null){

@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     tools:context=".UpdateCourtActivity">
     <ImageButton
-        android:id="@+id/backButtonFavorite"
+        android:id="@+id/backButtonUpdate"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -24,10 +24,10 @@
         android:fontFamily="@font/lato_bold"
         android:text="Edit Court"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonUpdate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"
-        app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
+        app:layout_constraintStart_toStartOf="@+id/backButtonUpdate"
+        app:layout_constraintTop_toTopOf="@+id/backButtonUpdate" />
 
 
     <com.example.sportbooking_owner.LockableScrollView
@@ -98,16 +98,16 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="@+id/imageView13"
-                app:layout_constraintTop_toBottomOf="@+id/timeChoose"
+                app:layout_constraintTop_toBottomOf="@+id/yardNumberPicker"
                 app:srcCompat="@drawable/service_icon" />
 
             <Button
                 android:id="@+id/UpdateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="75dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="@color/primaryLightColor"
+                android:fontFamily="@font/lato"
                 android:isScrollContainer="false"
                 android:pointerIcon="none"
                 android:text="Save"
@@ -116,25 +116,9 @@
                 app:iconPadding="10dp"
                 app:iconTint="@color/white"
                 app:iconTintMode="src_in"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/refereesCb2" />
-
-            <Button
-                android:id="@+id/DeleteBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="75dp"
-                android:backgroundTint="@color/design_default_color_error"
-                android:isScrollContainer="false"
-                android:pointerIcon="none"
-                android:text="Delete"
-                app:icon="@drawable/baseline_delete_24"
-                app:iconGravity="textStart"
-                app:iconPadding="10dp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_in"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/UpdateBtn" />
 
             <CheckBox
                 android:id="@+id/freeParkCb2"
@@ -146,6 +130,7 @@
                 android:layout_marginTop="10dp"
                 android:drawableStart="@drawable/parking_icon"
                 android:drawablePadding="15dp"
+                android:fontFamily="@font/lato"
                 android:text="Free parking"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/imageView14"
@@ -160,6 +145,7 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/free_wifi_icon"
                 android:drawablePadding="15dp"
+                android:fontFamily="@font/lato"
                 android:text="Free wifi"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/freeParkCb2"
@@ -174,6 +160,7 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/referee_icon"
                 android:drawablePadding="15dp"
+                android:fontFamily="@font/lato"
                 android:text="Referees available"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/shoesCb2"
@@ -188,6 +175,7 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/shoes_icon"
                 android:drawablePadding="15dp"
+                android:fontFamily="@font/lato"
                 android:text="Shoes for rent"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/freeWifiCb2"
@@ -199,6 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="32dp"
+                android:fontFamily="@font/lato"
                 android:text="Court's Name"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
                 app:layout_constraintTop_toBottomOf="@+id/dots_indicator" />
@@ -218,6 +207,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:ems="10"
+                android:fontFamily="@font/lato"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                 app:layout_constraintStart_toStartOf="@+id/imageView12"
@@ -228,6 +218,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:ems="10"
+                android:fontFamily="@font/lato"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/CourtNameEdt"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -240,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/lato"
                 android:text="Description"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
                 app:layout_constraintTop_toBottomOf="@+id/CourtNameEdt" />
@@ -253,6 +245,7 @@
                 android:ems="10"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:fontFamily="@font/lato"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/descriptionEdt"
                 app:layout_constraintStart_toStartOf="@+id/TypeIcon"
@@ -274,6 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/lato"
                 android:text="Price"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/TypeEdt" />
@@ -283,17 +277,49 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:ems="10"
+                android:fontFamily="@font/lato"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="@+id/TypeEdt"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/yardNumberPicker"
+                android:layout_width="354dp"
+                android:layout_height="145dp"
+                android:layout_centerInParent="true"
+
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView26"
+                app:np_dividerColor="@color/black"
+                app:np_height="160dp"
+                app:np_max="5"
+                app:np_min="1"
+                app:np_selectedTextColor="@color/teal_700"
+                app:np_textColor="@color/black"
+                app:np_value="2"
+                app:np_width="60dp" />
+
             <TextView
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/lato"
+                android:text="Num of yards:"
+                app:layout_constraintStart_toStartOf="@+id/imageView13"
+                app:layout_constraintTop_toBottomOf="@+id/timeChoose" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/lato"
                 android:text="Available Services"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView14"
                 app:layout_constraintStart_toEndOf="@+id/imageView14"
@@ -332,6 +358,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/lato"
                 android:text="Location"
                 app:layout_constraintStart_toEndOf="@+id/imageView8"
                 app:layout_constraintTop_toBottomOf="@+id/PriceEdt" />
@@ -341,6 +368,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:ems="10"
+                android:fontFamily="@font/lato"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/PriceEdt"
                 app:layout_constraintStart_toStartOf="@+id/imageView8"
@@ -386,6 +414,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/lato"
                 android:text="Service Weekdays"
                 app:layout_constraintStart_toEndOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/LocationEdt" />
@@ -408,6 +437,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="70dp"
+                android:fontFamily="@font/lato"
                 android:text="Service Time"
                 app:layout_constraintStart_toEndOf="@+id/imageView13"
                 app:layout_constraintTop_toBottomOf="@+id/imageView15" />

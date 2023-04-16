@@ -25,12 +25,19 @@ import com.google.android.material.timepicker.TimeFormat
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import nl.joery.timerangepicker.TimeRangePicker
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -52,7 +59,7 @@ class UpdateCourtActivity : AppCompatActivity() {
     lateinit var TypeIcon: ImageView
     lateinit var PriceEdt: EditText
     lateinit var LocationEdt: EditText
-    var newLocation: Location = Location()
+    var newLocation: Location? = null
 
     lateinit var tM: ToggleButton
     lateinit var tTue: ToggleButton
@@ -61,7 +68,7 @@ class UpdateCourtActivity : AppCompatActivity() {
     lateinit var tF: ToggleButton
     lateinit var tS: ToggleButton
     lateinit var tSu: ToggleButton
-    lateinit var weekdaysChoice: String
+    var weekdaysChoice: String = ""
     lateinit var datePickerView: View
     lateinit var timeChoose: TextView
     lateinit var timeRangePicker: TimeRangePicker
@@ -69,6 +76,14 @@ class UpdateCourtActivity : AppCompatActivity() {
     lateinit var timeEnd: TextView
     var start = -1L
     var end = -1L
+    lateinit var yardNumberPicker:com.shawnlin.numberpicker.NumberPicker
+
+    companion object {
+        val PICK_LOCATION_REQUEST = 201
+        val PICK_IMAGE_REQUEST = 202
+        val TAKE_IMAGE_REQUEST = 203
+        val PICK_SPORT_TYPE_REQUEST = 204
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_court)
@@ -81,6 +96,7 @@ class UpdateCourtActivity : AppCompatActivity() {
         chooseImageBtn = findViewById(R.id.chooseImageBtn)
         imageVP2_Update = findViewById(R.id.imageVP2_Update)
         dots_indicator = findViewById(R.id.dots_indicator)
+
 
         imageVP2_Update.adapter =
             SliderImageAdapter(arrayListOf(Uri.EMPTY), null, court.bitmapArrayList)
@@ -109,7 +125,7 @@ class UpdateCourtActivity : AppCompatActivity() {
         TypeIcon!!.setImageResource(imageResource)
         TypeEdt.setOnClickListener {
             val intent = Intent(this, SelectSportActivity::class.java)
-            startActivityForResult(intent, NewFormatActivity.PICK_SPORT_TYPE_REQUEST)
+            startActivityForResult(intent, PICK_SPORT_TYPE_REQUEST)
         }
         PriceEdt = findViewById(R.id.PriceEdt)
         PriceEdt.setText(court.Price.toString())
@@ -123,7 +139,7 @@ class UpdateCourtActivity : AppCompatActivity() {
                 Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList)
                     .setCountries(listOf("VN"))
                     .build(this)
-            startActivityForResult(intent, NewFormatActivity.PICK_LOCATION_REQUEST)
+            startActivityForResult(intent, PICK_LOCATION_REQUEST)
         }
         datePickerView = findViewById(R.id.daypicker)
         tM = datePickerView.findViewById(R.id.tM)
@@ -203,17 +219,130 @@ class UpdateCourtActivity : AppCompatActivity() {
                     timeChoose.setText(timeStart.text.toString() + " - " + timeEnd.text.toString())
                 }.show()
         }
+        yardNumberPicker = findViewById(R.id.yardNumberPicker)
+        yardNumberPicker.value = court.numOfYards
 
         if(court.AvalableService.contains("Free parking"))findViewById<CheckBox>(R.id.freeParkCb2).isChecked = true
         if(court.AvalableService.contains("Free wifi"))findViewById<CheckBox>(R.id.freeWifiCb2).isChecked = true
         if(court.AvalableService.contains("Referees available"))findViewById<CheckBox>(R.id.refereesCb2).isChecked = true
         if(court.AvalableService.contains("Shoes for rent")) findViewById<CheckBox>(R.id.shoesCb2).isChecked = true
 
+        findViewById<Button>(R.id.UpdateBtn).setOnClickListener {
+            var newBitmapList = listBitmap
+            if(newBitmapList.size == 0){
+                newBitmapList = court.bitmapArrayList
+            }
+            var newName = CourtNameEdt.text.toString()
+            var newDes = descriptionEdt.text.toString()
+            var newType = TypeEdt.text.toString()
+            var newPrice = PriceEdt.text.toString().toInt()
+            var newLoc = newLocation
+            if(newLoc == null)
+                newLoc = court.location
+            weekdaysChoice = ""
+            if(tM.isChecked()){
+                weekdaysChoice +="Mon,";
+            }
+            if(tTue.isChecked()){
+                weekdaysChoice +="Tue,";
+            }
+            if(tW.isChecked()){
+                weekdaysChoice +="Wed,";
+            }
+            if(tT.isChecked()){
+                weekdaysChoice +="Thu,";
+            }
+            if(tF.isChecked()){
+                weekdaysChoice +="Fri,";
+            }
+            if(tS.isChecked()){
+                weekdaysChoice +="Sat,";
+            }
+            if(tSu.isChecked()){
+                weekdaysChoice +="Sun";
+            }
+
+            var newServiceTime = arrayListOf<Long>(start,end)
+            var newYard = yardNumberPicker.value
+            val availableService=ArrayList<String>()
+            if(findViewById<CheckBox>(R.id.freeParkCb2).isChecked)
+                availableService.add("Free parking")
+            if(findViewById<CheckBox>(R.id.freeWifiCb2).isChecked)
+                availableService.add("Free wifi")
+            if(findViewById<CheckBox>(R.id.refereesCb2).isChecked)
+                availableService.add("Referees available")
+            if(findViewById<CheckBox>(R.id.shoesCb2).isChecked)
+                availableService.add("Shoes for rent")
+
+
+            val updatedCourt = Courts(court.CourtID, court.OwnerID, newName, newType, newLoc, court.Phone , weekdaysChoice, newServiceTime, court.Images,
+                ArrayList(),newDes,availableService,newPrice,newYard)
+            val courtRef=MainActivity.database.getReference("Courts")
+            val queryRef=courtRef.orderByChild("courtID").equalTo(court.CourtID)
+            queryRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(courtSnapshot in  snapshot.children){
+                        val key =  courtSnapshot.key
+                        if (key != null) {
+                            if(listBitmap.size>0){
+                                for(i in court.Images.indices){
+                                    val imageRef=MainActivity.storageRef.child(court.Images[i])
+                                    imageRef.delete().addOnCompleteListener {  }.addOnFailureListener {
+                                        Log.e("upImage","del failed",)
+                                    }
+                                }
+                                var taskCount = listBitmap.size
+                                court.Images.clear()
+                                for(i in listBitmap.indices){
+                                    val calendar=Calendar.getInstance()
+                                    var path="image${calendar.timeInMillis}"
+                                    val baos = ByteArrayOutputStream()
+                                    val Ref = MainActivity.storageRef.child(path)
+                                    court.Images.add(path)
+                                    listBitmap[i].compress(Bitmap.CompressFormat.PNG, 100, baos)
+                                    val data = baos.toByteArray()
+
+                                    var uploadTask = Ref.putBytes(data)
+                                    uploadTask.addOnFailureListener {
+
+                                    }.addOnSuccessListener { taskSnapshot ->
+                                        taskCount--
+                                        if(taskCount == 0)
+                                            queryRef.ref.child(key).setValue(updatedCourt)
+                                    }
+                                }
+                            }else{
+                                queryRef.ref.child(key).setValue(updatedCourt)
+                            }
+
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+            MotionToast.createToast(this,
+                "Update court successfully",
+                "Court updated successfully!",
+                MotionToastStyle.SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
+
+            SignIn.listCourt[courtpos] = updatedCourt
+            finish()
+
+
+        }
+        findViewById<ImageButton>(R.id.backButtonUpdate).setOnClickListener {
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == NewFormatActivity.PICK_SPORT_TYPE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == PICK_SPORT_TYPE_REQUEST && resultCode == RESULT_OK) {
             var typeSportStr = data!!.getStringExtra("type")
             TypeEdt!!.setText(typeSportStr)
             var imageName = typeSportStr!!.lowercase() + "_icon"
@@ -224,13 +353,13 @@ class UpdateCourtActivity : AppCompatActivity() {
                 // Image resource not found, handle error or show default image
             }
         }
-        if (requestCode == NewFormatActivity.PICK_LOCATION_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == PICK_LOCATION_REQUEST && resultCode == RESULT_OK) {
             var place = Autocomplete.getPlaceFromIntent(data)
             LocationEdt.setText(place.address)
             var latLng = LatLng(place.latLng.latitude, place.latLng.longitude)
             newLocation = Location(place.address, latLng)
         }
-        if (requestCode == NewInfoActivity.PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
             listUri = ArrayList<Uri>()
             if (data?.clipData != null) {
                 val clipData = data.clipData
@@ -250,7 +379,7 @@ class UpdateCourtActivity : AppCompatActivity() {
             chooseImageBtn!!.visibility = View.GONE
 
         }
-        if (requestCode == NewInfoActivity.TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == TAKE_IMAGE_REQUEST && resultCode == RESULT_OK) {
             val img = (data?.extras!!.get("data")) as Bitmap
             listBitmap.add(img)
             imageVP2_Update!!.adapter = SliderImageAdapter(arrayListOf(Uri.EMPTY), img)
@@ -289,13 +418,13 @@ class UpdateCourtActivity : AppCompatActivity() {
         intent.action = Intent.ACTION_GET_CONTENT;
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"),
-            NewInfoActivity.PICK_IMAGE_REQUEST
+            PICK_IMAGE_REQUEST
         );
     }
 
     fun takeImageCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, NewInfoActivity.TAKE_IMAGE_REQUEST)
+        startActivityForResult(intent, TAKE_IMAGE_REQUEST)
     }
     fun timeToMinute(str:String):Int{
         val timeString = str
