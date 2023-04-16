@@ -28,12 +28,12 @@ class RatingRecyclerViewAdapter(
         ratingBar.rating = maintitles[position].star!!
         content.text = maintitles[position].content
         var improveContent = ""
-        if(maintitles[position].improvement!![0]) improveContent += "Chất lượng phục vụ\n"
-        if(maintitles[position].improvement!![1]) improveContent += "Hỗ trợ khách hàng\n"
-        if(maintitles[position].improvement!![2]) improveContent += "Thông tin sân\n"
-        if(maintitles[position].improvement!![3]) improveContent += "Thái độ nhân viên\n"
-        if(maintitles[position].improvement!![4]) improveContent += "Bề mặt sân\n"
-        if(maintitles[position].improvement!![5]) improveContent += "Banh"
+        if(maintitles[position].improvement!![0]) improveContent += "Chất lượng phục vụ"
+        if(maintitles[position].improvement!![1]) improveContent += "\t\t\tHỗ trợ khách hàng"
+        if(maintitles[position].improvement!![2]) improveContent += "\t\t\tThông tin sân"
+        if(maintitles[position].improvement!![3]) improveContent += "\t\t\tThái độ nhân viên"
+        if(maintitles[position].improvement!![4]) improveContent += "\t\t\tBề mặt sân"
+        if(maintitles[position].improvement!![5]) improveContent += "\t\t\tBanh"
         improvement.text = improveContent
         return rowView
     }
