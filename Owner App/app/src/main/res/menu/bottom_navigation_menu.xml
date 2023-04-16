@@ -2,11 +2,9 @@
     <item
         android:id="@+id/item_home"
         android:enabled="true"
-        android:icon="@drawable/home_icon"
-        android:title="Home"/>
+        android:icon="@drawable/home_icon" />
     <item
         android:id="@+id/item_user"
         android:enabled="true"
-        android:icon="@drawable/user_icon"
-        android:title="Me"/>
+        android:icon="@drawable/user_icon" />
 </menu>
