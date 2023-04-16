@@ -58,11 +58,14 @@ class SignIn : AppCompatActivity() {
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
         fun loadCourtList() {
+
             var courtsRef = MainActivity.database.getReference("Courts")
             var query=courtsRef.orderByChild("ownerID").equalTo(user!!.uid)
             var valueEventListener:ValueEventListener=object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    listCourt.clear()
                     for (child_snapshot in snapshot.children) {
+
                         val court: Courts? = child_snapshot.getValue(Courts::class.java)
                         for (imageName in court!!.Images) {
                             var imageRef = MainActivity.storageRef.child(imageName)
@@ -78,16 +81,17 @@ class SignIn : AppCompatActivity() {
 
                         }
                         listCourt.add(court)
-                        if (CourtListActivity.adapter != null) {
-                            CourtListActivity.adapter!!.notifyDataSetChanged()
-                        }
+
+                    }
+                    if (CourtListActivity.adapter != null) {
+                        CourtListActivity.adapter!!.notifyDataSetChanged()
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
                 }
             }
 
-            query.addListenerForSingleValueEvent(valueEventListener)
+            query.addValueEventListener(valueEventListener)
         }
     }
     @SuppressLint("SuspiciousIndentation")

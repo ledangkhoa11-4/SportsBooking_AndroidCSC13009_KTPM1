@@ -37,7 +37,7 @@ class NewFormatActivity : AppCompatActivity() {
     lateinit var yardPicker: com.shawnlin.numberpicker.NumberPicker
     companion object {
         val PICK_SPORT_TYPE_REQUEST = 200
-        val PICK_LOCATION_REQUEST = 201
+        val PICK_LOCATION_REQUEST = 204
         val TIMELINE_STEP_REQUEST = 202
     }
 

@@ -10,7 +10,6 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,11 +83,12 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView26"
                 app:layout_constraintStart_toStartOf="@+id/textView24"
                 app:layout_constraintTop_toTopOf="@+id/textView26"
+                app:layout_constraintVertical_bias="0.0"
                 app:srcCompat="@drawable/service_icon" />
 
             <Button
                 android:id="@+id/UpdateBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/primaryLightColor"
@@ -100,29 +100,9 @@
                 app:iconPadding="10dp"
                 app:iconTint="@color/white"
                 app:iconTintMode="src_in"
-                app:layout_constraintStart_toStartOf="@+id/refereesCb2"
+                app:layout_constraintEnd_toEndOf="@+id/yardNumberPicker"
+                app:layout_constraintStart_toStartOf="@+id/yardNumberPicker"
                 app:layout_constraintTop_toBottomOf="@+id/refereesCb2" />
-
-            <Button
-                android:id="@+id/DeleteBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:backgroundTint="@color/design_default_color_error"
-                android:isScrollContainer="false"
-                android:pointerIcon="none"
-                android:text="Delete"
-                app:icon="@drawable/baseline_delete_24"
-                app:iconGravity="textStart"
-                app:iconPadding="10dp"
-                app:iconTint="@color/white"
-                app:iconTintMode="src_in"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/timeEndPickerEdt"
-                app:layout_constraintHorizontal_bias="0.585"
-                app:layout_constraintStart_toEndOf="@+id/UpdateBtn"
-                app:layout_constraintTop_toTopOf="@+id/UpdateBtn"
-                app:layout_constraintVertical_bias="0.0" />
 
             <CheckBox
                 android:id="@+id/freeParkCb2"
@@ -227,7 +207,7 @@
                 android:layout_marginTop="32dp"
                 android:text="Description"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toBottomOf="@+id/CourtNameEdt" />
+                app:layout_constraintTop_toBottomOf="@+id/PhoneEdt" />
 
             <EditText
                 android:id="@+id/TypeEdt"
@@ -278,11 +258,11 @@
                 android:id="@+id/textView26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="32dp"
                 android:text="Available Services"
                 app:layout_constraintStart_toEndOf="@+id/imageView14"
-                app:layout_constraintTop_toBottomOf="@+id/timeStartPickerEdt" />
+                app:layout_constraintTop_toBottomOf="@+id/yardNumberPicker" />
 
             <ImageView
                 android:id="@+id/imageView15"
@@ -325,7 +305,9 @@
                 android:id="@+id/LocationEdt"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
+                android:clickable="true"
                 android:ems="10"
+                android:focusable="false"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="@+id/PriceEdt"
                 app:layout_constraintStart_toStartOf="@+id/imageView8"
@@ -446,7 +428,6 @@
                 android:id="@+id/toolbar2"
                 android:layout_width="417dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -465,6 +446,67 @@
                 app:layout_constraintStart_toStartOf="@+id/imageView10"
                 app:layout_constraintTop_toTopOf="@+id/TypeEdt"
                 app:srcCompat="@drawable/archery_icon" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Amount of yards"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/timeStartPickerEdt" />
+
+            <com.shawnlin.numberpicker.NumberPicker
+                android:id="@+id/yardNumberPicker"
+                android:layout_width="274dp"
+                android:layout_height="138dp"
+                android:layout_centerInParent="true"
+
+                app:layout_constraintEnd_toEndOf="@+id/timeEndPickerEdt"
+                app:layout_constraintHorizontal_bias="0.0"
+
+                app:layout_constraintStart_toStartOf="@+id/textView27"
+
+
+                app:layout_constraintTop_toBottomOf="@+id/textView27"
+                app:np_dividerColor="@color/black"
+                app:np_height="160dp"
+                app:np_max="5"
+                app:np_min="1"
+                app:np_selectedTextColor="@color/teal_700"
+                app:np_textColor="@color/black"
+                app:np_value="2"
+                app:np_width="60dp" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="32dp"
+                android:text="Phone Number"
+                app:layout_constraintStart_toEndOf="@+id/imageView17"
+                app:layout_constraintTop_toBottomOf="@+id/CourtNameEdt" />
+
+            <EditText
+                android:id="@+id/PhoneEdt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/CourtNameEdt"
+                app:layout_constraintStart_toStartOf="@+id/imageView17"
+                app:layout_constraintTop_toBottomOf="@+id/imageView17"
+                tools:inputType="number" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="32dp"
+                android:layout_height="31dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView28"
+                app:layout_constraintStart_toStartOf="@+id/CourtNameEdt"
+                app:layout_constraintTop_toTopOf="@+id/textView28"
+                app:srcCompat="@drawable/phone_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
