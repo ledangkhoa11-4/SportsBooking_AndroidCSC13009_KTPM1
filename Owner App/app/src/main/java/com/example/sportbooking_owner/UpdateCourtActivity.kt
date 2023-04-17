@@ -31,6 +31,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -38,11 +39,10 @@ import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class UpdateCourtActivity : AppCompatActivity() {
@@ -59,6 +59,7 @@ class UpdateCourtActivity : AppCompatActivity() {
     lateinit var TypeIcon: ImageView
     lateinit var PriceEdt: EditText
     lateinit var LocationEdt: EditText
+
     var newLocation: Location? = null
 
     lateinit var tM: ToggleButton
@@ -90,7 +91,6 @@ class UpdateCourtActivity : AppCompatActivity() {
         //get court
         val courtpos = intent.getIntExtra("pos", 0)
         val court = SignIn.listCourt[courtpos]
-
 
         //image handle
         chooseImageBtn = findViewById(R.id.chooseImageBtn)
@@ -288,7 +288,7 @@ class UpdateCourtActivity : AppCompatActivity() {
                                 for(i in court.Images.indices){
                                     val imageRef=MainActivity.storageRef.child(court.Images[i])
                                     imageRef.delete().addOnCompleteListener {  }.addOnFailureListener {
-                                        Log.e("upImage","del failed",)
+
                                     }
                                 }
                                 var taskCount = listBitmap.size
@@ -339,7 +339,6 @@ class UpdateCourtActivity : AppCompatActivity() {
             finish()
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_SPORT_TYPE_REQUEST && resultCode == RESULT_OK) {
@@ -409,6 +408,7 @@ class UpdateCourtActivity : AppCompatActivity() {
         val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
         return formatter.format(date)
     }
+
 
     fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK)

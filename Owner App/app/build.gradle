@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.3'
 
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
