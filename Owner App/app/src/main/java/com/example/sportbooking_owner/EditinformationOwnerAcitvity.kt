@@ -7,11 +7,19 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.*
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 class EditinformationOwnerAcitvity : AppCompatActivity() {
     lateinit var avartarImage:CircleImageView
@@ -24,6 +32,7 @@ class EditinformationOwnerAcitvity : AppCompatActivity() {
     private var selectedDate:Long = 0L
     private var selectedGender:String=""
     private var bitmapSelected:Bitmap?=null
+    lateinit var saveBtn:Button
     val owner=SignIn.owner
     companion object{
         val PICK_IMAGE_REQUEST = 201
@@ -42,7 +51,7 @@ class EditinformationOwnerAcitvity : AppCompatActivity() {
         phoneEdt.setText(owner.Phone)
 
         selectedGender=owner.Gender
-        val genderOptions = arrayOf("Male", "Female", "Non-Binary", "Other")
+        val genderOptions = arrayOf("Male", "Female", "Other")
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genderOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderSpinner = findViewById<Spinner>(R.id.GenderSpinner)
@@ -84,6 +93,74 @@ class EditinformationOwnerAcitvity : AppCompatActivity() {
             showBottomSheetDialog()
         }
 
+        saveBtn=findViewById(R.id.saveBtn)
+        saveBtn.setOnClickListener {
+            if(nameEdt.text.toString()!="" && selectedDate!=0L && selectedGender!="" && phoneEdt.text.toString()!="" && bitmapSelected!=null) {
+                upLoadUserImage(bitmapSelected!!)
+                upLoadUserInformation()
+            }
+            else{
+                createToast("Error","Please fill in every field in this form", false)
+            }
+        }
+    }
+    fun upLoadUserImage(bitmap: Bitmap):String{
+        val baos=ByteArrayOutputStream()
+        var path="owner${owner.id}"
+        val ref=MainActivity.storageRef.child(path)
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,baos)
+        val data=baos.toByteArray()
+
+        val uploadTask=ref.putBytes(data).addOnCompleteListener{
+
+        }.addOnFailureListener{
+            path=""
+        }
+        return path
+    }
+    fun upLoadUserInformation(){
+        val user_update= HashMap<String, Any>()
+        user_update["id"]=owner.id
+        user_update["username"]=nameEdt.text.toString()
+        user_update["email"]=emailEdt.text.toString()
+        user_update["phone"]=phoneEdt.text.toString()
+        user_update["dob"]=selectedDate
+        user_update["gender"]=selectedGender
+
+
+        val userRef=MainActivity.database.getReference("Owner")
+        val queryRef=userRef.orderByChild("id").equalTo(owner.id)
+        queryRef.addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(childsnap in snapshot.children){
+                    val key=childsnap.key
+                    if (key != null) {
+                        userRef.child(key).setValue(user_update)
+                    }
+                    createToast("Success", "Your changes have been saved",true)
+                    finish()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+    fun createToast(title:String, message:String, isSuccess:Boolean){
+        var style: MotionToastStyle
+        if(isSuccess)
+            style = MotionToastStyle.SUCCESS
+        else
+            style = MotionToastStyle.ERROR
+        MotionToast.createToast(this,
+            title,
+            message,
+            style,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.SHORT_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular))
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

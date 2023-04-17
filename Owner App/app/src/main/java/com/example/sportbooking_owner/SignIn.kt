@@ -317,7 +317,7 @@ class SignIn : AppCompatActivity() {
     }
     fun getOwner(uid:String){
         val ownerRef=MainActivity.database.reference.child("Owner")
-        ownerRef.orderByChild("id").equalTo(uid).addListenerForSingleValueEvent(object :ValueEventListener{
+        ownerRef.orderByChild("id").equalTo(uid).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                for(child  in snapshot.children){
                    val owner_db=child.getValue(User_Owner::class.java)
