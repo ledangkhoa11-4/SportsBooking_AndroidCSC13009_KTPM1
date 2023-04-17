@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener
 class CourtListActivity : AppCompatActivity() {
     lateinit var addBtn:FloatingActionButton
     lateinit var scanQrBtn:ImageButton
+    lateinit var nav_bar: NavigationBarView
     companion object{
         var adapter:CustomAdapter?=null
         var courtList=ArrayList<Courts>()
@@ -41,6 +43,9 @@ class CourtListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_court_list)
 
         courtList=SignIn.listCourt
+        //nav bar handle
+        nav_bar=findViewById(R.id.bottomNavigationView)
+        navBarHandle(nav_bar)
         adapter=CustomAdapter(this,courtList)
         addBtn=findViewById(R.id.addCourtBtn)
         addBtn.setOnClickListener{
@@ -96,8 +101,25 @@ class CourtListActivity : AppCompatActivity() {
             }
         }
     }
+    fun navBarHandle(nav_bar: NavigationBarView){
+        nav_bar.selectedItemId = R.id.item_home
+        nav_bar.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.item_home-> true
+                R.id.item_user->{
+                    startActivity(Intent(this,OwnerTabActivity::class.java))
 
+
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+    }
 }
+
 private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) {
     val popup = PopupMenu(context!!, v)
     popup.menuInflater.inflate(menuRes, popup.menu)

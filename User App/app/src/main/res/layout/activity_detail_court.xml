@@ -326,6 +326,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/buttonupper"
+        android:layout_width="1000dp"
+        android:layout_height="65dp"
+        android:backgroundTint="#FFFFFF"
+        android:layout_marginTop="-5dp"
+        android:clickable="false"
+        android:text="Button"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/ViewScheduleBtn"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="153dp"
@@ -381,7 +394,6 @@
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/un_favorite" />

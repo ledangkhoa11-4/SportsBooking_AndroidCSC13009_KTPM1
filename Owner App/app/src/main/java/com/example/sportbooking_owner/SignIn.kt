@@ -57,6 +57,7 @@ class SignIn : AppCompatActivity() {
     companion object{
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
+        var owner=User_Owner()
         fun loadCourtList() {
 
             var courtsRef = MainActivity.database.getReference("Courts")
@@ -110,6 +111,7 @@ class SignIn : AppCompatActivity() {
         login_btn=findViewById(R.id.login_button)
 
 
+
         //Sign Up
         signUp!!.setOnClickListener {
             startActivity(Intent(this,SignUp::class.java))
@@ -129,6 +131,7 @@ class SignIn : AppCompatActivity() {
                             user = auth.currentUser
 
                                 if(!user?.isEmailVerified!!){
+                                    getOwner(user!!.uid)
                                     startActivity(Intent(this, VerifyEmailActivity::class.java))
                                 }
                             else{
@@ -218,6 +221,7 @@ class SignIn : AppCompatActivity() {
                      user = auth.currentUser
                     if(user!=null){
                         IsSignUp(user!!.uid)
+                        getOwner(user!!.uid)
                         loadCourtList()
                         startActivity(Intent(this, CourtListActivity::class.java))
                         finish()
@@ -236,12 +240,15 @@ class SignIn : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        auth.signOut()
+       // auth.signOut()
          //Check if user is signed in (non-null) and update UI accordingly.
-//         user = auth.currentUser
-//        if(user != null){
-//           startActivity(Intent(this, CourtListActivity::class.java))
-//        }
+         user = auth.currentUser
+
+        if(user != null){
+            loadCourtList()
+            getOwner(user!!.uid)
+           startActivity(Intent(this, CourtListActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -269,6 +276,7 @@ class SignIn : AppCompatActivity() {
                                         //Log.i("VerifyEmail", user!!.isEmailVerified.toString())
                                         if(user!=null){
                                                 IsSignUp(user!!.uid)
+                                                getOwner(user!!.uid)
                                                 loadCourtList()
                                                 startActivity(Intent(this, CourtListActivity::class.java))
                                                 finish()
@@ -307,6 +315,32 @@ class SignIn : AppCompatActivity() {
 
 
     }
+    fun getOwner(uid:String){
+        val ownerRef=MainActivity.database.reference.child("Owner")
+        ownerRef.orderByChild("id").equalTo(uid).addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+               for(child  in snapshot.children){
+                   val owner_db=child.getValue(User_Owner::class.java)
+                   if (owner_db != null) {
+                       var imageRef = MainActivity.storageRef.child("owner${owner_db.id}")
+                       val ONE_MEGABYTE: Long = 1024 * 1024 * 5
+                       imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                           val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                           owner_db.Image = bitmap
+
+                   }.addOnFailureListener { Log.w("Dowload","Failed") }
+                       owner=owner_db
+               }
+            }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+    }
     fun updateUserProfile(newUser:User_Owner){
         val user = Firebase.auth.currentUser
 
@@ -328,7 +362,7 @@ class SignIn : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val numOwner=snapshot.childrenCount
                 if(numOwner<1){
-                    val owner=User_Owner(user!!.uid, user!!.displayName, user!!.email)
+                    val owner=User_Owner(user!!.uid, user!!.displayName.toString(), user!!.email!!)
                     val ownerRef=database.reference.child("Owner")
                     ownerRef.push().setValue(owner)
                 }

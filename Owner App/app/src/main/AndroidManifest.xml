@@ -23,6 +23,12 @@
             android:name=".ViewBookingActivity"
             android:exported="false" />
         <activity
+            android:name=".EditinformationOwnerAcitvity"
+            android:exported="false" />
+        <activity
+            android:name=".OwnerTabActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerifyEmailActivity"
             android:exported="false" />
 

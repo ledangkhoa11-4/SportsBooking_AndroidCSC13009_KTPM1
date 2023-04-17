@@ -2,6 +2,7 @@ package com.example.sportbooking_owner
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +16,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
 class SignUp : AppCompatActivity() {
@@ -69,8 +73,10 @@ class SignUp : AppCompatActivity() {
                                 if (user != null) {
                                     if(!user!!.isEmailVerified)
                                     {
-                                        var currentUser= User_Owner(user!!.uid,user.displayName,user.email)
+                                        var currentUser= User_Owner(user!!.uid,
+                                            user.displayName!!,user.email!!)
                                         writeNewUser(currentUser!!)
+                                        getOwner(SignIn.user!!.uid)
                                         startActivity(Intent(this, VerifyEmailActivity::class.java))
                                     }
                                     else{
@@ -95,6 +101,28 @@ class SignUp : AppCompatActivity() {
                 showErrorDialog("Fields can't be empty")
             }
         }
+
+    }
+    fun getOwner(uid:String){
+        val ownerRef=MainActivity.database.reference.child("Owner")
+        ownerRef.orderByChild("id").equalTo(uid).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(child  in snapshot.children){
+                    val owner_db=child.getValue(User_Owner::class.java)
+                    if (owner_db != null) {
+
+                            SignIn.owner =owner_db
+                        }
+                    }
+                }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
     }
     fun showErrorDialog(error:String){
