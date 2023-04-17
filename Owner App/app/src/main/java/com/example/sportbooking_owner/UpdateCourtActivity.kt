@@ -1,7 +1,5 @@
 package com.example.sportbooking_owner
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,18 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -38,8 +30,6 @@ import nl.joery.timerangepicker.TimeRangePicker
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -335,7 +325,7 @@ class UpdateCourtActivity : AppCompatActivity() {
 
 
         }
-        findViewById<ImageButton>(R.id.backButtonUpdate).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonScan).setOnClickListener {
             finish()
         }
     }

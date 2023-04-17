@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     tools:context=".UpdateCourtActivity">
     <ImageButton
-        android:id="@+id/backButtonUpdate"
+        android:id="@+id/backButtonScan"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -24,10 +24,10 @@
         android:fontFamily="@font/lato_bold"
         android:text="Edit Court"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonUpdate"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonScan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/backButtonUpdate"
-        app:layout_constraintTop_toTopOf="@+id/backButtonUpdate" />
+        app:layout_constraintStart_toStartOf="@+id/backButtonScan"
+        app:layout_constraintTop_toTopOf="@+id/backButtonScan" />
 
 
     <com.example.sportbooking_owner.LockableScrollView

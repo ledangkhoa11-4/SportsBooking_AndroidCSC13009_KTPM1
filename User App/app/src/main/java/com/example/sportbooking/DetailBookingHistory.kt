@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ import android.widget.TextView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
@@ -47,7 +52,7 @@ class DetailBookingHistory : AppCompatActivity() {
         detailBooking = MyBookingActivity.bookingHistories[index]
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
-
+        waitStatusChange()
 
         val vpAdapter = ImageViewPagerAdapter(detailBooking.Court!!.bitmapArrayList)
         viewPager.setPageTransformer(MarginPageTransformer(37));
@@ -103,5 +108,29 @@ class DetailBookingHistory : AppCompatActivity() {
     fun formatPrice(price: Int): String {
         val formatter = java.text.DecimalFormat("#,###")
         return "Paid:" + formatter.format(price) + "đ"
+    }
+    fun waitStatusChange(){
+        val bookingRef = MainActivity.database.getReference("Booking")
+        val query = bookingRef.orderByChild("SecretID").equalTo(detailBooking.SecretID.toDouble())
+        query.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    bookingRef.child(ds.key!!).child("Status").get().addOnSuccessListener {
+                        val newStatus:Boolean? = it.getValue(Boolean::class.java)
+                        detailBooking.Status = newStatus!!
+                        if(detailBooking.Status == true){
+                            status.setText("Checked-in successfully")
+                            status.setTextColor(Color.parseColor("#02b002"))
+                            CreateToast.createToast(this@DetailBookingHistory,"Successfully","Checked-in successfullt, have fun!",true)
+                        }else status.setText("Not check-in yet")
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 }
