@@ -2,17 +2,13 @@ package com.example.sportbooking_owner
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -21,13 +17,9 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.sportbooking_owner.DTO.Courts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 
 class CourtListActivity : AppCompatActivity() {
     lateinit var addBtn:FloatingActionButton
@@ -108,8 +100,8 @@ class CourtListActivity : AppCompatActivity() {
                 R.id.item_home-> true
                 R.id.item_user->{
                     startActivity(Intent(this,OwnerTabActivity::class.java))
-
-
+                    overridePendingTransition(0,0)
+                    finish()
                     true
                 }
                 else -> {
@@ -127,6 +119,10 @@ private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) 
     popup.setOnMenuItemClickListener {
         if(it.toString().contains("Modify",true)){
             var intent=Intent(context,UpdateCourtActivity::class.java)
+            intent.putExtra("pos",pos)
+            context.startActivity(intent)
+        }else{
+            var intent=Intent(context,ViewBookingActivity::class.java)
             intent.putExtra("pos",pos)
             context.startActivity(intent)
         }

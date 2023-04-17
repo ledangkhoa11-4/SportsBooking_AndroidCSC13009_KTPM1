@@ -2,7 +2,6 @@ package com.example.sportbooking_owner
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doOnTextChanged
+import com.example.sportbooking_owner.DTO.User_Owner
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.textfield.TextInputLayout
@@ -142,7 +142,7 @@ class SignUp : AppCompatActivity() {
         dialog=builder.create()
         dialog.show()
     }
-    fun writeNewUser(user:User_Owner) {
+    fun writeNewUser(user: User_Owner) {
         database.child("Owner").push().setValue(user)
     }
 

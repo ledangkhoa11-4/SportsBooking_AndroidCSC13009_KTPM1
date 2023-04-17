@@ -62,7 +62,7 @@ class MyBookingActivity : AppCompatActivity() {
     }
     fun loadBookingList(){
         val bookingRef = MainActivity.database.getReference("Booking");
-        val queryRef = bookingRef.orderByChild("UserID").equalTo("daylamotuserid")
+        val queryRef = bookingRef.orderByChild("UserID").equalTo(MainActivity.user.id)
         queryRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 bookingHistories.clear()

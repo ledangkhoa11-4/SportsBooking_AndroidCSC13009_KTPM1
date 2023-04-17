@@ -42,16 +42,15 @@ class OwnerTabActivity : AppCompatActivity() {
 
     }
     fun navBarHandle(nav_bar: NavigationBarView){
-        nav_bar.selectedItemId = R.id.item_home
+        nav_bar.selectedItemId = R.id.item_user
         nav_bar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.item_home-> {
                     startActivity(Intent(this,CourtListActivity::class.java))
-
-
+                    overridePendingTransition(0,0)
+                    finish()
                     true}
                 R.id.item_user->{
-
                     true
                 }
                 else -> {

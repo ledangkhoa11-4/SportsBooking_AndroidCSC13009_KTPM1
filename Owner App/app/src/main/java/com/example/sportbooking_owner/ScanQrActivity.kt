@@ -1,13 +1,11 @@
 package com.example.sportbooking_owner
 
 import android.content.pm.PackageManager
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.vision.CameraSource
@@ -32,7 +30,7 @@ class ScanQrActivity : AppCompatActivity(), Detector.Processor<Barcode> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan_qr)
 
-        findViewById<ImageButton>(R.id.backButtonScan).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBookingView).setOnClickListener {
             finish()
         }
         surfaceView = findViewById(R.id.surfaceView)

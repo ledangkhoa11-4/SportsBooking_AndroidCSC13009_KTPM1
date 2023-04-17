@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/backButtonScan"
+        android:id="@+id/backButtonBookingView"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"

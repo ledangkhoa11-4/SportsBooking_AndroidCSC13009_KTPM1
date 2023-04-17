@@ -1,4 +1,4 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking_owner.DTO
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
