@@ -50,6 +50,9 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
+            android:name=".NotificationActivity"
+            android:exported="true" />
+        <activity
             android:name=".DetailBookingHistory"
             android:exported="false" />
         <activity
