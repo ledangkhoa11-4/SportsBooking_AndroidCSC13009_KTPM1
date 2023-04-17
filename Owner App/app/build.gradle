@@ -65,4 +65,5 @@ dependencies {
 
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
 }

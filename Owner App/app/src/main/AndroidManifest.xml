@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,12 @@
         android:theme="@style/Theme.SportBooking_Owner"
         tools:replace="android:theme"
         tools:targetApi="31">
+        <activity
+            android:name=".ScanQrActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBookingActivity"
+            android:exported="false" />
         <activity
             android:name=".EditinformationOwnerAcitvity"
             android:exported="false" />

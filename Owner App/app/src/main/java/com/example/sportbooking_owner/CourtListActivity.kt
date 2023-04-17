@@ -2,23 +2,23 @@ package com.example.sportbooking_owner
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.MenuRes
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -31,10 +31,12 @@ import com.google.firebase.database.ValueEventListener
 
 class CourtListActivity : AppCompatActivity() {
     lateinit var addBtn:FloatingActionButton
+    lateinit var scanQrBtn:ImageButton
     lateinit var nav_bar: NavigationBarView
     companion object{
         var adapter:CustomAdapter?=null
         var courtList=ArrayList<Courts>()
+        val REQUEST_CAMERA_PERMISSION = 200
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +80,26 @@ class CourtListActivity : AppCompatActivity() {
 
             }
         })
+        scanQrBtn = findViewById(R.id.scanQrBtn)
+        scanQrBtn.setOnClickListener {
+            if(checkCameraPermission(this)){
+                val intent = Intent(this, ScanQrActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(this, ScanQrActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "We cannot scan QR code without using camera. Please grant permission!", Toast.LENGTH_SHORT).show()
+
+            }
+        }
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_home
@@ -103,9 +125,10 @@ private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) 
     popup.menuInflater.inflate(menuRes, popup.menu)
 
     popup.setOnMenuItemClickListener {
-        var intent=Intent(context,UpdateCourtActivity::class.java)
-        intent.putExtra("pos",pos)
-        context.startActivity(intent)
+        Log.i("AAAAAAAAAA",it.toString())
+//        var intent=Intent(context,UpdateCourtActivity::class.java)
+//        intent.putExtra("pos",pos)
+//        context.startActivity(intent)
         true
     }
     popup.setOnDismissListener {
@@ -114,6 +137,19 @@ private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) 
     // Show the popup menu.
     popup.show()
 }
+fun checkCameraPermission(context: Activity):Boolean{
+    val vt = ActivityCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
+    if(vt != PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(
+            context,
+            arrayOf(android.Manifest.permission.CAMERA),
+            200)
+        return false
+    }else{
+        return true
+    }
+}
+
 class CustomAdapter(private val context:Activity, private val dataSet: ArrayList<Courts>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     var onItemClick:((Int, View)->Unit)?=null

@@ -22,6 +22,7 @@ import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToast.Companion.createToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.lang.Math.floor
+import java.util.Objects
 
 class RatingActivity : AppCompatActivity() {
     lateinit var detailBooking:com.example.sportbooking.DTO.BookingHistory
@@ -32,6 +33,7 @@ class RatingActivity : AppCompatActivity() {
     lateinit var ratingBar2: RatingBar
     lateinit var commitButton: Button
     lateinit var comment: EditText
+    var count: Int = 0
     var listRating: ArrayList<RatingCourt> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,10 +127,29 @@ class RatingActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             else{
-                val ratingRef = MainActivity.database.getReference("Rating");
-                val rating = com.example.sportbooking.DTO.RatingCourt("", detailBooking!!.ID,detailBooking!!.CourtID,ratingBar2.rating,
+                val ratingRef = MainActivity.database.getReference("Rating")
+                val rating = com.example.sportbooking.DTO.RatingCourt("",detailBooking!!.ID,detailBooking!!.CourtID,
+                    MainActivity.user.username,MainActivity.user.Image,ratingBar2.rating,
                     comment.text.toString(),isTrue)
                 ratingRef.push().setValue(rating)
+                val courtRef = MainActivity.database.getReference("Courts")
+                val queryRef = courtRef.orderByChild("courtID").equalTo(detailBooking.CourtID)
+                queryRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for(ds in snapshot.children){
+
+                            if(ds.child("courtID").getValue(String::class.java).equals(detailBooking.CourtID)){
+                                val keyRef = ds.key
+                                courtRef.child(keyRef!!).child("avgRating").setValue(ratingBar1.rating)
+                                courtRef.child(keyRef!!).child("numRating").setValue(count)
+                                break
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
                 createToast("Rate success","Thank you for choosing us",true )
 
             }
@@ -140,12 +161,14 @@ class RatingActivity : AppCompatActivity() {
         val queryRef = ratingRef.orderByChild("courtID").equalTo(detailBooking.CourtID)
         queryRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var sum = 0.0f
                 listRating.clear()
+                count = 0
+                var sum = 0.0f
                 for (ds in dataSnapshot.children) {
                     val rating = ds.getValue(RatingCourt::class.java)
                     listRating.add(rating!!)
                     sum += rating.star!!
+                    count++
                 }
                 var ratingResult = sum/listRating.size
                 ratingBar1.rating = ratingResult

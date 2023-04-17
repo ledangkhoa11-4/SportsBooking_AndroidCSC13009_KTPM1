@@ -10,8 +10,7 @@
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -239,11 +238,11 @@
                 android:layout_width="30dp"
                 android:layout_height="27dp"
                 android:layout_marginStart="10dp"
-                app:tint="#848383"
                 app:layout_constraintBottom_toBottomOf="@+id/textView10"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
                 app:layout_constraintTop_toTopOf="@+id/textView10"
-                app:srcCompat="@drawable/football_icon" />
+                app:srcCompat="@drawable/football_icon"
+                app:tint="#848383" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -299,6 +298,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv15" />
 
             <ListView
+                android:id="@+id/listRating"
                 android:layout_width="0dp"
                 android:layout_height="121dp"
                 android:layout_marginStart="10dp"
@@ -321,7 +321,8 @@
         android:text="Button"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ViewScheduleBtn"

@@ -67,10 +67,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //startActivity(Intent(this,BookingHistory::class.java))
+        //loadCourtList()
+        //finish()
         loadCourtList()
         lastLocation = readLastLocation(this);
-        startActivity(Intent(this, SignInActivity::class.java))
+        //startActivity(Intent(this, HomeActivity::class.java))
+      startActivity(Intent(this, SignInActivity::class.java))
         finish()
+        // startActivity(Intent(this,CalendarViewActivity::class.java))
+        // startActivity(Intent(this,RatingActivity::class.java))
+
+        //startActivity(Intent(this,SearchStadiumActivity::class.java))
+        //startActivity(Intent(this,CourtScheduleActivity::class.java))
+        //startActivity(Intent(this,CalendarViewActivity::class.java))
     }
     private fun loadCourtList() {
         var courtsRef = database.getReference("Courts");

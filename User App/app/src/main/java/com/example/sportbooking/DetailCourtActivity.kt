@@ -6,22 +6,22 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.MotionEvent
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.DTO.RatingCourt
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
+
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -37,6 +37,10 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
     lateinit var favoriteBtn:ImageButton
+    var ratingList: ArrayList<RatingCourt> = ArrayList()
+    var ratingResult: Float = 0.0f
+    lateinit var ratingView: ListView
+    var ratingAdapter: RatingRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,23 @@ class DetailCourtActivity : AppCompatActivity() {
         val adapter = ServiceAvaiRecyclerViewAdapter(packageName,resources,courtDetail.AvalableService)
         listServiceRv.adapter = adapter
         listServiceRv.layoutManager = GridLayoutManager(this,2)
+        loadRatingList()
+        Log.i("printrating",ratingList.size.toString())
+        ratingView = findViewById(R.id.listRating)
+        val scrollView:ScrollView = findViewById(R.id.scrollView3)
+        ratingView.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent): Boolean {
+                scrollView.requestDisallowInterceptTouchEvent(true)
+                val action = event.actionMasked
+                when (action) {
+                    MotionEvent.ACTION_UP -> scrollView.requestDisallowInterceptTouchEvent(false)
+                }
+                return false
+            }
+        })
+        ratingAdapter = RatingRecyclerViewAdapter(this,ratingList)
+        ratingView.adapter = ratingAdapter
+
         courtLocation.setOnClickListener {
             val location =courtLocation.text.toString()
             val uri = Uri.parse("geo:0,0?q=$location")
@@ -181,5 +202,28 @@ class DetailCourtActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    fun loadRatingList() {
+        val ratingRef = MainActivity.database.getReference("Rating");
+        val queryRef = ratingRef.orderByChild("courtID").equalTo(courtDetail.CourtID)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var sum = 0.0f
+                ratingList.clear()
+                for (ds in dataSnapshot.children) {
+                    val rating = ds.getValue(RatingCourt::class.java)
+                    ratingList.add(rating!!)
+                    sum += rating.star!!
+                }
+                ratingResult = sum/ratingList.size
+                if(ratingAdapter != null){
+                    ratingAdapter!!.notifyDataSetChanged()
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

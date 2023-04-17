@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="80dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_main_menu"
+        android:backgroundTint="#EFC050"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:text="Comment:"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/contentTextView"
+        app:layout_constraintHorizontal_bias="0.64"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+    <ImageView
+        android:id="@+id/userImage"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.16"
+        app:srcCompat="@drawable/avt" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="185dp"
+        android:layout_height="46dp"
+        android:numStars="5"
+        android:theme="@style/RatingBar"
+        android:isIndicator="true"
+        app:layout_constraintBottom_toBottomOf="@+id/userName"
+        app:layout_constraintStart_toEndOf="@+id/userName" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="107dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/userImage"
+        app:layout_constraintStart_toEndOf="@+id/userImage" />
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="277dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_main_menu"
+        android:backgroundTint="#FFCC66"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:singleLine="false"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/userImage"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="78dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="7dp"
+        android:paddingTop="2dp"
+        android:text="Cần cải thiện:"
+        android:background="@drawable/background_main_menu"
+        android:backgroundTint="#E15D44"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentTextView" />
+
+    <TextView
+        android:id="@+id/improvement"
+        android:layout_width="225dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/background_main_menu"
+        android:ems="10"
+        android:singleLine="false"
+        android:textStyle="bold"
+        android:backgroundTint="#DD4124"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/contentTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
