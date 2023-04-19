@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
@@ -86,7 +84,7 @@ class DetailBookingHistory : AppCompatActivity() {
                 }
                 .show()
         }
-        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
         findViewById<Button>(R.id.ratingButton).setOnClickListener {

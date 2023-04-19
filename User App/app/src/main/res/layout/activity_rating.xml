@@ -4,269 +4,299 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beautiful_gray"
     tools:context=".RatingActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="410dp"
-        android:layout_height="130dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F7F8FC"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="213dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F7F8FC">
+
+
+            <ImageButton
+                android:id="@+id/backButtonRating"
+                android:layout_width="49dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back_icon" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="169dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="23dp"
-                android:background="@drawable/background_image"
-                app:layout_constraintBottom_toTopOf="@+id/ratingbar1"
+                android:id="@+id/constraintLayout2"
+                android:layout_width="413dp"
+                android:layout_height="501dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    android:id="@+id/advertiseTextView"
+                    android:layout_width="365dp"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="432dp"
+                    android:gravity="center"
+                    android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
+                    app:autoSizeMaxTextSize="100sp"
+                    app:autoSizeMinTextSize="12sp"
+                    app:autoSizeStepGranularity="2sp"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.41"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <RatingBar
+                    android:id="@+id/ratingbar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="100dp"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    android:theme="@style/RatingBar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.427"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/advertiseTextView"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Cần cải thiện thêm về?"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.085"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingbar2"></TextView>
+
+                <GridLayout
+                    android:id="@+id/linearLayout4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:columnCount="2"
+                    android:rowCount="3"
+                    app:layout_constraintBottom_toTopOf="@+id/commentEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingbar2">
+
+                    <Button
+                        android:id="@+id/button1"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Chất lượng phục vụ"
+                        android:textColor="@color/black" />
+
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Hỗ trợ khách hàng"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Thông tin sân"
+                        android:textColor="@color/black" />
+
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Thái độ nhân viên"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/button5"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Bề mặt sân"
+                        android:textColor="@color/black" />
+
+                    <Button
+                        android:id="@+id/button6"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/beautiful_gray"
+                        android:text="Banh"
+                        android:textColor="@color/black" />
+                </GridLayout>
+
+                <EditText
+                    android:id="@+id/commentEditText"
+                    android:layout_width="380dp"
+                    android:layout_height="119dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_main_menu"
+                    android:ems="10"
+                    android:hint="Nhận xét"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <Button
+                    android:id="@+id/commit"
+                    android:layout_width="167dp"
+                    android:layout_height="43dp"
+                    android:backgroundTint="@color/topic_color"
+                    android:gravity="center"
+                    android:text="Đánh giá ngay"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="410dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="48dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/fieldName"
-                    android:layout_width="155dp"
-                    android:layout_height="45dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="San bong k34"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="213dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            <RatingBar
-                android:id="@+id/ratingbar1"
-                android:layout_width="181dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="16dp"
-                android:isIndicator="true"
-                android:stepSize="0.5"
-                android:numStars="5"
-                android:theme="@style/RatingBar"
-                style="?android:attr/ratingBarStyleIndicator"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.818"
-                app:layout_constraintStart_toStartOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="169dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="23dp"
+                        android:background="@drawable/background_image"
+                        app:layout_constraintBottom_toTopOf="@+id/ratingbar1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/fieldName"
+                            android:layout_width="155dp"
+                            android:layout_height="45dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="San bong k34"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <RatingBar
+                        android:id="@+id/ratingbar1"
+                        style="?android:attr/ratingBarStyleIndicator"
+                        android:layout_width="181dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="16dp"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:stepSize="0.5"
+                        android:theme="@style/RatingBar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.818"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="197dp"
+                    android:layout_height="match_parent">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/listImageDetailVP"
+                        android:layout_width="144dp"
+                        android:layout_height="103dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.49"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.153" />
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dots_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        app:dotsColor="@color/LightGray"
+                        app:dotsCornerRadius="8dp"
+                        app:dotsSize="10dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsWidthFactor="2.5"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.495"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:progressMode="true"
+                        app:selectedDotColor="@color/myBlue">
+
+                    </com.tbuonomo.viewpagerdotsindicator.DotsIndicator>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="197dp"
-            android:layout_height="match_parent">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/listImageDetailVP"
-                android:layout_width="144dp"
-                android:layout_height="103dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.49"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.153" />
-
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:id="@+id/dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                app:dotsColor="@color/LightGray"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="10dp"
-                app:dotsSpacing="4dp"
-                app:dotsWidthFactor="2.5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:progressMode="true"
-                app:selectedDotColor="@color/myBlue">
-
-            </com.tbuonomo.viewpagerdotsindicator.DotsIndicator>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="413dp"
-        android:layout_height="501dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <TextView
-            android:id="@+id/advertiseTextView"
-            android:layout_width="365dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="432dp"
-            android:gravity="center"
-            android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeStepGranularity="2sp"
-            app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.41"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <RatingBar
-            android:id="@+id/ratingbar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:numStars="5"
-            android:stepSize="1"
-            android:theme="@style/RatingBar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.427"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/advertiseTextView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:layout_width="225dp"
-            android:layout_height="30dp"
-            android:text="Cần cải thiện thêm về?"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.085"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingbar2"
-            app:layout_constraintVertical_bias="1.0"></TextView>
-
-        <GridLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="394dp"
-            android:layout_height="168dp"
-            android:layout_marginBottom="8dp"
-            android:columnCount="2"
-            android:rowCount="3"
-            app:layout_constraintBottom_toTopOf="@+id/commentEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Chất lượng phục vụ"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Hỗ trợ khách hàng"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Thông tin sân"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Thái độ nhân viên"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Bề mặt sân"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/beautiful_gray"
-                android:text="Banh"
-                android:textColor="@color/black" />
-        </GridLayout>
-
-        <EditText
-            android:id="@+id/commentEditText"
-            android:layout_width="366dp"
-            android:layout_height="121dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/background_main_menu"
-            android:ems="10"
-            android:hint="Nhận xét"
-            android:paddingLeft="10dp"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.489"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="420dp"
-        android:layout_height="76dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/commit"
-            android:layout_width="167dp"
-            android:layout_height="43dp"
-            android:backgroundTint="@color/topic_color"
-            android:text="Đánh giá ngay"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

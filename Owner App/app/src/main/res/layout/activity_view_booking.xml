@@ -37,12 +37,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backButtonBookingView"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#79A344"
+        app:tabIndicatorColor="#C10202"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#000000"
-        app:tabTextColor="#79A344">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabSelectedTextColor="#C10202"
+        app:tabTextColor="#000000"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"

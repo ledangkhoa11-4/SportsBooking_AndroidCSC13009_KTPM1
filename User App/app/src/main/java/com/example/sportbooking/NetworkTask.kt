@@ -11,7 +11,7 @@ class NetworkTask(private val client: OkHttpClient, private val url: String): As
             .build()
         try {
             val response = client.newCall(request).execute()
-            return response.body()?.string()
+            return response.body?.string()
         } catch (e: Exception) {
             e.printStackTrace()
         }

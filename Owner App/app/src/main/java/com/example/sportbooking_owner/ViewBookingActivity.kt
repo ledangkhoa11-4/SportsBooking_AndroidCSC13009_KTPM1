@@ -52,8 +52,10 @@ class ViewBookingActivity : AppCompatActivity() {
     }
 
     fun loadListBooking(){
+        listIncoming.clear()
+        listFinished.clear()
         val bookingRef = MainActivity.database.getReference("Booking")
-        val query = bookingRef.orderByChild("CourtID").equalTo(court.CourtID)
+        val query = bookingRef.orderByChild("courtID").equalTo(court.CourtID)
         query.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 listIncoming.clear()

@@ -4,10 +4,7 @@ import android.media.Rating
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -16,7 +13,6 @@ import com.example.sportbooking.DTO.RatingCourt
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.hadi.emojiratingbar.EmojiRatingBar
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToast.Companion.createToast
@@ -128,8 +124,8 @@ class RatingActivity : AppCompatActivity() {
             }
             else{
                 val ratingRef = MainActivity.database.getReference("Rating")
-                val rating = com.example.sportbooking.DTO.RatingCourt("",detailBooking!!.ID,detailBooking!!.CourtID,
-                    MainActivity.user.username,MainActivity.user.Image,ratingBar2.rating,
+                val rating = com.example.sportbooking.DTO.RatingCourt(MainActivity.user.id,detailBooking!!.ID,detailBooking!!.CourtID,
+                    MainActivity.user.username,null,ratingBar2.rating,
                     comment.text.toString(),isTrue)
                 ratingRef.push().setValue(rating)
                 val courtRef = MainActivity.database.getReference("Courts")
@@ -153,6 +149,9 @@ class RatingActivity : AppCompatActivity() {
                 createToast("Rate success","Thank you for choosing us",true )
 
             }
+        }
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
+            finish()
         }
     }
 

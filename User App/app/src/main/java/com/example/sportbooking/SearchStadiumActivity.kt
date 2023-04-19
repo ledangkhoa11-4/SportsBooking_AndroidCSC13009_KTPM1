@@ -57,7 +57,7 @@ class SearchStadiumActivity : AppCompatActivity() {
 
 
         nameOfStadiumInput.setText(lastName)
-        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
         val gson = Gson()

@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.64" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/avatarIv"
+        android:id="@+id/avatarTv"
         android:layout_width="99dp"
         android:layout_height="95dp"
         android:layout_marginTop="80dp"
@@ -102,8 +102,8 @@
         android:backgroundTint="#00FFFFFF"
         android:foregroundGravity="bottom"
         android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="@+id/avatarIv"
-        app:layout_constraintTop_toTopOf="@+id/avatarIv"
+        app:layout_constraintStart_toStartOf="@+id/avatarTv"
+        app:layout_constraintTop_toTopOf="@+id/avatarTv"
         app:srcCompat="@drawable/camera_icon" />
 
     <TextView
@@ -125,7 +125,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatarIv" />
+        app:layout_constraintTop_toBottomOf="@+id/avatarTv" />
 
     <Spinner
         android:id="@+id/genderSpinner"

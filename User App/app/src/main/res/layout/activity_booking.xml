@@ -214,7 +214,7 @@
         app:layout_constraintTop_toBottomOf="@+id/hourServiceTv" />
 
     <ImageButton
-        android:id="@+id/backButtonFavorite"
+        android:id="@+id/backButtonRating"
         android:layout_width="47dp"
         android:layout_height="40dp"
         android:backgroundTint="#FFFEFE"
@@ -229,10 +229,10 @@
     android:fontFamily="@font/lato_bold"
     android:text="Confirm Booking"
     android:textSize="18sp"
-    app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
+    app:layout_constraintBottom_toBottomOf="@+id/backButtonRating"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toEndOf="@+id/backButtonFavorite"
-    app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
+    app:layout_constraintStart_toEndOf="@+id/backButtonRating"
+    app:layout_constraintTop_toTopOf="@+id/backButtonRating" />
 
     <Button
         android:id="@+id/button15"
@@ -306,4 +306,18 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:strokeColor="@color/red" />
 
+    <com.paypal.checkout.paymentbutton.PaymentButtonContainer
+        android:id="@+id/paybtn"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:paypal_button_color="silver"
+        app:paypal_button_enabled="true"
+        app:paypal_button_label="pay"
+        app:paypal_button_shape="rectangle"
+        app:paypal_button_size="large" />
 </androidx.constraintlayout.widget.ConstraintLayout>

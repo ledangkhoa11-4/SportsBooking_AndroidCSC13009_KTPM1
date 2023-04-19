@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +50,7 @@ class EditInformationActivity : AppCompatActivity() {
         genderInput = findViewById(R.id.genderSpinner)
         dobInput = findViewById(R.id.dobInput)
         phoneInput = findViewById(R.id.phoneInput)
-        avatarIv = findViewById(R.id.avatarIv)
+        avatarIv = findViewById(R.id.avatarTv)
         backBtn = findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
             finish()

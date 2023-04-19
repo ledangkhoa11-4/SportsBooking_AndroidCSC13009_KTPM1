@@ -2,102 +2,144 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="20dp">
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="80dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/background_main_menu"
-        android:backgroundTint="#EFC050"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:text="Comment:"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/contentTextView"
-        app:layout_constraintHorizontal_bias="0.64"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatarTv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avt"
+        app:civ_border_color="#EFEFEF"
+        app:civ_border_width="3dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userImage" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/userImage"
-        android:layout_width="46dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
-        app:srcCompat="@drawable/avt" />
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/lato_black"
+        android:text="Nguyễn Như Phước"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/avatarTv"
+        app:layout_constraintTop_toTopOf="@+id/avatarTv" />
 
     <RatingBar
         android:id="@+id/ratingBar"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:layout_width="185dp"
-        android:layout_height="46dp"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="81dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="5dp"
+        android:isIndicator="true"
         android:numStars="5"
         android:theme="@style/RatingBar"
-        android:isIndicator="true"
-        app:layout_constraintBottom_toBottomOf="@+id/userName"
-        app:layout_constraintStart_toEndOf="@+id/userName" />
+        app:layout_constraintStart_toStartOf="@+id/username"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
-        android:id="@+id/userName"
-        android:layout_width="107dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="8dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/userImage"
-        app:layout_constraintStart_toEndOf="@+id/userImage" />
+        android:id="@+id/ratingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato"
+        android:text="11-04-2002"
+        android:textColor="#636363"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <TextView
-        android:id="@+id/contentTextView"
-        android:layout_width="277dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/background_main_menu"
-        android:backgroundTint="#FFCC66"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:singleLine="false"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/userImage"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        android:id="@+id/improvements"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/lato"
+        android:maxLines="2"
+        android:text="Chất lượng phục vụ - Thông tin sân - Hỗ trợ khách hàng - Thái độ nhân viên - Bề mặt sân - Banh"
+        android:textColor="#636363"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/comment"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:layout_marginEnd="15dp"-->
+    <!--        android:ellipsize="end"-->
+    <!--        android:fontFamily="@font/lato"-->
+    <!--        android:maxLines="2"-->
+    <!--        android:text="Sản phẩm rất ok,mới xài vài lần mà cảm giác hơn hẳn cái truyền thống.nên mua"-->
+    <!--        android:textColor="#000000"-->
+    <!--        android:textSize="11sp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/textView15"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/improvements" />-->
+
+
+    <!-- sample xml -->
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/commentContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:animDuration="200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/improvements"
+        app:maxCollapsedLines="4">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@android:color/transparent"
+            android:padding="12dp" />
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="78dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="7dp"
-        android:paddingTop="2dp"
-        android:text="Cần cải thiện:"
-        android:background="@drawable/background_main_menu"
-        android:backgroundTint="#E15D44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/lato"
+        android:text="Improvements:"
+        android:textColor="#636363"
+        android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentTextView" />
+        app:layout_constraintStart_toStartOf="@+id/ratingDate"
+        app:layout_constraintTop_toBottomOf="@+id/ratingDate" />
 
     <TextView
-        android:id="@+id/improvement"
-        android:layout_width="225dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/background_main_menu"
-        android:ems="10"
-        android:singleLine="false"
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Feedback:"
+        android:textColor="#636363"
+        android:textSize="11sp"
         android:textStyle="bold"
-        android:backgroundTint="#DD4124"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/contentTextView" />
+        app:layout_constraintStart_toStartOf="@+id/avatarTv"
+        app:layout_constraintTop_toBottomOf="@+id/improvements" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

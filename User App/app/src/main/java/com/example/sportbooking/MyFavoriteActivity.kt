@@ -32,7 +32,7 @@ class MyFavoriteActivity : AppCompatActivity() {
             intent.putExtra("index",idx)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
         emptyImage = findViewById(R.id.EmptyFavorite)

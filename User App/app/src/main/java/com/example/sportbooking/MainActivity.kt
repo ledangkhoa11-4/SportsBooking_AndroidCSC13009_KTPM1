@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun updateBookingNumber(court:Court){
         val bookingRef = MainActivity.database.getReference("Booking");
-        val queryRef = bookingRef.orderByChild("CourtID").equalTo(court.CourtID)
+        val queryRef = bookingRef.orderByChild("courtID").equalTo(court.CourtID)
         queryRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val numbook = snapshot.childrenCount
