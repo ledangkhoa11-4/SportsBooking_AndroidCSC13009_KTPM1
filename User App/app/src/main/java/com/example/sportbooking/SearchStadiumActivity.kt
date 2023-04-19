@@ -25,11 +25,11 @@ class SearchStadiumActivity : AppCompatActivity() {
     private lateinit var depositInput: RangeSlider
     private lateinit var clearButton: Button
     private lateinit var searchButton: Button
-    lateinit var sharedPref:SharedPreferences
+    private lateinit var sharedPref:SharedPreferences
     lateinit var provinces:Array<Province>
     var currentDistrict:Array<District>? = null
     lateinit var districtArrayAdapter: DistrictSpinnerAdapter
-    var listCourt = kotlin.collections.ArrayList<Court>()
+    private var listCourt = kotlin.collections.ArrayList<Court>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_stadium)
@@ -40,10 +40,10 @@ class SearchStadiumActivity : AppCompatActivity() {
         var priceFrom = sharedPref.getInt("priceFrom",-1)
         var priceTo = sharedPref.getInt("priceTo",-1)
 
-        if(HomeActivity.lastCourList!=null){
-            listCourt = HomeActivity.lastCourList!!
-        }else{
-            listCourt = HomeActivity.courtList_Home!!
+        listCourt = if(HomeActivity.lastCourList!=null) {
+            HomeActivity.lastCourList!!
+        } else{
+            HomeActivity.courtList_Home!!
         }
 
         typeOfSportInput = findViewById(R.id.typeOfSportSpinner)
@@ -63,7 +63,7 @@ class SearchStadiumActivity : AppCompatActivity() {
         val gson = Gson()
         val client = OkHttpClient()
         val url = "https://provinces.open-api.vn/api"
-        val task = NetworkTask(client, url + "/p")
+        val task = NetworkTask(client, "$url/p")
         task.execute()
         val jsonProvince = task.get()
         var tmp = gson.fromJson(jsonProvince, Array<Province>::class.java)
@@ -200,7 +200,7 @@ class SearchStadiumActivity : AppCompatActivity() {
             finish()
         }
     }
-    fun formatPrice(price: Int): String {
+    private fun formatPrice(price: Int): String {
         val formatter = java.text.DecimalFormat("#,###")
         return formatter.format(price) + "đ"
     }
