@@ -72,6 +72,7 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
         filterBtn.setOnClickListener {
             val intent = Intent(this, SearchStadiumActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }

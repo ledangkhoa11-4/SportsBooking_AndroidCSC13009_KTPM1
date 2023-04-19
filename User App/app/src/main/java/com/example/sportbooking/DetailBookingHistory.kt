@@ -34,6 +34,7 @@ class DetailBookingHistory : AppCompatActivity() {
     lateinit var qrCode:ImageView
     lateinit var status:TextView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_booking_history)
@@ -51,6 +52,7 @@ class DetailBookingHistory : AppCompatActivity() {
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
         waitStatusChange()
+
 
         val vpAdapter = ImageViewPagerAdapter(detailBooking.Court!!.bitmapArrayList)
         viewPager.setPageTransformer(MarginPageTransformer(37));
@@ -92,6 +94,12 @@ class DetailBookingHistory : AppCompatActivity() {
             rating.putExtra("index",index)
             startActivity(rating)
         }
+        val yardNum = findViewById<TextView>(R.id.yardNumBooking)
+        val username = findViewById<TextView>(R.id.usernameBooking)
+        val email = findViewById<TextView>(R.id.emailBooking)
+        yardNum.text = "Yard place: ${detailBooking.Yard}"
+        username.text = MainActivity.user.username
+        email.text = MainActivity.user.email
     }
     fun convertTime(timeStamp:Long):String{
         val sdf = SimpleDateFormat("HH:mm") // create a SimpleDateFormat object with desired format
