@@ -10,6 +10,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -19,6 +20,11 @@ import java.util.*
 
 class NotificationTest : AppCompatActivity() {
     private lateinit var notificationBtn: Button
+    private lateinit var myNotificationManager: NotificationManagerCompat
+    private lateinit var myNotificationChannel: NotificationChannel
+    private lateinit var myNotificationBuilder: NotificationCompat.Builder
+
+    private var notificationId = 0
 
     // Tạo các channel id
     private companion object {
@@ -28,6 +34,8 @@ class NotificationTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification_test)
+
+//        Log.d("NotificationTest", intent.getStringExtra("key1").toString()
 
         notificationBtn = findViewById(R.id.notiBtn)
         notificationBtn.setOnClickListener {
@@ -39,16 +47,18 @@ class NotificationTest : AppCompatActivity() {
         createNotificationChannel()
 
         val date = Date()
-        val notificationId = SimpleDateFormat("ddHmmss", Locale.US).format(date).toInt()
+//        val notificationId = SimpleDateFormat("ddHmmss", Locale.US).format(date).toInt()
+//        val notificationId = 0
 
         // Chạy intent mới
         val intent = Intent(this, NotificationTest::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
-
+        // Trả về giá trị cho intent mới
+        intent.putExtra("key1", "value1")
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
         // Tạo ra 1 notification builder
-        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+        myNotificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.navigation_icon)
             .setContentTitle("Sport Booking")
             .setContentText("Bạn có 1 lịch đặt sân mới")
@@ -58,7 +68,7 @@ class NotificationTest : AppCompatActivity() {
             .setContentIntent(pendingIntent) // chạy intent mới ở trên
 
         // Tạo ra 1 notification manager
-        val notificationManager = NotificationManagerCompat.from(this)
+        myNotificationManager = NotificationManagerCompat.from(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
@@ -73,7 +83,7 @@ class NotificationTest : AppCompatActivity() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        notificationManager.notify(notificationId, notificationBuilder.build())
+        myNotificationManager.notify(notificationId, myNotificationBuilder.build()) // Id dùng để xác định notification
 
     }
 
@@ -82,14 +92,14 @@ class NotificationTest : AppCompatActivity() {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance)
+            myNotificationChannel = NotificationChannel(CHANNEL_ID, name, importance)
                 .apply {
                     description = descriptionText
                 }
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as
                         NotificationManager
-            notificationManager.createNotificationChannel(channel)
+            notificationManager.createNotificationChannel(myNotificationChannel)
         }
     }
 }
