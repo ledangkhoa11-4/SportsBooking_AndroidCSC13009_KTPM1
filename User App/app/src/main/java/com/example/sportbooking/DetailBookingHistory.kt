@@ -40,7 +40,7 @@ class DetailBookingHistory : AppCompatActivity() {
     lateinit var priceRent:TextView
     lateinit var qrCode:ImageView
     lateinit var status:TextView
-
+    var isRating = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_booking_history)
@@ -97,7 +97,6 @@ class DetailBookingHistory : AppCompatActivity() {
         }
 //        GlobalScope.launch(Dispatchers.Main) {loadRating()
 //        }
-        Log.i("testBefore",checkRating(detailBooking.ID).toString())
         if(checkRating(detailBooking.ID)){
             findViewById<Button>(R.id.ratingButton).isClickable = false
             findViewById<Button>(R.id.ratingButton).setBackgroundColor(resources.getColor(R.color.beautiful_gray))
@@ -106,7 +105,11 @@ class DetailBookingHistory : AppCompatActivity() {
             findViewById<Button>(R.id.ratingButton).setOnClickListener {
                 val rating = Intent(this, RatingActivity::class.java)
                 rating.putExtra("index", index)
-                startActivity(rating)
+                startActivityForResult(rating,123)
+                if(isRating){
+                    findViewById<Button>(R.id.ratingButton).isClickable = false
+                    findViewById<Button>(R.id.ratingButton).setBackgroundColor(resources.getColor(R.color.beautiful_gray))
+                }
             }
         }
         val yardNum = findViewById<TextView>(R.id.yardNumBooking)
@@ -117,6 +120,18 @@ class DetailBookingHistory : AppCompatActivity() {
         email.text = MainActivity.user.email
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === 123) {
+            if (resultCode === 555) {
+                isRating = data!!.getBooleanExtra("isFinish",false)
+                if(isRating){
+                    findViewById<Button>(R.id.ratingButton).isClickable = false
+                    findViewById<Button>(R.id.ratingButton).setBackgroundColor(resources.getColor(R.color.beautiful_gray))
+                }
+            }
+        }
+    }
 
     fun convertTime(timeStamp:Long):String{
         val sdf = SimpleDateFormat("HH:mm") // create a SimpleDateFormat object with desired format

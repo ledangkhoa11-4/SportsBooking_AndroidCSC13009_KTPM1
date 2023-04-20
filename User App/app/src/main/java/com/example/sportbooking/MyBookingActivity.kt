@@ -130,18 +130,24 @@ class MyBookingActivity : AppCompatActivity() {
 
     fun loadRating(){
         val ratingRef = MainActivity.database.getReference("Rating")
-        val queryRef = ratingRef.orderByChild("userID").equalTo(MainActivity.user.id)
-        ratingRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        ratingRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (ds in dataSnapshot.children) {
                     val rating = ds.getValue(RatingCourt::class.java)
                     listRating.add(rating!!)
                 }
-                Log.i("AAAAAAA",listRating.size.toString())
+                if(AllBookingFragment.adapter != null)
+                    AllBookingFragment.adapter!!.notifyDataSetChanged()
+                if(IncomingBookingFragment.adapter != null)
+                    IncomingBookingFragment.adapter!!.notifyDataSetChanged()
+                if(FinishBookingFragment.adapter != null)
+                    FinishBookingFragment.adapter!!.notifyDataSetChanged()
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
+
         })
     }
 }

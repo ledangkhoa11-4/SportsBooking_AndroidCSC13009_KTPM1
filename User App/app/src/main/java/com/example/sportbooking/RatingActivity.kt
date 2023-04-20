@@ -1,5 +1,6 @@
 package com.example.sportbooking
 
+import android.content.Intent
 import android.media.Rating
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -147,6 +148,9 @@ class RatingActivity : AppCompatActivity() {
                     }
                 })
                 createToast("Rate success","Thank you for choosing us",true )
+                val replyIntent = Intent()
+                replyIntent.putExtra("isFinish", true)
+                setResult(555, replyIntent)
                 Thread.sleep(2000)
                 finish()
             }
