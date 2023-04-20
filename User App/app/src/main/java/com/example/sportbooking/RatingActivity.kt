@@ -151,7 +151,8 @@ class RatingActivity : AppCompatActivity() {
                     }
                 })
                 createToast("Rate success","Thank you for choosing us",true )
-
+                Thread.sleep(2000)
+                finish()
             }
         }
     }

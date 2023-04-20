@@ -3,6 +3,7 @@ package com.example.sportbooking
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -13,7 +14,7 @@ import com.google.firebase.database.ValueEventListener
 
 class MyFavoriteActivity : AppCompatActivity() {
     lateinit var listView:ListView
-    lateinit var adapter: homeListViewAdapter
+    lateinit var adapter: favoriteListViewAdapter
     lateinit var listFavoriteCourt:ArrayList<Court>
     lateinit var emptyImage:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,7 @@ class MyFavoriteActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.listFavoriteLV)
         listFavoriteCourt = ArrayList()
-        adapter = homeListViewAdapter(this, listFavoriteCourt)
+        adapter = favoriteListViewAdapter(this, listFavoriteCourt)
         listView.adapter = adapter
         listView.divider = null
         loadFavoriteList()
@@ -36,7 +37,6 @@ class MyFavoriteActivity : AppCompatActivity() {
             finish()
         }
         emptyImage = findViewById(R.id.EmptyFavorite)
-
     }
 
     fun loadFavoriteList(){

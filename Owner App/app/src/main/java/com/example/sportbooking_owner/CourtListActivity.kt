@@ -125,10 +125,11 @@ private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) 
     popup.menuInflater.inflate(menuRes, popup.menu)
 
     popup.setOnMenuItemClickListener {
-        Log.i("AAAAAAAAAA",it.toString())
-//        var intent=Intent(context,UpdateCourtActivity::class.java)
-//        intent.putExtra("pos",pos)
-//        context.startActivity(intent)
+        if(it.toString().contains("Modify",true)){
+            var intent=Intent(context,UpdateCourtActivity::class.java)
+            intent.putExtra("pos",pos)
+            context.startActivity(intent)
+        }
         true
     }
     popup.setOnDismissListener {

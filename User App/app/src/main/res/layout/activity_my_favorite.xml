@@ -9,33 +9,18 @@
     tools:layout_editor_absoluteY="79dp">
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="432dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="-10dp"
-        android:backgroundTint="#F5DF4D"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        app:cornerRadius="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/button6"
         android:layout_width="348dp"
         android:layout_height="46dp"
-        android:layout_marginTop="64dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="@color/topic_color"
+        android:clickable="false"
         android:text="Your favorite list"
         android:textColor="#000000"
-        android:clickable="false"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/favoriteBtn" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backButtonFavorite"
@@ -46,23 +31,11 @@
         android:contentDescription="Filter"
         android:foregroundGravity="center"
         android:scaleType="center"
-        app:backgroundTint="#FFFFFF"
+        app:backgroundTint="@color/topic_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_icon" />
 
-    <!--    <TextView-->
-<!--        android:id="@+id/textView11"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:fontFamily="@font/lato_bold"-->
-<!--        android:text="Your favorite list"-->
-<!--        android:textSize="30sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageButton
         android:id="@+id/favoriteBtn"
@@ -80,12 +53,11 @@
         android:id="@+id/listFavoriteLV"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#FDAC53"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <ImageView
         android:id="@+id/EmptyFavorite"
