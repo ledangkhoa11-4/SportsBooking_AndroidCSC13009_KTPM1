@@ -7,7 +7,7 @@
     android:background="@drawable/bg"
     tools:context=".UpdateCourtActivity">
     <ImageButton
-        android:id="@+id/backButtonUpdate"
+        android:id="@+id/backButtonBookingView"
         android:layout_width="49dp"
         android:layout_height="52dp"
         android:backgroundTint="#00FFFFFF"
@@ -24,10 +24,10 @@
         android:fontFamily="@font/lato_bold"
         android:text="Edit Court"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButtonUpdate"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/backButtonUpdate"
-        app:layout_constraintTop_toTopOf="@+id/backButtonUpdate" />
+        app:layout_constraintStart_toStartOf="@+id/backButtonBookingView"
+        app:layout_constraintTop_toTopOf="@+id/backButtonBookingView" />
 
 
     <com.example.sportbooking_owner.LockableScrollView
@@ -36,7 +36,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -46,8 +46,8 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView20"
                 app:layout_constraintStart_toStartOf="@+id/TypeIcon"
                 app:layout_constraintTop_toTopOf="@+id/textView20"
@@ -55,28 +55,17 @@
 
             <ImageView
                 android:id="@+id/imageView8"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="@+id/PriceEdt"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:srcCompat="@drawable/location_icon" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView21"
-                app:layout_constraintStart_toStartOf="@+id/PriceEdt"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/PriceEdt"
                 app:srcCompat="@drawable/location_icon" />
 
             <ImageView
                 android:id="@+id/imageView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
                 app:layout_constraintStart_toStartOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="@+id/textView17"
@@ -85,8 +74,8 @@
 
             <ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="@+id/CourtNameEdt"
                 app:layout_constraintTop_toTopOf="@+id/textView18"
@@ -359,11 +348,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
                 android:fontFamily="@font/lato"
                 android:text="Location"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
                 app:layout_constraintStart_toEndOf="@+id/imageView8"
-                app:layout_constraintTop_toBottomOf="@+id/PriceEdt" />
+                app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
             <EditText
                 android:id="@+id/LocationEdt"
@@ -457,8 +446,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-
 
 
             <ImageView

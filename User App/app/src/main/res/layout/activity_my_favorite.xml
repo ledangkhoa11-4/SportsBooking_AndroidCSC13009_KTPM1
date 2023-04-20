@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/favoriteBtn" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButtonFavorite"
+        android:id="@+id/backButtonRating"
         style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
@@ -45,7 +45,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
-        app:layout_constraintStart_toEndOf="@+id/backButtonFavorite"
+        app:layout_constraintStart_toEndOf="@+id/backButtonRating"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/favorite" />
 

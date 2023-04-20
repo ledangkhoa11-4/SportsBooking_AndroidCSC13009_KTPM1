@@ -1,37 +1,30 @@
 package com.example.sportbooking_owner
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-import androidx.appcompat.widget.Toolbar
-import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
+import com.example.sportbooking_owner.DTO.Courts
+import com.example.sportbooking_owner.DTO.LatLng
+import com.example.sportbooking_owner.DTO.Location
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -42,7 +35,6 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class UpdateCourtActivity : AppCompatActivity() {
@@ -335,7 +327,7 @@ class UpdateCourtActivity : AppCompatActivity() {
 
 
         }
-        findViewById<ImageButton>(R.id.backButtonUpdate).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonBookingView).setOnClickListener {
             finish()
         }
     }

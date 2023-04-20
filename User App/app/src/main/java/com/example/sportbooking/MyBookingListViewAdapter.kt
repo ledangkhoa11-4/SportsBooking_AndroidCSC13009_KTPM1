@@ -33,6 +33,7 @@ class MyBookingListViewAdapter(private val context: Activity, private val bookin
         typeSportImage.setImageDrawable(context.resources.getDrawable(drawableID))
         courtLocation.text = bookingItem.Court!!.location?.addressName
         totalPriceBooking.text = formatPrice(bookingItem.TotalPrice)
+
         return rowView
     }
     fun convertTime(timeStamp:Long):String{

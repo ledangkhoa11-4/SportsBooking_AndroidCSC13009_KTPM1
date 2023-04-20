@@ -2,23 +2,17 @@ package com.example.sportbooking_owner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.FragmentManager
+import com.example.sportbooking_owner.DTO.Courts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import com.shuhart.stepview.StepView
 import nl.joery.timerangepicker.TimeRangePicker
-import org.w3c.dom.Text
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
-import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class NewTimelineActivity : AppCompatActivity() {
     lateinit var stepViewLayout: View

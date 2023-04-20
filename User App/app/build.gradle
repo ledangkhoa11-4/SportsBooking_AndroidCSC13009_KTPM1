@@ -44,7 +44,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.github.unaisulhadi:emojiratingbar:1.0.5'
     implementation 'com.github.islandparadise14:Mintable:1.5.1'
     implementation 'com.nex3z:toggle-button-group:1.2.3'
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
@@ -65,5 +64,7 @@ dependencies {
     implementation 'com.github.kenglxn.QRGen:android:3.0.1'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
     implementation 'com.facebook.android:facebook-login:latest.release'
+    implementation('com.paypal.checkout:android-sdk:0.8.8')
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 
 }

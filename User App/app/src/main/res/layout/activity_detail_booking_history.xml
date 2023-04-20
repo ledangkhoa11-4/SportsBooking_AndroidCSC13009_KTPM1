@@ -15,7 +15,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/backButtonFavorite"
+                android:id="@+id/backButtonRating"
                 android:layout_width="47dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
@@ -35,10 +35,10 @@
                 android:text="Detail Booking"
                 android:textSize="20sp"
 
-                app:layout_constraintBottom_toBottomOf="@+id/backButtonFavorite"
+                app:layout_constraintBottom_toBottomOf="@+id/backButtonRating"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/backButtonFavorite"
-                app:layout_constraintTop_toTopOf="@+id/backButtonFavorite" />
+                app:layout_constraintStart_toStartOf="@+id/backButtonRating"
+                app:layout_constraintTop_toTopOf="@+id/backButtonRating" />
 
 
             <androidx.cardview.widget.CardView
@@ -100,13 +100,26 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="#838282"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/courtLocationDetailBooking" />
+                app:layout_constraintTop_toBottomOf="@+id/yardNumBooking" />
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="#838282"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/datetimeBooking2" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -158,6 +171,51 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
             <TextView
+                android:id="@+id/yardNumBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_bold"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Yard place: 2"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+            <TextView
+                android:id="@+id/usernameBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Lê Đăng Khoa"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView12"
+                app:layout_constraintStart_toEndOf="@+id/imageView12"
+                app:layout_constraintTop_toTopOf="@+id/imageView12" />
+
+            <TextView
+                android:id="@+id/emailBooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="ldkhoa@gmail.com"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+                app:layout_constraintStart_toEndOf="@+id/imageView12"
+                app:layout_constraintTop_toTopOf="@+id/imageView13" />
+
+            <TextView
                 android:id="@+id/statusBookingDetailTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,19 +261,32 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView7"
                 app:srcCompat="@drawable/location_icon"
                 app:tint="#838282" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                app:srcCompat="@drawable/pin"
+                app:tint="#838282" />
+
             <TextView
                 android:id="@+id/courtLocationDetailBooking"
-                android:layout_width="330dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/lato_bold"
                 android:maxLines="1"
                 android:text="213/26 Nguyễn Thiện Thuật, P1, Q3, HCM"
                 android:textColor="#0243FB"
-                android:textSize="14sp"
 
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -223,10 +294,30 @@
                 android:id="@+id/imageView10"
                 android:layout_width="25dp"
                 android:layout_height="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/button19"
                 app:srcCompat="@drawable/price_icon"
+                app:tint="#848383" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView15"
+                app:layout_constraintTop_toBottomOf="@+id/button8"
+                app:srcCompat="@drawable/user_icon"
+                app:tint="#848383" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView12"
+                app:layout_constraintTop_toBottomOf="@+id/imageView12"
+                app:srcCompat="@drawable/icon_email_24"
                 app:tint="#848383" />
 
             <ImageView
@@ -259,7 +350,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toEndOf="@+id/imageView15"
                 app:layout_constraintTop_toBottomOf="@+id/rentPriceDetailBooking"
@@ -277,19 +368,20 @@
                 app:layout_constraintStart_toEndOf="@+id/qrImage"
                 app:layout_constraintTop_toTopOf="@+id/qrImage" />
 
+            <Button
+                android:id="@+id/ratingButton"
+                android:layout_width="266dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/topic_color"
+                android:text="Rating"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailBooking" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/ratingButton"
-        android:layout_width="266dp"
-        android:layout_height="39dp"
-        android:text="Rating"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/topic_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

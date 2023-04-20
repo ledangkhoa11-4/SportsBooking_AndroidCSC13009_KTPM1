@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ScanQrActivity">
 
+
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="0dp"
@@ -14,6 +15,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backButtonBookingView"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:tint="#DDDDDD"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
 
     <ImageView
         android:id="@+id/imageView21"
@@ -31,7 +43,7 @@
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="35dp"
         android:fontFamily="@font/lato_bold"
         android:text="Point the camera towards the QR code"
         android:textColor="#FFFFFF"

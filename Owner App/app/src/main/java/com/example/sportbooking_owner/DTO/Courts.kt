@@ -1,10 +1,8 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking_owner.DTO
 
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.sql.Timestamp
 
 @Parcelize
 public class Courts(

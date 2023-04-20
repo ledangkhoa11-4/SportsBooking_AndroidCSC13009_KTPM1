@@ -78,7 +78,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/avatarIv"
+        android:id="@+id/avatarTv"
         android:layout_width="124dp"
         android:layout_height="121dp"
         android:layout_marginTop="30dp"
@@ -100,9 +100,9 @@
         android:text="Khoa"
         android:textColor="#000000"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/avatarIv"
-        app:layout_constraintStart_toStartOf="@+id/avatarIv"
-        app:layout_constraintTop_toBottomOf="@+id/avatarIv" />
+        app:layout_constraintEnd_toEndOf="@+id/avatarTv"
+        app:layout_constraintStart_toStartOf="@+id/avatarTv"
+        app:layout_constraintTop_toBottomOf="@+id/avatarTv" />
 
     <TextView
         android:id="@+id/user_emailTv"
@@ -110,8 +110,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="ledangkhoa@gmail.com"
-        app:layout_constraintEnd_toEndOf="@+id/avatarIv"
-        app:layout_constraintStart_toStartOf="@+id/avatarIv"
+        app:layout_constraintEnd_toEndOf="@+id/avatarTv"
+        app:layout_constraintStart_toStartOf="@+id/avatarTv"
         app:layout_constraintTop_toBottomOf="@+id/user_nameTv" />
 
     <Button

@@ -123,11 +123,12 @@ class CourtScheduleActivity : AppCompatActivity() {
     }
     fun loadBookingList(){
         val bookingRef = MainActivity.database.getReference("Booking");
-        val queryRef = bookingRef.orderByChild("CourtID").equalTo(court.CourtID)
+        val queryRef = bookingRef.orderByChild("courtID").equalTo(court.CourtID)
         queryRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 bookList.clear()
                 for(ds in snapshot.children){
+
                     val bookHistory = ds.getValue(BookingHistory::class.java)
                     bookList.add(bookHistory!!)
                 }

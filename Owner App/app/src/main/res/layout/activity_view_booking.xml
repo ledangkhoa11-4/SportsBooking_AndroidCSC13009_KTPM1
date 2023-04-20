@@ -6,4 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".ViewBookingActivity">
 
+    <ImageButton
+        android:id="@+id/backButtonBookingView"
+        android:layout_width="49dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:text="Court's Booking List"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backButtonBookingView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/backButtonBookingView"
+        app:layout_constraintTop_toTopOf="@+id/backButtonBookingView" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backButtonBookingView"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#C10202"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#C10202"
+        app:tabTextColor="#000000"></com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewpager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

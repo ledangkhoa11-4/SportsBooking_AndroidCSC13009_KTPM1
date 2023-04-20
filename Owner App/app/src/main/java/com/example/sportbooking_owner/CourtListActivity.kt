@@ -21,7 +21,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.sportbooking_owner.DTO.Courts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.database.DataSnapshot
@@ -108,8 +108,8 @@ class CourtListActivity : AppCompatActivity() {
                 R.id.item_home-> true
                 R.id.item_user->{
                     startActivity(Intent(this,OwnerTabActivity::class.java))
-
-
+                    overridePendingTransition(0,0)
+                    finish()
                     true
                 }
                 else -> {
@@ -127,6 +127,10 @@ private fun showMenu(context:Activity ,v: View, @MenuRes menuRes: Int, pos:Int) 
     popup.setOnMenuItemClickListener {
         if(it.toString().contains("Modify",true)){
             var intent=Intent(context,UpdateCourtActivity::class.java)
+            intent.putExtra("pos",pos)
+            context.startActivity(intent)
+        }else{
+            var intent=Intent(context,ViewBookingActivity::class.java)
             intent.putExtra("pos",pos)
             context.startActivity(intent)
         }

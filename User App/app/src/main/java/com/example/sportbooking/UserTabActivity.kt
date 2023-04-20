@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 
 class UserTabActivity : AppCompatActivity() {
@@ -28,7 +27,7 @@ class UserTabActivity : AppCompatActivity() {
 
         usernameTv = findViewById(R.id.user_nameTv)
         useremailTv = findViewById(R.id.user_emailTv)
-        avatarIv = findViewById(R.id.avatarIv)
+        avatarIv = findViewById(R.id.avatarTv)
         usernameTv.setText(currentUser.username)
         useremailTv.setText(currentUser.email)
         if(currentUser.Image!=null){
@@ -69,7 +68,7 @@ class UserTabActivity : AppCompatActivity() {
         super.onResume()
         usernameTv = findViewById(R.id.user_nameTv)
         useremailTv = findViewById(R.id.user_emailTv)
-        avatarIv = findViewById(R.id.avatarIv)
+        avatarIv = findViewById(R.id.avatarTv)
         usernameTv.setText(currentUser.username)
         useremailTv.setText(currentUser.email)
         if(currentUser.Image!=null){

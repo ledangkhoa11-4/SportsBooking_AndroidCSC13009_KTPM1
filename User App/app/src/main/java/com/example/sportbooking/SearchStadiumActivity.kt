@@ -25,11 +25,11 @@ class SearchStadiumActivity : AppCompatActivity() {
     private lateinit var depositInput: RangeSlider
     private lateinit var clearButton: Button
     private lateinit var searchButton: Button
-    lateinit var sharedPref:SharedPreferences
+    private lateinit var sharedPref:SharedPreferences
     lateinit var provinces:Array<Province>
     var currentDistrict:Array<District>? = null
     lateinit var districtArrayAdapter: DistrictSpinnerAdapter
-    var listCourt = kotlin.collections.ArrayList<Court>()
+    private var listCourt = kotlin.collections.ArrayList<Court>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_stadium)
@@ -40,10 +40,10 @@ class SearchStadiumActivity : AppCompatActivity() {
         var priceFrom = sharedPref.getInt("priceFrom",-1)
         var priceTo = sharedPref.getInt("priceTo",-1)
 
-        if(HomeActivity.lastCourList!=null){
-            listCourt = HomeActivity.lastCourList!!
-        }else{
-            listCourt = HomeActivity.courtList_Home!!
+        listCourt = if(HomeActivity.lastCourList!=null) {
+            HomeActivity.lastCourList!!
+        } else{
+            HomeActivity.courtList_Home!!
         }
 
         typeOfSportInput = findViewById(R.id.typeOfSportSpinner)
@@ -57,16 +57,17 @@ class SearchStadiumActivity : AppCompatActivity() {
 
 
         nameOfStadiumInput.setText(lastName)
-        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
         val gson = Gson()
         val client = OkHttpClient()
         val url = "https://provinces.open-api.vn/api"
-        val task = NetworkTask(client, url + "/p")
+        val task = NetworkTask(client, "$url/p")
         task.execute()
         val jsonProvince = task.get()
-        val tmp = gson.fromJson(jsonProvince, Array<Province>::class.java)
+        var tmp = gson.fromJson(jsonProvince, Array<Province>::class.java)
+        tmp = arrayOf(Province(),*tmp)
         if(tmp != null){
             provinces = tmp
         }else
@@ -94,7 +95,10 @@ class SearchStadiumActivity : AppCompatActivity() {
 
                 val provinceTarget:Province = gson.fromJson(jsonProvince, Province::class.java)
                 currentDistrict = provinceTarget.districts
-                districtArrayAdapter = DistrictSpinnerAdapter(this@SearchStadiumActivity, provinceTarget.districts)
+                currentDistrict = arrayOf(District(), *currentDistrict!!)
+                districtArrayAdapter = DistrictSpinnerAdapter(this@SearchStadiumActivity,
+                    currentDistrict!!
+                )
                 districtInput.adapter = districtArrayAdapter
 
             }
@@ -121,17 +125,14 @@ class SearchStadiumActivity : AppCompatActivity() {
             values.add((depositInput.valueTo))
         }
         if(priceFrom<=priceTo && priceFrom >= values[0] && priceTo <= values[1]){
-            if(priceFrom!=-1){
-                depositInput.valueFrom = priceFrom.toFloat()
+            if(priceFrom!=-1 && priceTo != -1){
+                depositInput.values = listOf(priceFrom.toFloat(), priceTo.toFloat())
             }
-            if(priceTo!=-1){
-                depositInput.valueTo = priceTo.toFloat()
-            }
+
+        }else{
+            depositInput.values = values
         }
 
-
-
-        depositInput.values = values
 
 
         depositInput.setLabelFormatter { value: Float ->
@@ -166,14 +167,19 @@ class SearchStadiumActivity : AppCompatActivity() {
             district = district.replace("Thành phố","").trim()
             district = district.replace("Thị xã","").trim()
 
-            val priceFrom = depositInput.valueFrom.toInt()
-            val priceTo = depositInput.valueTo.toInt()
+
+            val priceFrom = depositInput.values[0].toInt()
+            val priceTo = depositInput.values[1].toInt()
             if(HomeActivity.lastCourList == null){
                 HomeActivity.lastCourList = java.util.ArrayList<Court>();
                 HomeActivity.lastCourList!!.addAll(HomeActivity.courtList_Home!!.toList())
             }
             var searchedCourt = kotlin.collections.ArrayList<Court>()
             for(c in listCourt!!){
+
+                Log.i("AAAAAAAAAAA",(c.Price).toString())
+                Log.i("AAAAAAAAAAA",(priceFrom).toString())
+                Log.i("AAAAAAAAAAA",(priceTo).toString())
                 if(c.Type.contains(typeOfSport,true) && c.Name.contains(nameOfStadium,true)
                     && c.location!!.addressName.contains(city,true)
                     && c.location!!.addressName.contains(district,true)
@@ -194,7 +200,7 @@ class SearchStadiumActivity : AppCompatActivity() {
             finish()
         }
     }
-    fun formatPrice(price: Int): String {
+    private fun formatPrice(price: Int): String {
         val formatter = java.text.DecimalFormat("#,###")
         return formatter.format(price) + "đ"
     }

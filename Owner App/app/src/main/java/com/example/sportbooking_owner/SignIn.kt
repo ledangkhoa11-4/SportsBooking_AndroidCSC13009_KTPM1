@@ -1,7 +1,6 @@
 package com.example.sportbooking_owner
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentSender
@@ -12,6 +11,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportbooking_owner.DTO.Courts
+import com.example.sportbooking_owner.DTO.User_Owner
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -33,7 +34,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -57,7 +57,7 @@ class SignIn : AppCompatActivity() {
     companion object{
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
-        var owner=User_Owner()
+        var owner= User_Owner()
         fun loadCourtList() {
 
             var courtsRef = MainActivity.database.getReference("Courts")
@@ -317,7 +317,7 @@ class SignIn : AppCompatActivity() {
     }
     fun getOwner(uid:String){
         val ownerRef=MainActivity.database.reference.child("Owner")
-        ownerRef.orderByChild("id").equalTo(uid).addListenerForSingleValueEvent(object :ValueEventListener{
+        ownerRef.orderByChild("id").equalTo(uid).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                for(child  in snapshot.children){
                    val owner_db=child.getValue(User_Owner::class.java)
@@ -341,7 +341,7 @@ class SignIn : AppCompatActivity() {
         })
 
     }
-    fun updateUserProfile(newUser:User_Owner){
+    fun updateUserProfile(newUser: User_Owner){
         val user = Firebase.auth.currentUser
 
         val profileUpdates = userProfileChangeRequest {
@@ -362,7 +362,7 @@ class SignIn : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val numOwner=snapshot.childrenCount
                 if(numOwner<1){
-                    val owner=User_Owner(user!!.uid, user!!.displayName.toString(), user!!.email!!)
+                    val owner= User_Owner(user!!.uid, user!!.displayName.toString(), user!!.email!!)
                     val ownerRef=database.reference.child("Owner")
                     ownerRef.push().setValue(owner)
                 }

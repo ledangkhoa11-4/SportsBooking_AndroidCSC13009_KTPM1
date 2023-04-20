@@ -1,6 +1,7 @@
 package com.example.sportbooking
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -18,10 +19,15 @@ import com.example.sportbooking.DTO.RatingCourt
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.config.CheckoutConfig
+import com.paypal.checkout.config.Environment
+import com.paypal.checkout.config.SettingsConfig
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.createorder.UserAction
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class DetailCourtActivity : AppCompatActivity() {
     lateinit var viewPager:ViewPager2
@@ -52,7 +58,18 @@ class DetailCourtActivity : AppCompatActivity() {
         viewPager = findViewById(R.id.listImageDetailVP)
         dot = findViewById(R.id.dots_indicator)
 
-        Log.i("AAAAAAAAAAA",courtDetail.CourtID.toString())
+        val config = CheckoutConfig(
+            application = application,
+            clientId = "AffNujh4pTllt3ynC_YK56rayRgTrcsPODYyT5Mb3EeOSp5tvQ6z8oHPQF3BlL3304kF8hihW3u7lC3i",
+            environment = Environment.SANDBOX,
+            returnUrl = "${BuildConfig.APPLICATION_ID}://paypalpay",
+            currencyCode = CurrencyCode.USD,
+            userAction = UserAction.PAY_NOW,
+            settingsConfig = SettingsConfig(
+                loggingEnabled = true
+            )
+        )
+        PayPalCheckout.setConfig(config)
 
         val vpAdapter = ImageViewPagerAdapter(courtDetail.bitmapArrayList)
         viewPager.setPageTransformer(MarginPageTransformer(37));
@@ -113,7 +130,7 @@ class DetailCourtActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.backButtonFavorite).setOnClickListener {
+        findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
 
@@ -187,7 +204,6 @@ class DetailCourtActivity : AppCompatActivity() {
             queryRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(ds in snapshot.children){
-
                         if(ds.child("courtID").getValue(String::class.java).equals(courtDetail.CourtID)){
                             val keyRef = ds.key
                             favoriteRef.child(keyRef!!).removeValue()
@@ -213,6 +229,19 @@ class DetailCourtActivity : AppCompatActivity() {
                 ratingList.clear()
                 for (ds in dataSnapshot.children) {
                     val rating = ds.getValue(RatingCourt::class.java)
+                    if(rating!!.id != null && rating!!.id != ""){
+                        var imageRef = MainActivity.storageRef.child("user${rating.id}")
+                        val ONE_MEGABYTE: Long = 1024 * 1024 * 5
+                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                            val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                            rating.userImage = bitmap
+                            if (ratingAdapter != null) {
+                                ratingAdapter!!.notifyDataSetChanged()
+                            }
+                        }.addOnFailureListener {
+                            // Handle any errors
+                        }
+                    }
                     ratingList.add(rating!!)
                     sum += rating.star!!
                 }
