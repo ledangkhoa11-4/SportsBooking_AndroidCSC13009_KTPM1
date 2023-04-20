@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +14,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.DTO.RatingCourt
+import com.google.android.gms.tasks.Task
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import kotlinx.coroutines.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.CountDownLatch
+import kotlin.collections.ArrayList
 
 class DetailBookingHistory : AppCompatActivity() {
     lateinit var viewPager: ViewPager2
@@ -33,7 +40,6 @@ class DetailBookingHistory : AppCompatActivity() {
     lateinit var priceRent:TextView
     lateinit var qrCode:ImageView
     lateinit var status:TextView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,10 +95,19 @@ class DetailBookingHistory : AppCompatActivity() {
         findViewById<ImageButton>(R.id.backButtonRating).setOnClickListener {
             finish()
         }
-        findViewById<Button>(R.id.ratingButton).setOnClickListener {
-            val rating = Intent(this, RatingActivity::class.java)
-            rating.putExtra("index",index)
-            startActivity(rating)
+//        GlobalScope.launch(Dispatchers.Main) {loadRating()
+//        }
+        Log.i("testBefore",checkRating(detailBooking.ID).toString())
+        if(checkRating(detailBooking.ID)){
+            findViewById<Button>(R.id.ratingButton).isClickable = false
+            findViewById<Button>(R.id.ratingButton).setBackgroundColor(resources.getColor(R.color.beautiful_gray))
+        }
+        else {
+            findViewById<Button>(R.id.ratingButton).setOnClickListener {
+                val rating = Intent(this, RatingActivity::class.java)
+                rating.putExtra("index", index)
+                startActivity(rating)
+            }
         }
         val yardNum = findViewById<TextView>(R.id.yardNumBooking)
         val username = findViewById<TextView>(R.id.usernameBooking)
@@ -101,6 +116,8 @@ class DetailBookingHistory : AppCompatActivity() {
         username.text = MainActivity.user.username
         email.text = MainActivity.user.email
     }
+
+
     fun convertTime(timeStamp:Long):String{
         val sdf = SimpleDateFormat("HH:mm") // create a SimpleDateFormat object with desired format
         val formattedTime = sdf.format(Date(timeStamp)) // convert timestamp to date and format as string
@@ -138,5 +155,12 @@ class DetailBookingHistory : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun checkRating(bookingID:String?):Boolean{
+        for (i in 0 until MyBookingActivity.listRating.size){
+            if(bookingID == MyBookingActivity.listRating[i].bookingHistoryID) return true
+        }
+        return false
     }
 }

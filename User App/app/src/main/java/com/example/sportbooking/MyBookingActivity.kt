@@ -7,12 +7,16 @@ import android.util.Log
 import android.widget.ListView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sportbooking.DTO.BookingHistory
+import com.example.sportbooking.DTO.RatingCourt
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,12 +29,14 @@ class MyBookingActivity : AppCompatActivity() {
         var bookingHistories: ArrayList<com.example.sportbooking.DTO.BookingHistory> = ArrayList()
         var incomingBooking:ArrayList<BookingHistory> = ArrayList()
         var finishBooking:ArrayList<BookingHistory> = ArrayList()
+        var listRating:ArrayList<RatingCourt> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_booking)
         loadBookingList()
+        loadRating()
         nav_bar = findViewById(R.id.nav_bar)
         navBarHandle(nav_bar)
 
@@ -119,6 +125,23 @@ class MyBookingActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
 
+        })
+    }
+
+    fun loadRating(){
+        val ratingRef = MainActivity.database.getReference("Rating")
+        val queryRef = ratingRef.orderByChild("userID").equalTo(MainActivity.user.id)
+        ratingRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (ds in dataSnapshot.children) {
+                    val rating = ds.getValue(RatingCourt::class.java)
+                    listRating.add(rating!!)
+                }
+                Log.i("AAAAAAA",listRating.size.toString())
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
         })
     }
 }

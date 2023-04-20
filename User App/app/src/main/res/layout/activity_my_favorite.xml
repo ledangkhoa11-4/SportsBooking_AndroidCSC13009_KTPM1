@@ -8,43 +8,40 @@
     tools:layout_editor_absoluteX="22dp"
     tools:layout_editor_absoluteY="79dp">
 
-    <Button
+    <TextView
         android:id="@+id/button6"
-        android:layout_width="348dp"
-        android:layout_height="46dp"
-        android:backgroundTint="@color/topic_color"
-        android:clickable="false"
+        android:layout_width="167dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="84dp"
+        android:paddingLeft="0dp"
+        android:paddingVertical="6dp"
         android:text="Your favorite list"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoriteBtn" />
+        app:layout_constraintStart_toEndOf="@+id/favoriteBtn"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/backButtonRating"
-        style="?attr/floatingActionButtonSmallStyle"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:layout_gravity="center"
-        android:contentDescription="Filter"
-        android:foregroundGravity="center"
-        android:scaleType="center"
-        app:backgroundTint="@color/topic_color"
+        app:backgroundTint="#00FFFFFF"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_icon" />
 
 
-    <ImageButton
+    <ImageView
         android:id="@+id/favoriteBtn"
-        android:layout_width="69dp"
-        android:layout_height="61dp"
+        android:layout_width="31dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toEndOf="@+id/backButtonRating"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/favorite" />
