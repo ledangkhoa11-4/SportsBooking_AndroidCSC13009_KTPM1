@@ -320,4 +320,15 @@
         app:paypal_button_label="pay"
         app:paypal_button_shape="rectangle"
         app:paypal_button_size="large" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loadingBooking"
+        android:layout_width="74dp"
+        android:layout_height="70dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

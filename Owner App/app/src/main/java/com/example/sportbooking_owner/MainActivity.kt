@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         val database = Firebase.database("https://sportbooking2-b3fa8-default-rtdb.asia-southeast1.firebasedatabase.app")
         val storageRef = Firebase.storage.getReferenceFromUrl("gs://sportbooking2-b3fa8.appspot.com")
-        val apiPlace = "AIzaSyB352MaQT56jsnR1N4mDqPUEh3GPEhiRvE"
+        val apiPlace = "AIzaSyBodAZsmWN26I8_mSoN9Xib_mcvVTGuWzM"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

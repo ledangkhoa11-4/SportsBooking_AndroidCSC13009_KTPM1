@@ -14,6 +14,7 @@ import com.example.sportbooking.DTO.BookingHistory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -52,6 +53,7 @@ class Booking : AppCompatActivity() {
     lateinit var timeEnd: TextView
     lateinit var priceBooking: TextView
     lateinit var checkoutBtn: PaymentButtonContainer
+    lateinit var loadingIndicator: CircularProgressIndicator
     var durationBooking: Int = 0;
     var index = -1
     var date = -1L
@@ -62,6 +64,7 @@ class Booking : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
+        loadingIndicator = findViewById(R.id.loadingBooking)
         val formatter = java.text.DecimalFormat("#,###")
         val intent = intent
         index = intent.getIntExtra("index", 0)
@@ -226,6 +229,7 @@ class Booking : AppCompatActivity() {
             },
             onApprove =
             OnApprove { approval ->
+                loadingIndicator.visibility=View.VISIBLE
                 approval.orderActions.capture { captureOrderResult ->
                     val calendar = Calendar.getInstance()
                     val newBooking = BookingHistory(
@@ -309,14 +313,17 @@ class Booking : AppCompatActivity() {
     }
 
     private fun uploadNewBooking(newBooking: BookingHistory) {
+        loadingIndicator.visibility=View.VISIBLE
         val bookingRef = MainActivity.database.getReference("Booking")
         bookingRef.push().setValue(newBooking).addOnSuccessListener {
+            loadingIndicator.visibility=View.INVISIBLE
             CreateToast.createToast(
                 this,
                 "Booking successfully",
                 "You can check it in My Booking",
                 true
             )
+            finish()
         }
     }
 
