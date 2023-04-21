@@ -3,9 +3,8 @@ package com.example.sportbooking
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.ListView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking.Adapters.BookingPagerAdapter
 import com.example.sportbooking.DTO.BookingHistory
 import com.example.sportbooking.DTO.RatingCourt
 import com.google.android.material.navigation.NavigationBarView
@@ -14,9 +13,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.collections.ArrayList
 

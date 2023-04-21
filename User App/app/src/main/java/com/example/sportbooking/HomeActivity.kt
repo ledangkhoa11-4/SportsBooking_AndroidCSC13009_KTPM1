@@ -2,18 +2,18 @@ package com.example.sportbooking
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ListView
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportbooking.Adapters.homeListViewAdapter
 import com.example.sportbooking.DTO.LocationManager
+import com.example.sportbooking.Ultils.GetDistance
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
 import java.text.Normalizer
 import java.util.*
-import java.util.regex.Pattern
 
 class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListener {
     lateinit var nav_bar: NavigationBarView
@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
     lateinit var filterBtn:FloatingActionButton
     private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
     companion object{
-        var listViewAdapter:homeListViewAdapter? = null
+        var listViewAdapter: homeListViewAdapter? = null
         var lastCourList:ArrayList<Court>? = null
         var courtList_Home:ArrayList<Court>? = null
         fun updateDistance(){

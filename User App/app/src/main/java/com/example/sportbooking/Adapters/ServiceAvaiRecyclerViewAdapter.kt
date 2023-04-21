@@ -1,4 +1,4 @@
-package com.example.sportbooking
+package com.example.sportbooking.Adapters
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportbooking.R
 
 class ServiceAvaiRecyclerViewAdapter(var packageName:String, var resources: Resources, var listService: ArrayList<String>) :
     RecyclerView.Adapter<ServiceAvaiRecyclerViewAdapter.ViewHolder>() {
@@ -16,7 +17,7 @@ class ServiceAvaiRecyclerViewAdapter(var packageName:String, var resources: Reso
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            ServiceAvaiRecyclerViewAdapter.ViewHolder {
+            ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
 

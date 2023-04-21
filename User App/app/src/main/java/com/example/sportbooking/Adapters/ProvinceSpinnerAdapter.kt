@@ -1,4 +1,4 @@
-package com.example.sportbooking
+package com.example.sportbooking.Adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.sportbooking.DTO.District
+import com.example.sportbooking.DTO.Province
+import com.example.sportbooking.R
 
-class DistrictSpinnerAdapter (private val context: Context, private val items: Array<District>) : BaseAdapter() {
+class ProvinceSpinnerAdapter (private val context: Context, private val items: Array<Province>) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }
@@ -22,7 +23,7 @@ class DistrictSpinnerAdapter (private val context: Context, private val items: A
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val view = p1?: LayoutInflater.from(context).inflate(R.layout.spinner_item, p2,false)
+        val view = p1?:LayoutInflater.from(context).inflate(R.layout.spinner_item, p2,false)
         val tv = view.findViewById<TextView>(R.id.name)
         tv.setText(items[p0].name)
         return view

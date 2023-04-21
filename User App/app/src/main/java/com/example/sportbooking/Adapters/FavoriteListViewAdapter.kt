@@ -1,15 +1,16 @@
-package com.example.sportbooking
+package com.example.sportbooking.Adapters
 
 import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.sportbooking.Court
+import com.example.sportbooking.R
 
 class favoriteListViewAdapter(private val context: Activity, private val courtInfo:ArrayList<Court>):
-    ArrayAdapter<Court>(context,R.layout.favorite_court_item,courtInfo) {
+    ArrayAdapter<Court>(context, R.layout.favorite_court_item,courtInfo) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup):View{
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.favorite_court_item, null, true)

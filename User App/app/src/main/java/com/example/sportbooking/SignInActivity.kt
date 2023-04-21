@@ -9,9 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
-import androidx.core.view.isVisible
 import com.example.sportbooking.DTO.User
+import com.example.sportbooking.Ultils.CreateToast
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback

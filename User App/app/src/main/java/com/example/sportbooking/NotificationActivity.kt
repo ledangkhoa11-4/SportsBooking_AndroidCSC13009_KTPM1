@@ -1,21 +1,11 @@
 package com.example.sportbooking
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.media.Image
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
+import com.example.sportbooking.Adapters.CustomNotificationAdapter
 
 class NotificationActivity : AppCompatActivity() {
     private var customListView: ListView? = null

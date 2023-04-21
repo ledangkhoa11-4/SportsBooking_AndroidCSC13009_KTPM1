@@ -1,4 +1,4 @@
-package com.example.sportbooking
+package com.example.sportbooking.Adapters
 
 import android.app.Activity
 import android.view.View
@@ -8,12 +8,14 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import com.example.sportbooking.DTO.RatingCourt
+import com.example.sportbooking.R
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RatingRecyclerViewAdapter(
-    private val context: Activity, private val maintitles: List<RatingCourt>) : ArrayAdapter<RatingCourt>(context, R.layout.reviews_layout, maintitles) {
+    private val context: Activity, private val maintitles: List<RatingCourt>) : ArrayAdapter<RatingCourt>(context,
+    R.layout.reviews_layout, maintitles) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.reviews_layout, null, true)

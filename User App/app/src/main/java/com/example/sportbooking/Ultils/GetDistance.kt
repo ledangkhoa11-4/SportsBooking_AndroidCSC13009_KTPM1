@@ -1,6 +1,5 @@
-package com.example.sportbooking
+package com.example.sportbooking.Ultils
 
-import android.util.Log
 import com.example.sportbooking.DTO.Location
 
 class GetDistance() {
