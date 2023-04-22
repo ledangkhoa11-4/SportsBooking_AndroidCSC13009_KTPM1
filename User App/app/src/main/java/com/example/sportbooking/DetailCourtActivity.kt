@@ -46,6 +46,7 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
     lateinit var favoriteBtn:ImageButton
+    lateinit var messageBtn:ImageButton
     var ratingList: ArrayList<RatingCourt> = ArrayList()
     var ratingResult: Float = 0.0f
     lateinit var ratingView: ListView
@@ -152,6 +153,13 @@ class DetailCourtActivity : AppCompatActivity() {
         favoriteBtn.setOnClickListener {
             courtDetail.isFavorite = !courtDetail.isFavorite
             updateFavoriteStatus(courtDetail.isFavorite)
+        }
+        messageBtn=findViewById(R.id.messageBtn)
+        messageBtn.setOnClickListener {
+            val intent=Intent(this,ChatWithOwnerActivity::class.java)
+            intent.putExtra("Name",courtDetail.Name)
+            intent.putExtra("IDReceive",courtDetail.OwnerID)
+            startActivity(intent)
         }
     }
     fun changeFavoriteStatus(){

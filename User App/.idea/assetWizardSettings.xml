@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/camera_alt/baseline_camera_alt_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/send/baseline_send_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="pin" />
-                            <entry key="sourceFile" value="D:\Semester 2 22-23\LapTrinhAndroid\Project\pin.svg" />
+                            <entry key="outputName" value="send_message" />
+                            <entry key="sourceFile" value="C:\Users\Admin\Downloads\send-message.svg" />
                           </map>
                         </option>
                       </PersistentState>

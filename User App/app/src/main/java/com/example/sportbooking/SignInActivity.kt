@@ -179,7 +179,7 @@ class SignInActivity : AppCompatActivity() {
                     user = auth.currentUser
                     if(user!=null){
                         IsSignUp(user!!.uid)
-
+                        getUser(user!!.uid)
                         startActivity(Intent(this, HomeActivity::class.java))
 
 
