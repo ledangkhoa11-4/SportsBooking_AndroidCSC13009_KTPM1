@@ -55,6 +55,7 @@ class Booking : AppCompatActivity() {
     lateinit var priceBooking: TextView
     lateinit var checkoutBtn: PaymentButtonContainer
     lateinit var loadingIndicator: CircularProgressIndicator
+    lateinit var warningTV: TextView
     var durationBooking: Int = 0;
     var index = -1
     var date = -1L
@@ -99,12 +100,81 @@ class Booking : AppCompatActivity() {
         timeRangePicker.startTime = TimeRangePicker.Time(0, 0)
         timeStart = pickTimeView.findViewById(R.id.startTimeTv)
         timeEnd = pickTimeView.findViewById(R.id.endTimeTv)
+        warningTV = pickTimeView.findViewById(R.id.warningTV)
         timeRangePicker.setOnTimeChangeListener(object : TimeRangePicker.OnTimeChangeListener {
             override fun onStartTimeChange(startTime: TimeRangePicker.Time) {
                 timeStart.text =
                     startTime.hour.toString().padStart(2, '0') + ":" + startTime.minute.toString()
                         .padStart(2, '0')
                 start = timeStringToTimestamp(timeStart.text.toString())
+
+
+//                // check if yard number, date and time is available
+//                for (i in 0 until bookList.size) {
+//                    if (bookList[i].Yard == yard) {
+//                        warningTV.visibility = View.VISIBLE
+//                        warningTV.text = "Yard is not available"
+//                        break
+//                    } else if (bookList[i].Date == date) {
+//                        warningTV.visibility = View.VISIBLE
+//                        warningTV.text = "Date is not available"
+//                        break
+//                    } else if (startBook.after(endBook)) {
+//                        warningTV.visibility = View.VISIBLE
+//                        warningTV.text = "Start time must be before end time"
+//                        break
+//                    } else if (startBook.before(working) || endBook.after(closing)) {
+//                        warningTV.visibility = View.VISIBLE
+//                        warningTV.text = "Time must be in working time"
+//                        break
+//                    } else if (bookList[i].Time.containsAll(timeList)) {
+//                        warningTV.visibility = View.VISIBLE
+//                        warningTV.text = "Time is not available"
+//                        break
+//                    } else {
+//                        warningTV.visibility = View.GONE
+//                    }
+//                }
+
+                if (yard == -1 || date == -1L || start == -1L || end == -1L) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Please choose yard, date and time"
+                }
+                val opening = Date(court.ServiceHour[0])
+                val closing = Date(court.ServiceHour[1])
+                val startBook = Date(start)
+                val endBook = Date(end)
+
+                if (startBook.after(endBook)) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Start time must be before end time"
+                } else if (startBook.before(opening) || endBook.after(closing)) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Time must be in working time"
+                } else {
+                    warningTV.visibility = View.GONE
+                }
+
+                for (booking in bookList) {
+                    if (date == booking.Date && yard == booking.Yard) {
+                        val anotherStartBook = Date(booking.Time[0])
+                        val anotherEndBook = Date(booking.Time[1])
+
+                        if (checkTimeConflict(
+                                startBook,
+                                endBook,
+                                anotherStartBook,
+                                anotherEndBook
+                            )
+                        ) {
+                            warningTV.visibility = View.VISIBLE
+                            warningTV.text = "Time is not available"
+                            break
+                        } else {
+                            warningTV.visibility = View.GONE
+                        }
+                    }
+                }
             }
 
             override fun onDurationChange(duration: TimeRangePicker.TimeDuration) {
@@ -116,6 +186,46 @@ class Booking : AppCompatActivity() {
                     endTime.hour.toString().padStart(2, '0') + ":" + endTime.minute.toString()
                         .padStart(2, '0')
                 end = timeStringToTimestamp(timeEnd.text.toString())
+
+                if (yard == -1 || date == -1L || start == -1L || end == -1L) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Please choose yard, date and time"
+                }
+                val opening = Date(court.ServiceHour[0])
+                val closing = Date(court.ServiceHour[1])
+                val startBook = Date(start)
+                val endBook = Date(end)
+
+                if (startBook.after(endBook)) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Start time must be before end time"
+                } else if (startBook.before(opening) || endBook.after(closing)) {
+                    warningTV.visibility = View.VISIBLE
+                    warningTV.text = "Time must be in working time"
+                } else {
+                    warningTV.visibility = View.GONE
+                }
+
+                for (booking in bookList) {
+                    if (date == booking.Date && yard == booking.Yard) {
+                        val anotherStartBook = Date(booking.Time[0])
+                        val anotherEndBook = Date(booking.Time[1])
+
+                        if (checkTimeConflict(
+                                startBook,
+                                endBook,
+                                anotherStartBook,
+                                anotherEndBook
+                            )
+                        ) {
+                            warningTV.visibility = View.VISIBLE
+                            warningTV.text = "Time is not available"
+                            break
+                        } else {
+                            warningTV.visibility = View.GONE
+                        }
+                    }
+                }
             }
 
         })
