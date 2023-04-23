@@ -112,6 +112,10 @@ class CourtListActivity : AppCompatActivity() {
                     finish()
                     true
                 }
+                R.id.message->{
+                    startActivity(Intent(this,ListMessageUserActivity::class.java))
+                    true
+                }
                 else -> {
                     false
                 }

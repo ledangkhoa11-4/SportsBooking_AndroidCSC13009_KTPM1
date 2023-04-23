@@ -35,7 +35,7 @@
         android:textSize="20dp"
 
 
-        app:layout_constraintEnd_toEndOf="@+id/LayoutRepassword"
+    app:layout_constraintEnd_toEndOf="@+id/LayoutRepassword"
         app:layout_constraintStart_toStartOf="@+id/LayoutRepassword"
         app:layout_constraintTop_toBottomOf="@+id/LayoutRepassword" />
 

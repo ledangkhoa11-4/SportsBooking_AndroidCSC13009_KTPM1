@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/receiveMessageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is a receive message"
+            android:background="@drawable/message_input_box"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+</RelativeLayout>
