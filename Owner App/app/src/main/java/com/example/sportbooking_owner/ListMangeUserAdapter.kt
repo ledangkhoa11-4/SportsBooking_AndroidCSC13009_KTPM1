@@ -37,6 +37,8 @@ class ListMangeUserAdapter(val context: Context,val userList:ArrayList<User>):Re
             holder.userName.setText(userList[position].username)
             holder.itemView.setOnClickListener {
                 val intent=Intent(context,ChatWithUserActivity::class.java)
+                intent.putExtra("Name",userList[position].username)
+                intent.putExtra("ID",userList[position].id)
                 context.startActivity(intent)
 
             }
