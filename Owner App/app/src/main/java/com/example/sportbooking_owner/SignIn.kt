@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking_owner.DTO.Courts
+import com.example.sportbooking_owner.DTO.User
 import com.example.sportbooking_owner.DTO.User_Owner
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -34,6 +35,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -57,6 +59,7 @@ class SignIn : AppCompatActivity() {
     companion object{
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
+        var userList=ArrayList<User>()
         var owner= User_Owner()
         fun loadCourtList() {
 
@@ -111,7 +114,7 @@ class SignIn : AppCompatActivity() {
         login_btn=findViewById(R.id.login_button)
 
 
-
+        getAllUser()
         //Sign Up
         signUp!!.setOnClickListener {
             startActivity(Intent(this,SignUp::class.java))
@@ -237,7 +240,24 @@ class SignIn : AppCompatActivity() {
     }
 
 
+    fun getAllUser(){
+        MainActivity.database.getReference("User").addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
 
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for(ds  in snapshot.children){
+                    val u=ds.getValue(User::class.java)
+                    if (u != null) {
+                        userList.add(u)
+                    }
+                }
+            }
+        }
+        )
+    }
     public override fun onStart() {
         super.onStart()
        // auth.signOut()
