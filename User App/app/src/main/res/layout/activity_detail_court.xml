@@ -309,15 +309,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/messageBtn"
-                android:layout_width="46dp"
-                android:layout_height="38dp"
-                android:layout_marginEnd="60dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView10"
-                app:layout_constraintVertical_bias="0.181"
+                android:layout_width="36dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/typeSportImage"
+                app:layout_constraintStart_toEndOf="@+id/typeSportImage"
+                app:layout_constraintTop_toTopOf="@+id/typeSportImage"
+                app:layout_constraintVertical_bias="0.333"
                 app:srcCompat="@drawable/baseline_message_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

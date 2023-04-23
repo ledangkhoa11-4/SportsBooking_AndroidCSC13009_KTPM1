@@ -46,7 +46,7 @@ class DetailCourtActivity : AppCompatActivity() {
     lateinit var listServiceRv: RecyclerView
     lateinit var courtDetail:Court
     lateinit var favoriteBtn:ImageButton
-    lateinit var messageBtn:ImageButton
+    lateinit var messageBtn:ImageView
     var ratingList: ArrayList<RatingCourt> = ArrayList()
     var ratingResult: Float = 0.0f
     lateinit var ratingView: ListView
