@@ -2,26 +2,216 @@ package com.example.sportbooking_owner
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.islandparadise14.mintable.MinTimeTableView
-import com.islandparadise14.mintable.model.ScheduleEntity
+import android.util.Log
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.HorizontalScrollView
+import android.widget.ScrollView
+import com.example.sportbooking_owner.DTO.BookingHistory
+import com.example.sportbooking_owner.DTO.Courts
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.islandparadise14.mintable_khoa.MinTimeTableView_KhoaCustom
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CourtScheduleActivity : AppCompatActivity() {
-    private val day = arrayOf("Field1", "Field2", "Field3", "Field4", "Field5", "Field6")
-    private val scheduleList: ArrayList<ScheduleEntity> = ArrayList()
+    lateinit var tableMain: MinTimeTableView_KhoaCustom
+    lateinit var tableV: MinTimeTableView_KhoaCustom
+    lateinit var tableH: MinTimeTableView_KhoaCustom
+    private val scheduleList: ArrayList<com.islandparadise14.mintable_khoa.model.ScheduleEntity> = ArrayList()
+    lateinit var scroll_H: HorizontalScrollView
+    lateinit var scroll_V: ScrollView
+    lateinit var paramH: ViewGroup.MarginLayoutParams
+    lateinit var paramV: ViewGroup.MarginLayoutParams
+    var v_Start = 0
+    var v_Top = 0
+    var h_Start = 0
+    var h_Top = 0
+    var lastX = 0
+    var lastY = 0
+    var selectedDate:Long = System.currentTimeMillis()
+    var bookList: ArrayList<BookingHistory> = ArrayList()
+    lateinit var pickDateBtn: Button
+    var yards = arrayOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_schedule)
-        val schedule = ScheduleEntity(32,"Database","IT Building 301",2,"20:30",
-            "24:00","#73fcae68","#000000")
-        scheduleList.add(schedule)
-        scheduleList.add(
-            ScheduleEntity(5,"San A Sang Bla Bla Bla Bla LBa","8-930",0,"8:30",
-                "10:00","#73fcae68","#000000"))
-        var table = findViewById<MinTimeTableView>(R.id.table)
-        table.initTable(day)
 
-        table.isFullWidth(true)
-        table.updateSchedules(scheduleList)
+        tableMain = findViewById(R.id.tableMain)
+        tableV = findViewById(R.id.table_V)
+        tableH = findViewById(R.id.table_H)
+        scroll_H = findViewById(R.id.horizontalScroolView)
+        scroll_V = findViewById(R.id.verticalScrollView)
+        scroll_H.elevation = 9f
+        scroll_V.elevation = 8f
+        tableV.elevation = 1f
+        tableH.elevation = 2f
+
+        val timestart = "0:00"
+        val timeend = "24:00"
+        scheduleList.add(
+            com.islandparadise14.mintable_khoa.model.ScheduleEntity(0,"incognito","2030-24",0,"${timestart}",
+                "${timestart}","#00e600","#000000")
+        )
+        scheduleList.add(
+            com.islandparadise14.mintable_khoa.model.ScheduleEntity(1,"incognito","830-10",0,"${timeend}",
+                "${timeend}","#73fcae68","#000000")
+        )
+        val days:ArrayList<String> = arrayListOf("Mon","Tue","Wed","Thu","Fri","Sat","Sun")
+        var serviceDays:String = ""
+        for(i in 0 until SignIn.listCourt.size){
+            for(day in days){
+                if(day in SignIn.listCourt[i].ServiceWeekdays) serviceDays += day + ","
+            }
+            serviceDays = serviceDays.substring(0,serviceDays.length - 1)
+        }
+//        tableMain.initTable(yards,3)
+        updateScheduleByDate(selectedDate)
+        val constraintsBuilder = CalendarConstraints.Builder()
+        constraintsBuilder.setValidator(DateValidator(serviceDays))
+
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pick a day to view schedule")
+                .setCalendarConstraints(constraintsBuilder.build())
+                .setSelection(selectedDate)
+                .build()
+
+        pickDateBtn = findViewById(R.id.dateScheduleBtn)
+        pickDateBtn.setText(convertDate(System.currentTimeMillis()))
+        pickDateBtn.setOnClickListener {
+            datePicker.show(supportFragmentManager, "tag");
+        }
+        datePicker.addOnPositiveButtonClickListener {
+            var datePicked = convertDate(it);
+            pickDateBtn.setText(datePicked)
+            updateScheduleByDate(it);
+            selectedDate = it
+        }
+        findViewById<Button>(R.id.backBtn).setOnClickListener{
+            finish()
+        }
+
+        paramH = tableH.layoutParams as ViewGroup.MarginLayoutParams
+        paramV = tableV.layoutParams as ViewGroup.MarginLayoutParams
+        v_Start = paramV.marginStart
+        v_Top = paramV.topMargin
+        h_Start = paramH.marginStart
+        h_Top = paramH.topMargin
+        scroll_H.viewTreeObserver.addOnScrollChangedListener {
+            val scroolX = scroll_H.scrollX
+            if (lastX == scroolX)
+                return@addOnScrollChangedListener
+            lastX = scroolX
+
+            paramH.topMargin = h_Top
+            paramH.marginStart = h_Start - scroolX
+            tableH.layoutParams = paramH
+
+            tableH.elevation = 1f
+            tableV.elevation = 2f
+
+        }
+
+        scroll_V.viewTreeObserver.addOnScrollChangedListener {
+            val scroolY = scroll_V.scrollY
+            if (lastY == scroolY)
+                return@addOnScrollChangedListener
+            lastY = scroolY
+
+            paramV.topMargin = v_Top - scroolY
+            paramV.marginStart = v_Start
+            tableV.layoutParams = paramV
+
+            tableH.elevation = 2f
+            tableV.elevation = 1f
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if(yards.isEmpty()) {
+            for (i in 0 until SignIn.listCourt.size) {
+                val array = yards!!.toMutableList()
+                val yard =
+                    Array(SignIn.listCourt[i].numOfYards) { j -> SignIn.listCourt[i].Name + " " + (j + 1).toString() }
+                array.addAll(yard)
+                yards = array.toTypedArray()
+            }
+            tableMain.initTable(yards, 3)
+            tableV.initTable(yards, 2)
+            tableH.initTable(yards, 1)
+        }
+        loadBookingList()
+//        tableMain.updateSchedules(scheduleList)
+//        tableV.updateSchedules(scheduleList)
+//        tableH.updateSchedules(scheduleList)
+    }
+
+    fun updateScheduleByDate(time:Long){
+        scheduleList.subList(2,scheduleList.size).clear()
+        for(book in bookList){
+            if(convertDate(time) == convertDate(book.Date)){
+                var startTime = convertTime(book.Time[0])
+                var endTime = convertTime(book.Time[1])
+                var idx = 0
+                for(i in 0 until SignIn.listCourt.size){
+                    if(book.CourtID.equals(SignIn.listCourt[i].CourtID)){
+                        idx += book.Yard
+                        break
+                    }
+                    else idx += SignIn.listCourt[i].numOfYards
+
+                }
+                if(idx != 0) {
+                    scheduleList.add(
+                        com.islandparadise14.mintable_khoa.model.ScheduleEntity(
+                            0, book.UserID, "${startTime} - ${endTime}", idx - 1, "${startTime}",
+                            "${endTime}", "#73fcae68", "#000000"
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    fun convertTime(timeStamp:Long):String{
+        val sdf = SimpleDateFormat("HH:mm")
+        val formattedTime = sdf.format(Date(timeStamp))
+        return formattedTime
+    }
+    fun convertDate(timeStamp:Long):String{
+        val sdf = SimpleDateFormat("dd/MM/yyyy") // create a SimpleDateFormat object with desired format
+        val formattedTime = sdf.format(Date(timeStamp)) // convert timestamp to date and format as string
+        return formattedTime
+    }
+    fun loadBookingList(){
+        val bookingRef = MainActivity.database.getReference("Booking");
+        val queryRef = bookingRef.orderByChild("userID").equalTo(SignIn.user!!.uid)
+        queryRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.i("loadBookingList","getIn")
+                bookList.clear()
+                for (ds in snapshot.children) {
+                    val bookHistory = ds.getValue(BookingHistory::class.java)
+                    bookList.add(bookHistory!!)
+                }
+                updateScheduleByDate(selectedDate)
+                tableMain.updateSchedules(scheduleList)
+                tableV.updateSchedules(scheduleList)
+                tableH.updateSchedules(scheduleList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 }

@@ -39,7 +39,9 @@ class OwnerTabActivity : AppCompatActivity() {
             auth.signOut()
             startActivity(Intent(this,SignIn::class.java))
         }
-
+        ScheduleBtn.setOnClickListener {
+            startActivity(Intent(this,CourtScheduleActivity::class.java))
+        }
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_user
