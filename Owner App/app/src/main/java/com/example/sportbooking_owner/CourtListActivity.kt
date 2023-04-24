@@ -87,6 +87,9 @@ class CourtListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        findViewById<ImageButton>(R.id.showAllBtn).setOnClickListener {
+            startActivity(Intent(this,CourtScheduleActivity::class.java))
+        }
 
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
