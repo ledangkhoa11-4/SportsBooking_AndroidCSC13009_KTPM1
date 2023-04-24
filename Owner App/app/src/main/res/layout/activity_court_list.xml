@@ -7,6 +7,17 @@
     tools:context=".CourtListActivity">
 
 
+    <ImageButton
+        android:id="@+id/showAllBtn"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#00FFFFFF"
+        android:scaleType="centerCrop"
+        android:src="@drawable/showall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/SearchView"
+        app:layout_constraintTop_toBottomOf="@+id/scanQrBtn" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/CourtRv"
         android:layout_width="0dp"
@@ -36,11 +47,12 @@
         android:id="@+id/SearchView"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:drawableLeft="@drawable/baseline_search_24"
         android:drawablePadding="10dp"
         android:hint="Search"
         app:layout_constraintEnd_toEndOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
