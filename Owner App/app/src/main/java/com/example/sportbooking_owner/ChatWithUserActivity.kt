@@ -25,6 +25,7 @@ class ChatWithUserActivity : AppCompatActivity() {
 
     var senderRoom:String?=null
     var receiveRoom:String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_with_user)
@@ -44,7 +45,7 @@ class ChatWithUserActivity : AppCompatActivity() {
         messageList= ArrayList()
         messageAdapter= MessageAdapter(this,messageList!!)
         messageRecyclerView.adapter=messageAdapter
-        messageRecyclerView.layoutManager= LinearLayoutManager(this)
+        messageRecyclerView.layoutManager  = LinearLayoutManager(this)
         chatRef.child(senderRoom!!).child("messages").addValueEventListener(object :
             ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
