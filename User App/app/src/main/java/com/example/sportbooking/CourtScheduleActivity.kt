@@ -34,8 +34,11 @@ class CourtScheduleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_court_schedule)
         val intent = intent
         val index = intent.getIntExtra("index",0)
-        selectedDate = System.currentTimeMillis()
         court = HomeActivity.courtList_Home!![index]
+        selectedDate = System.currentTimeMillis()
+        while(!getDayOfWeek(selectedDate,court.ServiceWeekdays)){
+            selectedDate += (1000 * 60 * 60 * 24)
+        }
         table = findViewById<MinTimeTableView>(R.id.table)
         loadBookingList()
         val timestart = convertTime(court.ServiceHour[0])
@@ -63,7 +66,7 @@ class CourtScheduleActivity : AppCompatActivity() {
                 .build()
 
         pickDateBtn = findViewById(R.id.dateScheduleBtn)
-        pickDateBtn.setText(convertDate(System.currentTimeMillis()))
+        pickDateBtn.setText(convertDate(selectedDate))
         pickDateBtn.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
@@ -140,5 +143,12 @@ class CourtScheduleActivity : AppCompatActivity() {
             }
 
         })
+    }
+    fun getDayOfWeek(time:Long,ServiceWeekdays:String):Boolean{
+        var calendar:Calendar = Calendar.getInstance()
+        calendar.timeInMillis = time
+        val format = SimpleDateFormat("EE").format(Date(time))
+        if(format !in ServiceWeekdays) return false
+        return true
     }
 }
