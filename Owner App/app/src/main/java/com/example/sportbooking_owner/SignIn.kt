@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking_owner.DTO.Courts
+import com.example.sportbooking_owner.DTO.Message
 import com.example.sportbooking_owner.DTO.User
 import com.example.sportbooking_owner.DTO.User_Owner
 import com.facebook.AccessToken
@@ -60,6 +61,7 @@ class SignIn : AppCompatActivity() {
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
         var userList=ArrayList<User>()
+
         var owner= User_Owner()
         fun loadCourtList() {
 
@@ -213,6 +215,7 @@ class SignIn : AppCompatActivity() {
 
 
     }
+
     fun handleFacebookAccessToken(token: AccessToken) {
         val credential = FacebookAuthProvider.getCredential(token.token)
 
@@ -250,13 +253,25 @@ class SignIn : AppCompatActivity() {
                 userList.clear()
                 for(ds  in snapshot.children){
                     val u=ds.getValue(User::class.java)
+                    val imageRef=MainActivity.storageRef.child("user"+u!!.id)
+                    val ONE_MEGABYTE: Long = 1024 * 1024
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                        val bitmap=BitmapFactory.decodeByteArray(it,0,it.size)
+                        u.Image=bitmap
+                        // Data for "images/island.jpg" is returned, use this as needed
+                    }.addOnFailureListener {
+                        // Handle any errors
+                    }
+
                     if (u != null) {
                         userList.add(u)
                     }
                 }
+
             }
         }
         )
+
     }
     public override fun onStart() {
         super.onStart()
