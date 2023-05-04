@@ -14,6 +14,7 @@ class UserTabActivity : AppCompatActivity() {
     lateinit var usernameTv:TextView
     lateinit var useremailTv:TextView
     lateinit var avatarIv:ImageView
+    lateinit var messageListBtn:Button
     val currentUser = MainActivity.user
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,10 @@ class UserTabActivity : AppCompatActivity() {
         findViewById<Button>(R.id.favoriteCourtBtn).setOnClickListener {
             val intent = Intent(this, MyFavoriteActivity::class.java)
             startActivity(intent)
+        }
+        messageListBtn=findViewById(R.id.messageListBtn)
+        messageListBtn.setOnClickListener {
+            startActivity(Intent(this,ListMessage::class.java))
         }
     }
     fun navBarHandle(nav_bar: NavigationBarView){

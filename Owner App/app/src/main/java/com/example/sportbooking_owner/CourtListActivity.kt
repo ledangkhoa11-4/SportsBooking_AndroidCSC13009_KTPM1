@@ -35,7 +35,9 @@ class CourtListActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
     companion object{
         var adapter:CustomAdapter?=null
+        var adapterSearchview:ArrayAdapter<Courts>?=null
         var courtList=ArrayList<Courts>()
+        var lastCourtList=ArrayList<Courts>()
         val REQUEST_CAMERA_PERMISSION = 200
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class CourtListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_court_list)
 
         courtList=SignIn.listCourt
+        lastCourtList=SignIn.lastCourtList
         //nav bar handle
         nav_bar=findViewById(R.id.bottomNavigationView)
         navBarHandle(nav_bar)
@@ -62,21 +65,20 @@ class CourtListActivity : AppCompatActivity() {
         }
         //Search adapter
         var searchView=findViewById<AutoCompleteTextView>(R.id.SearchView)
-        val item=courtList!!.map {  it.Name }
-        val adapterSearchview=ArrayAdapter<String>(this,android.R.layout.simple_list_item_single_choice,item)
+        adapterSearchview=ArrayAdapter<Courts>(this,android.R.layout.simple_list_item_single_choice,lastCourtList)
         searchView.setAdapter(adapterSearchview)
         searchView!!.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                courtTemp.clear()
-//                val search=searchView.text.toString()
-//                for(i in 0 until courtList!!.size){
-//                    if(courtList!![i].Name.contains(search, ignoreCase = true)){
-//                        courtTemp.add(courtList!![i])
-//                    }
-//                }
-//                adapter!!.notifyDataSetChanged()
+                courtList.clear()
+                val search=searchView.text.toString()
+                for(i in 0 until lastCourtList!!.size){
+                    if(lastCourtList!![i].Name.contains(search, ignoreCase = true)){
+                        courtList.add(lastCourtList!![i])
+                    }
+                }
+                adapter!!.notifyDataSetChanged()
 
             }
         })

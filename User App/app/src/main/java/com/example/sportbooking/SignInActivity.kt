@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import com.example.sportbooking.DTO.Owner
 import com.example.sportbooking.DTO.User
 import com.example.sportbooking.Ultils.CreateToast
 import com.facebook.AccessToken
@@ -54,6 +55,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var database:FirebaseDatabase
     companion object{
         var user=Firebase.auth.currentUser
+        var ownerList=ArrayList<Owner>()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +75,7 @@ class SignInActivity : AppCompatActivity() {
         signUp!!.setOnClickListener {
             startActivity(Intent(this,SignUpActivity::class.java))
         }
+        getAllOwner()
 
         //Sign In
 
@@ -91,6 +94,7 @@ class SignInActivity : AppCompatActivity() {
                             CreateToast.createToast(this, "Sign in successfully","Welcome to Sport Booking", true)
 
                             user = auth.currentUser
+
                             if(user!=null){
                                 startActivity(Intent(this, HomeActivity::class.java))
                                 getUser(user!!.uid)
@@ -166,6 +170,36 @@ class SignInActivity : AppCompatActivity() {
         signInFbBtn!!.setOnClickListener {
             login_btn.performClick()
         }
+
+    }
+    fun getAllOwner(){
+        MainActivity.database.getReference("Owner").addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                ownerList.clear()
+                for(ds  in snapshot.children){
+                    val u=ds.getValue(Owner::class.java)
+                    val imageRef=MainActivity.storageRef.child("user"+u!!.id)
+                    val ONE_MEGABYTE: Long = 1024 * 1024
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                        val bitmap=BitmapFactory.decodeByteArray(it,0,it.size)
+                        u.Image=bitmap
+                        // Data for "images/island.jpg" is returned, use this as needed
+                    }.addOnFailureListener {
+                        // Handle any errors
+                    }
+
+                    if (u != null) {
+                        ownerList.add(u)
+                    }
+                }
+
+            }
+        }
+        )
 
     }
     fun handleFacebookAccessToken(token: AccessToken) {

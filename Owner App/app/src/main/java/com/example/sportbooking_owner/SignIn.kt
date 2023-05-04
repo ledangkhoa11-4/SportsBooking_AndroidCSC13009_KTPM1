@@ -61,7 +61,7 @@ class SignIn : AppCompatActivity() {
         var listCourt: ArrayList<Courts> = ArrayList()
         var user=Firebase.auth.currentUser
         var userList=ArrayList<User>()
-
+        var lastCourtList: ArrayList<Courts> = ArrayList()
         var owner= User_Owner()
         fun loadCourtList() {
 
@@ -88,8 +88,12 @@ class SignIn : AppCompatActivity() {
                         listCourt.add(court)
 
                     }
+                    lastCourtList.addAll(listCourt)
                     if (CourtListActivity.adapter != null) {
                         CourtListActivity.adapter!!.notifyDataSetChanged()
+                    }
+                    if (CourtListActivity.adapterSearchview != null) {
+                        CourtListActivity.adapterSearchview!!.notifyDataSetChanged()
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
