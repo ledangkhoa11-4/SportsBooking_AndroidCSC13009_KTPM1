@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportbooking_owner.Adapter.MessageAdapter
 import com.example.sportbooking_owner.DTO.Message
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.database.DataSnapshot
@@ -20,7 +21,7 @@ class ChatWithUserActivity : AppCompatActivity() {
     private lateinit var sendBtn: ImageView
     private lateinit var toolbar: MaterialToolbar
     private lateinit var messageList:ArrayList<Message>
-    private lateinit var messageAdapter:MessageAdapter
+    private lateinit var messageAdapter: MessageAdapter
     val chatRef= MainActivity.database.reference.child("chats")
 
     var senderRoom:String?=null

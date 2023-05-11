@@ -1,4 +1,4 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking_owner.Adapter
 
 import android.app.Activity
 import android.view.View
@@ -7,12 +7,14 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.sportbooking_owner.DTO.BookingHistory
+import com.example.sportbooking_owner.R
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class BookingAdapter(private val context: Activity, private val bookingHistories:ArrayList<BookingHistory>) : ArrayAdapter<BookingHistory>(context,R.layout.booking_item_layout,bookingHistories){
+class BookingAdapter(private val context: Activity, private val bookingHistories:ArrayList<BookingHistory>) : ArrayAdapter<BookingHistory>(context,
+    R.layout.booking_item_layout,bookingHistories){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView: View = inflater.inflate(R.layout.booking_item_layout, null, true)

@@ -3,9 +3,9 @@ package com.example.sportbooking_owner
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import androidx.viewpager2.widget.ViewPager2
+import com.example.sportbooking_owner.Adapter.BookingPagerAdapter
 import com.example.sportbooking_owner.DTO.BookingHistory
 import com.example.sportbooking_owner.DTO.Courts
 import com.google.android.material.tabs.TabLayout
@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import java.util.Date
 
 class ViewBookingActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
@@ -65,7 +66,6 @@ class ViewBookingActivity : AppCompatActivity() {
                     bookHistory!!.Court = court
                     val customerID =bookHistory!!.UserID
 
-
                     val userquery = MainActivity.database.getReference("User").orderByChild("id").equalTo(customerID)
                     userquery.addListenerForSingleValueEvent(object: ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -97,8 +97,9 @@ class ViewBookingActivity : AppCompatActivity() {
                     }.addOnFailureListener {
                         // Handle any errors
                     }
-
-                    if(bookHistory.Status == false){
+                    var today = Date(System.currentTimeMillis())
+                    var bookingDate = Date(bookHistory.Date)
+                    if(bookHistory.Status == false && bookingDate.after(today)){
                         listIncoming.add(bookHistory)
                     }else{
                         listFinished.add(bookHistory)

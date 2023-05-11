@@ -1,4 +1,4 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking_owner.Adapter
 
 import android.view.LayoutInflater
 
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 import com.example.sportbooking_owner.DTO.Message
+import com.example.sportbooking_owner.R
+import com.example.sportbooking_owner.SignIn
 
 
 class MessageAdapter(val context:Context, val messageList: ArrayList<Message>):
@@ -44,7 +46,7 @@ class MessageAdapter(val context:Context, val messageList: ArrayList<Message>):
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentMessage=messageList[position]
-        if(holder.javaClass==SentViewHolder::class.java){
+        if(holder.javaClass== SentViewHolder::class.java){
             val viewHolder=holder as SentViewHolder
             holder.sentTv.text=currentMessage.message
         }else{

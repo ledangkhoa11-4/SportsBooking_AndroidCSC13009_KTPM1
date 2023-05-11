@@ -309,16 +309,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv" />
 
-            <ImageView
-                android:id="@+id/messageBtn"
-                android:layout_width="36dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/typeSportImage"
-                app:layout_constraintStart_toEndOf="@+id/typeSportImage"
-                app:layout_constraintTop_toTopOf="@+id/typeSportImage"
-                app:layout_constraintVertical_bias="0.333"
-                app:srcCompat="@drawable/baseline_message_24" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -401,13 +392,23 @@
 
     <ImageButton
         android:id="@+id/favoriteBtn"
-        android:layout_width="49dp"
-        android:layout_height="52dp"
+        android:layout_width="47dp"
+        android:layout_height="51dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/un_favorite" />
 
-
+    <ImageView
+        android:id="@+id/messageBtn"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#B11E1E"
+        android:tint="#9E9E9D"
+        app:layout_constraintBottom_toBottomOf="@+id/favoriteBtn"
+        app:layout_constraintEnd_toStartOf="@+id/favoriteBtn"
+        app:layout_constraintTop_toTopOf="@+id/favoriteBtn"
+        app:srcCompat="@drawable/chat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -108,34 +108,6 @@ class Booking : AppCompatActivity() {
                         .padStart(2, '0')
                 start = timeStringToTimestamp(timeStart.text.toString())
 
-
-//                // check if yard number, date and time is available
-//                for (i in 0 until bookList.size) {
-//                    if (bookList[i].Yard == yard) {
-//                        warningTV.visibility = View.VISIBLE
-//                        warningTV.text = "Yard is not available"
-//                        break
-//                    } else if (bookList[i].Date == date) {
-//                        warningTV.visibility = View.VISIBLE
-//                        warningTV.text = "Date is not available"
-//                        break
-//                    } else if (startBook.after(endBook)) {
-//                        warningTV.visibility = View.VISIBLE
-//                        warningTV.text = "Start time must be before end time"
-//                        break
-//                    } else if (startBook.before(working) || endBook.after(closing)) {
-//                        warningTV.visibility = View.VISIBLE
-//                        warningTV.text = "Time must be in working time"
-//                        break
-//                    } else if (bookList[i].Time.containsAll(timeList)) {
-//                        warningTV.visibility = View.VISIBLE
-//                        warningTV.text = "Time is not available"
-//                        break
-//                    } else {
-//                        warningTV.visibility = View.GONE
-//                    }
-//                }
-
                 if (yard == -1 || date == -1L || start == -1L || end == -1L) {
                     warningTV.visibility = View.VISIBLE
                     warningTV.text = "Please choose yard, date and time"
@@ -176,7 +148,6 @@ class Booking : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onDurationChange(duration: TimeRangePicker.TimeDuration) {
                 durationBooking = duration.durationMinutes;
             }
@@ -227,7 +198,6 @@ class Booking : AppCompatActivity() {
                     }
                 }
             }
-
         })
         if (hour != -1) {
             timeStart.text = hour.toString().padStart(2, '0') + ":" + 0.toString().padStart(2, '0')
@@ -391,20 +361,10 @@ class Booking : AppCompatActivity() {
                 );
                 return@setOnClickListener
             }
-            Log.i("AAAAAAAAAA", bookList.size.toString())
             for (booking in bookList) {
                 if (date == booking.Date && yard == booking.Yard) {
                     val another_start_book = Date(booking.Time[0])
                     val another_end_book = Date(booking.Time[1])
-
-                    Log.i("AAAAAAAAA", startBook.toString())
-                    Log.i("AAAAAAAAA", endBook.toString())
-                    Log.i("AAAAAAAAA", another_start_book.toString())
-                    Log.i("AAAAAAAAA", another_end_book.toString())
-                    Log.i("AAAAAAAAA", convertTimestampToTime(booking.Time[0]))
-                    Log.i("AAAAAAAAA", convertTimestampToTime(booking.Time[1]))
-                    Log.i("AAAAAAAAA", booking.Time[0].toString())
-                    Log.i("AAAAAAAAA", booking.Time[1].toString())
                     if (checkTimeConflict(
                             startBook,
                             endBook,

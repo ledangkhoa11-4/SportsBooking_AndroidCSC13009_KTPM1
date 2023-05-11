@@ -37,6 +37,7 @@ class OwnerTabActivity : AppCompatActivity() {
         LogoutBtn.setOnClickListener {
             val auth=Firebase.auth
             auth.signOut()
+            finish()
             startActivity(Intent(this,SignIn::class.java))
         }
         ScheduleBtn.setOnClickListener {

@@ -1,11 +1,12 @@
-package com.example.sportbooking_owner
+package com.example.sportbooking_owner.Adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sportbooking_owner.PagerVH
+import com.example.sportbooking_owner.R
 
 
 class ImageViewPagerAdapter(private val imagesList:ArrayList<Bitmap>) : RecyclerView.Adapter<PagerVH>() {

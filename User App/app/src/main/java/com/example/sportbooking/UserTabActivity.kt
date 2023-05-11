@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationBarView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class UserTabActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
@@ -15,6 +17,7 @@ class UserTabActivity : AppCompatActivity() {
     lateinit var useremailTv:TextView
     lateinit var avatarIv:ImageView
     lateinit var messageListBtn:Button
+    lateinit var logoutBtn:Button
     val currentUser = MainActivity.user
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,13 @@ class UserTabActivity : AppCompatActivity() {
         messageListBtn=findViewById(R.id.messageListBtn)
         messageListBtn.setOnClickListener {
             startActivity(Intent(this,ListMessage::class.java))
+        }
+        logoutBtn = findViewById(R.id.logoutBtn)
+        logoutBtn.setOnClickListener {
+            val auth = Firebase.auth
+            auth.signOut()
+            finish()
+            startActivity(Intent(this, SignInActivity::class.java))
         }
     }
     fun navBarHandle(nav_bar: NavigationBarView){

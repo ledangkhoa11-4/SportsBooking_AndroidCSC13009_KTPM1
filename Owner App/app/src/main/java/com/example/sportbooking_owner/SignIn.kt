@@ -287,6 +287,7 @@ class SignIn : AppCompatActivity() {
             loadCourtList()
             getOwner(user!!.uid)
            startActivity(Intent(this, CourtListActivity::class.java))
+            finish()
         }
     }
 
