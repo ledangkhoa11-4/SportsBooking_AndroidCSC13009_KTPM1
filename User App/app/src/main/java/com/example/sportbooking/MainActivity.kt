@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sportbooking.API.SendNotificationModule
 import com.example.sportbooking.DTO.Location
 import com.example.sportbooking.DTO.User
 import com.example.sportbooking.Ultils.GetDistance
@@ -15,14 +17,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.google.firebase.storage.ktx.storage
 import java.io.*
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var nav_bar: NavigationBarView
-
-
     companion object {
         val database =
             Firebase.database("https://sportbooking2-b3fa8-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         var lastLocation: Location = Location()
         val GG_MAP_API =
             "AIzaSyAU_lL7tnCK2WX35eqamvlTVYlFjp-hq5Y"
+        var token = ""
         var user: User = User()
         fun readLastLocation(context: Context): Location {
             var loc= Location()
@@ -66,21 +68,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //startActivity(Intent(this,BookingHistory::class.java))
-        //loadCourtList()
-        //finish()
+
         loadCourtList()
         lastLocation = readLastLocation(this);
-        //startActivity(Intent(this, HomeActivity::class.java))
         startActivity(Intent(this, SignInActivity::class.java))
-        finish()
-        // startActivity(Intent(this,CalendarViewActivity::class.java))
-        // startActivity(Intent(this,RatingActivity::class.java))
 
-        //startActivity(Intent(this,SearchStadiumActivity::class.java))
-        //startActivity(Intent(this,CourtScheduleActivity::class.java))
-        //startActivity(Intent(this,CalendarViewActivity::class.java))
+        Firebase.messaging.getToken().addOnCompleteListener { task ->
+            val token = task.result
+            MainActivity.token = token
+        }
+        finish()
+
     }
+
     private fun loadCourtList() {
         var courtsRef = database.getReference("Courts");
         var valueEventListener: ValueEventListener = object : ValueEventListener {

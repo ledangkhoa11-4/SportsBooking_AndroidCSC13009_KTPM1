@@ -52,7 +52,6 @@ class UserTabActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, SignInActivity::class.java))
         }
-
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_user

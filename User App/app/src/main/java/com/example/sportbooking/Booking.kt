@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.example.sportbooking.API.NotificationAPI
+import com.example.sportbooking.API.SendNotificationModule
 import com.example.sportbooking.DTO.BookingHistory
 import com.example.sportbooking.Ultils.CreateToast
 import com.google.android.material.datepicker.CalendarConstraints
@@ -33,6 +35,9 @@ import com.paypal.checkout.order.PurchaseUnit
 import com.paypal.checkout.paymentbutton.PaymentButtonContainer
 import com.shawnlin.numberpicker.NumberPicker
 import nl.joery.timerangepicker.TimeRangePicker
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
 import java.text.SimpleDateFormat
@@ -394,6 +399,8 @@ class Booking : AppCompatActivity() {
                 "You can check it in My Booking",
                 true
             )
+            SendNotificationModule.sendNotification(MainActivity.token, "Đặt sân thành công",
+                "Hi ${MainActivity.user.username}, bạn đã đặt thành công sân ${court.Name}. Nhớ checkin đúng thời gian đã đặt nhé" )
             finish()
         }
     }
