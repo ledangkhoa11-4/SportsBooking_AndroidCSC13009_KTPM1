@@ -400,7 +400,7 @@ class Booking : AppCompatActivity() {
                 true
             )
             SendNotificationModule.sendNotification(MainActivity.token, "Đặt sân thành công",
-                "Hi ${MainActivity.user.username}, bạn đã đặt thành công sân ${court.Name}. Nhớ checkin đúng thời gian đã đặt nhé" )
+                "Hi ${MainActivity.user.username}, chúc mừng bạn đã đặt thành công sân ${court.Name}" )
             finish()
         }
     }

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import com.example.sportbooking.DTO.Owner
 import com.example.sportbooking.DTO.User
 import com.example.sportbooking.Ultils.CreateToast
@@ -170,7 +171,9 @@ class SignInActivity : AppCompatActivity() {
         signInFbBtn!!.setOnClickListener {
             login_btn.performClick()
         }
-
+        findViewById<TextView>(R.id.forgotPswTv).setOnClickListener {
+            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+        }
     }
     fun getAllOwner(){
         MainActivity.database.getReference("Owner").addValueEventListener(object :ValueEventListener{

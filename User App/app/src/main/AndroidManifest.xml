@@ -18,6 +18,12 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListMessage"
             android:exported="false" />
         <activity
@@ -34,15 +40,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NotificationTest"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".MyFavoriteActivity"
             android:exported="false" />
 
@@ -52,15 +49,12 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/logo" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/purple_700" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="notification_channel" />
@@ -87,9 +81,6 @@
         <activity
             android:name=".SignInActivity"
             android:exported="false" />
-        <activity
-            android:name=".NotificationActivity"
-            android:exported="true" />
         <activity
             android:name=".DetailBookingHistory"
             android:exported="false" />
@@ -127,6 +118,7 @@
         <activity
             android:name=".DetailCourtActivity"
             android:exported="false" />
+
         <service
             android:name=".API.MyFirebaseNotiService"
             android:exported="false">

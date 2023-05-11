@@ -8,7 +8,7 @@
     tools:context=".UserTabActivity">
 
     <Button
-        android:id="@+id/editBtn3"
+        android:id="@+id/changePassButton"
         android:layout_width="364dp"
         android:layout_height="53dp"
         android:layout_marginTop="15dp"

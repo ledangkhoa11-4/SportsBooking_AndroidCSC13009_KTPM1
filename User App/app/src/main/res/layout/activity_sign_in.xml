@@ -103,6 +103,21 @@
             android:textColorHint="@color/purple_700" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/forgotPswTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+
+        android:text="Forgot pasword"
+        android:textColor="#203AE1"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/LayoutPassword"
+        app:layout_constraintTop_toBottomOf="@+id/LayoutPassword">
+
+    </TextView>
     <Button
         android:id="@+id/SignInBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"

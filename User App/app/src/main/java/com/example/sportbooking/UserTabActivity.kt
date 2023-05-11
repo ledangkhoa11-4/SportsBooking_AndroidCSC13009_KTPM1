@@ -52,6 +52,9 @@ class UserTabActivity : AppCompatActivity() {
             finish()
             startActivity(Intent(this, SignInActivity::class.java))
         }
+        findViewById<Button>(R.id.changePassButton).setOnClickListener {
+            startActivity(Intent(this, ChangePasswordActivity::class.java))
+        }
     }
     fun navBarHandle(nav_bar: NavigationBarView){
         nav_bar.selectedItemId = R.id.item_user
