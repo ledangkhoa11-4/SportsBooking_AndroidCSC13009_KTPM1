@@ -1,54 +1,52 @@
-package com.example .sportbooking_owner
+package com.example.sportbooking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sportbooking_owner.DTO.Message
-import com.example.sportbooking_owner.DTO.User
-import com.example.sportbooking_owner.ListMangeUserAdapter
-import com.example.sportbooking_owner.MainActivity
-import com.example.sportbooking_owner.R
-import com.example.sportbooking_owner.SignIn
+import com.example.sportbooking.Adapters.ListMangeUserAdapter
+import com.example.sportbooking.DTO.Message
+import com.example.sportbooking.DTO.Owner
+import com.example.sportbooking.DTO.User
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class ListMessageUserActivity : AppCompatActivity() {
+class ListMessage : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var toolbar: MaterialToolbar
-    lateinit var userMessageList:ArrayList<User>
-    var userList= SignIn.userList
+    lateinit var ownerMessageList:ArrayList<Owner>
+    var ownerList= SignInActivity.ownerList
     companion object{
-    var lastMessList=HashMap<String,Message>()
+        var lastMessList=HashMap<String,Message>()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_message_user)
+        setContentView(R.layout.activity_list_message)
         toolbar=findViewById(R.id.materialToolbar)
         recyclerView=findViewById(R.id.ListUserRCV)
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        userMessageList= ArrayList()
-        recyclerView.layoutManager=LinearLayoutManager(this)
-        val adapter= ListMangeUserAdapter(this,userMessageList)
+        ownerMessageList= ArrayList()
+        recyclerView.layoutManager= LinearLayoutManager(this)
+        val adapter= ListMangeUserAdapter(this,ownerMessageList)
         recyclerView.adapter=adapter
-        recyclerView.layoutManager=LinearLayoutManager(this)
-        getLastMessage()
+        recyclerView.layoutManager= LinearLayoutManager(this)
+
         MainActivity.database.getReference("chats")
-            .addValueEventListener(object :ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    userMessageList.clear()
+                    ownerMessageList.clear()
                     for(ds in snapshot.children){
                         val keyarray= ds.key?.split(",")
                         Log.i("keyarray",keyarray.toString())
-                        if(keyarray?.get(1)=="owner"+SignIn.owner.id){
-                            for(i in 0  until userList.size){
-                                if(keyarray[0]=="user"+userList[i].id){
-                                    userMessageList.add(userList[i])
+                        if(keyarray?.get(0)=="user"+MainActivity.user.id){
+                            for(i in 0  until ownerList.size){
+                                if(keyarray[1]=="owner"+ownerList[i].id){
+                                    ownerMessageList.add(ownerList[i])
 
                                 }
                             }
@@ -67,7 +65,8 @@ class ListMessageUserActivity : AppCompatActivity() {
 
     }
     fun getLastMessage(){
-        MainActivity.database.getReference("chats").addValueEventListener(object :ValueEventListener{
+        MainActivity.database.getReference("chats").addValueEventListener(object :
+            ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -76,8 +75,8 @@ class ListMessageUserActivity : AppCompatActivity() {
                 for(ds in snapshot.children){
                     val key_item=ds.key!!.split(",")
 
-                    if(key_item[0]=="owner" + SignIn.owner.id ){
-                        var lastMess:Message?=null
+                    if(key_item[0]=="owner" + MainActivity.user.id ){
+                        var lastMess: Message?=null
                         for(message in ds.children){
                             val mess=message.getValue(Message::class.java)
                             if (mess != null) {

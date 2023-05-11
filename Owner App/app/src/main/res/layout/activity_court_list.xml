@@ -15,6 +15,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/showall"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toEndOf="@+id/SearchView"
         app:layout_constraintTop_toBottomOf="@+id/scanQrBtn" />
 
@@ -51,8 +52,10 @@
         android:drawableLeft="@drawable/baseline_search_24"
         android:drawablePadding="10dp"
         android:hint="Search"
+
+
         app:layout_constraintEnd_toEndOf="@+id/textView14"
-        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 

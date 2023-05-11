@@ -34,7 +34,7 @@ class CourtScheduleActivity : AppCompatActivity() {
     var h_Top = 0
     var lastX = 0
     var lastY = 0
-    var selectedDate:Long = System.currentTimeMillis()
+    var selectedDate:Long = 0L
     var bookList: ArrayList<BookingHistory> = ArrayList()
     lateinit var pickDateBtn: Button
     var yards = arrayOf<String>()
@@ -67,11 +67,14 @@ class CourtScheduleActivity : AppCompatActivity() {
         var serviceDays:String = ""
         for(i in 0 until SignIn.listCourt.size){
             for(day in days){
-                if(day in SignIn.listCourt[i].ServiceWeekdays) serviceDays += day + ","
+                if(day in SignIn.listCourt[i].ServiceWeekdays && day !in serviceDays) serviceDays += day + ","
             }
-            serviceDays = serviceDays.substring(0,serviceDays.length - 1)
         }
-//        tableMain.initTable(yards,3)
+        serviceDays = serviceDays.substring(0,serviceDays.length - 1)
+        selectedDate = System.currentTimeMillis()
+        while(!getDayOfWeek(selectedDate,serviceDays)){
+            selectedDate += (1000 * 60 * 60 * 24)
+        }
         updateScheduleByDate(selectedDate)
         val constraintsBuilder = CalendarConstraints.Builder()
         constraintsBuilder.setValidator(DateValidator(serviceDays))
@@ -84,7 +87,8 @@ class CourtScheduleActivity : AppCompatActivity() {
                 .build()
 
         pickDateBtn = findViewById(R.id.dateScheduleBtn)
-        pickDateBtn.setText(convertDate(System.currentTimeMillis()))
+
+        pickDateBtn.setText(convertDate(selectedDate))
         pickDateBtn.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
@@ -213,5 +217,13 @@ class CourtScheduleActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun getDayOfWeek(time:Long,ServiceWeekdays:String):Boolean{
+        var calendar:Calendar = Calendar.getInstance()
+        calendar.timeInMillis = time
+        val format = SimpleDateFormat("EE").format(Date(time))
+        if(format !in ServiceWeekdays) return false
+        return true
     }
 }

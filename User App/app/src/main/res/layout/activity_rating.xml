@@ -48,7 +48,7 @@
                     android:layout_height="56dp"
                     android:layout_marginBottom="432dp"
                     android:gravity="center"
-                    android:text="Xin vui lòng đưa đánh giá và cảm nhận của bạn về sân này"
+                    android:text="Please leave a rate and a comment"
                     app:autoSizeMaxTextSize="100sp"
                     app:autoSizeMinTextSize="12sp"
                     app:autoSizeStepGranularity="2sp"
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Cần cải thiện thêm về?"
+                    android:text="Need improvement about?"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Chất lượng phục vụ"
+                        android:text="Service"
                         android:textColor="@color/black" />
 
 
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Hỗ trợ khách hàng"
+                        android:text="Customer care"
                         android:textColor="@color/black" />
 
                     <Button
@@ -129,7 +129,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Thông tin sân"
+                        android:text="Field information"
                         android:textColor="@color/black" />
 
 
@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Thái độ nhân viên"
+                        android:text="Staff attitude"
                         android:textColor="@color/black" />
 
                     <Button
@@ -148,7 +148,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Bề mặt sân"
+                        android:text="Surface quality"
                         android:textColor="@color/black" />
 
                     <Button
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:backgroundTint="@color/beautiful_gray"
-                        android:text="Banh"
+                        android:text="Field Facilities"
                         android:textColor="@color/black" />
                 </GridLayout>
 
@@ -168,7 +168,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/background_main_menu"
                     android:ems="10"
-                    android:hint="Nhận xét"
+                    android:hint="Comment"
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -191,7 +191,7 @@
                     android:layout_height="43dp"
                     android:backgroundTint="@color/topic_color"
                     android:gravity="center"
-                    android:text="Đánh giá ngay"
+                    android:text="Submit"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
