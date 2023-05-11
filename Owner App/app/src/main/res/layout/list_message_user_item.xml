@@ -34,4 +34,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/LastMessTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/UserNameMessageV"
+        app:layout_constraintTop_toBottomOf="@+id/UserNameMessageV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
