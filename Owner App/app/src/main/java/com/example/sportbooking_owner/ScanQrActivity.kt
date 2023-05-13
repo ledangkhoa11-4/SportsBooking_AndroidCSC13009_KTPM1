@@ -3,6 +3,7 @@ package com.example.sportbooking_owner
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.ImageButton
@@ -89,7 +90,7 @@ class ScanQrActivity : AppCompatActivity(), Detector.Processor<Barcode> {
         if (barcodes.size() > 0) {
             val qrCode = barcodes.valueAt(0).displayValue
             runOnUiThread {
-                // Update TextView with QR code
+
                 updateStatus(qrCode)
                 finish()
             }
@@ -107,6 +108,7 @@ class ScanQrActivity : AppCompatActivity(), Detector.Processor<Barcode> {
     }
     fun updateStatus(secret:String){
         val secretID = secret.toDoubleOrNull()
+        Log.i("BBBBBBBBBBBBB",secretID.toString())
         if(secretID == null){
             MotionToast.createToast(this,
                 "Error",
@@ -118,11 +120,11 @@ class ScanQrActivity : AppCompatActivity(), Detector.Processor<Barcode> {
             return
         }
         val bookingRef = MainActivity.database.getReference("Booking")
-        val query = bookingRef.orderByChild("SecretID").equalTo(secretID)
+        val query = bookingRef.orderByChild("secretID").equalTo(secretID)
         query.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    bookingRef.child(ds.key!!).child("Status").setValue(true).addOnSuccessListener {
+                    bookingRef.child(ds.key!!).child("status").setValue(true).addOnSuccessListener {
                         MotionToast.createToast(this@ScanQrActivity,
                             "Successfully",
                             "Checked-in user successfully",

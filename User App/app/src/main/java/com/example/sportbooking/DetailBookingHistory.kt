@@ -143,11 +143,11 @@ class DetailBookingHistory : AppCompatActivity() {
     }
     fun waitStatusChange(){
         val bookingRef = MainActivity.database.getReference("Booking")
-        val query = bookingRef.orderByChild("SecretID").equalTo(detailBooking.SecretID.toDouble())
+        val query = bookingRef.orderByChild("secretID").equalTo(detailBooking.SecretID.toDouble())
         query.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(ds in snapshot.children){
-                    bookingRef.child(ds.key!!).child("Status").get().addOnSuccessListener {
+                    bookingRef.child(ds.key!!).child("status").get().addOnSuccessListener {
                         val newStatus:Boolean? = it.getValue(Boolean::class.java)
                         detailBooking.Status = newStatus!!
                         if(detailBooking.Status == true){
