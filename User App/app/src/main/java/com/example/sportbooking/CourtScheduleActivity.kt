@@ -101,8 +101,8 @@ class CourtScheduleActivity : AppCompatActivity() {
                 var startTime = convertTime(book.Time[0])
                 var endTime = convertTime(book.Time[1])
                 scheduleList.add(
-                    ScheduleEntity(0,book.UserID,"${startTime} - ${endTime}",book.Yard-1,"${startTime}",
-                        "${endTime}","#73fcae68","#000000")
+                    ScheduleEntity(0,"${startTime} - ${endTime}","",book.Yard-1,"${startTime}",
+                        "${endTime}","#808080","#ffffff")
                 )
             }
         }

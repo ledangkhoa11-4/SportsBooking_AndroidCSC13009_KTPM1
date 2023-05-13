@@ -218,7 +218,7 @@ class SignInActivity : AppCompatActivity() {
                         IsSignUp(user!!.uid)
                         getUser(user!!.uid)
                         startActivity(Intent(this, HomeActivity::class.java))
-
+                        finish()
 
 
                     }
@@ -227,7 +227,8 @@ class SignInActivity : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.i("tag","\nsignInWithCredential:failure")
                     Log.i("tag","\n${task.exception}")
-                    //updateUI(null)
+                    CreateToast.createToast(this@SignInActivity, "This account already logged with Google"," Please link it with your Facebook account before logging in.",false)
+
                 }
             }
     }

@@ -1,18 +1,24 @@
 package com.example.sportbooking_owner
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.HorizontalScrollView
 import android.widget.ScrollView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.sportbooking_owner.DTO.BookingHistory
 import com.example.sportbooking_owner.DTO.Courts
+import com.example.sportbooking_owner.DTO.User
+import com.example.sportbooking_owner.Interfaces.CombinedEventListener
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.islandparadise14.mintable_khoa.MinTimeTableView_KhoaCustom
 import java.text.SimpleDateFormat
@@ -28,6 +34,7 @@ class CourtScheduleActivity : AppCompatActivity() {
     lateinit var scroll_V: ScrollView
     lateinit var paramH: ViewGroup.MarginLayoutParams
     lateinit var paramV: ViewGroup.MarginLayoutParams
+    lateinit var loadingScreen : ConstraintLayout
     var v_Start = 0
     var v_Top = 0
     var h_Start = 0
@@ -42,7 +49,7 @@ class CourtScheduleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_court_schedule)
-
+        loadingScreen = findViewById(R.id.loadingScheduleIndicator)
         tableMain = findViewById(R.id.tableMain)
         tableV = findViewById(R.id.table_V)
         tableH = findViewById(R.id.table_H)
@@ -75,7 +82,7 @@ class CourtScheduleActivity : AppCompatActivity() {
         while(!getDayOfWeek(selectedDate,serviceDays)){
             selectedDate += (1000 * 60 * 60 * 24)
         }
-        updateScheduleByDate(selectedDate)
+
         val constraintsBuilder = CalendarConstraints.Builder()
         constraintsBuilder.setValidator(DateValidator(serviceDays))
 
@@ -88,7 +95,7 @@ class CourtScheduleActivity : AppCompatActivity() {
 
         pickDateBtn = findViewById(R.id.dateScheduleBtn)
 
-        pickDateBtn.setText(convertDate(selectedDate))
+        pickDateBtn.setText("Pick a date")
         pickDateBtn.setOnClickListener {
             datePicker.show(supportFragmentManager, "tag");
         }
@@ -136,6 +143,7 @@ class CourtScheduleActivity : AppCompatActivity() {
             tableH.elevation = 2f
             tableV.elevation = 1f
         }
+        loadBookingList()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -152,7 +160,7 @@ class CourtScheduleActivity : AppCompatActivity() {
             tableV.initTable(yards, 2)
             tableH.initTable(yards, 1)
         }
-        loadBookingList()
+
 //        tableMain.updateSchedules(scheduleList)
 //        tableV.updateSchedules(scheduleList)
 //        tableH.updateSchedules(scheduleList)
@@ -176,13 +184,16 @@ class CourtScheduleActivity : AppCompatActivity() {
                 if(idx != 0) {
                     scheduleList.add(
                         com.islandparadise14.mintable_khoa.model.ScheduleEntity(
-                            0, book.UserID, "${startTime} - ${endTime}", idx - 1, "${startTime}",
+                            0, book.CustomerName, "${startTime} - ${endTime}", idx - 1, "${startTime}",
                             "${endTime}", "#73fcae68", "#000000"
                         )
                     )
                 }
             }
         }
+        tableMain.updateSchedules(scheduleList)
+        tableV.updateSchedules(scheduleList)
+        tableH.updateSchedules(scheduleList)
     }
 
     fun convertTime(timeStamp:Long):String{
@@ -196,27 +207,45 @@ class CourtScheduleActivity : AppCompatActivity() {
         return formattedTime
     }
     fun loadBookingList(){
-        val bookingRef = MainActivity.database.getReference("Booking");
-        val queryRef = bookingRef.orderByChild("userID").equalTo(SignIn.user!!.uid)
-        queryRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        val userRef = MainActivity.database.getReference("User")
+        loadingScreen.visibility = View.VISIBLE
+        val combinedEventListener = object : CombinedEventListener{
+            override fun onCombinedDataChanged(dataSnapshot: DataSnapshot) {
                 Log.i("loadBookingList","getIn")
-                bookList.clear()
-                for (ds in snapshot.children) {
+                for (ds in dataSnapshot.children) {
                     val bookHistory = ds.getValue(BookingHistory::class.java)
-                    bookList.add(bookHistory!!)
+                    var userid = bookHistory!!.UserID
+                    val userQuery = userRef.orderByChild("id").equalTo(userid)
+                    userQuery.addListenerForSingleValueEvent(object :ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for(userDs in snapshot.children){
+                                val user = userDs.getValue(User::class.java)
+                                bookHistory.CustomerName = user!!.username
+                            }
+                            bookList.add(bookHistory!!)
+                            updateScheduleByDate(selectedDate)
+                            loadingScreen.visibility = View.GONE
+
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+                    })
+
                 }
-                updateScheduleByDate(selectedDate)
-                tableMain.updateSchedules(scheduleList)
-                tableV.updateSchedules(scheduleList)
-                tableH.updateSchedules(scheduleList)
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+            override fun onCombinedCancelled(databaseError: DatabaseError) {
+                Log.i("Error", databaseError.message)
             }
+        }
 
-        })
+        val bookingRef = MainActivity.database.getReference("Booking");
+
+        for(court in SignIn.listCourt){
+            val queryRef = bookingRef.orderByChild("courtID").equalTo(court.CourtID)
+            queryRef.addValueEventListener(combinedEventListener)
+        }
     }
 
     fun getDayOfWeek(time:Long,ServiceWeekdays:String):Boolean{

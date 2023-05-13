@@ -6,10 +6,14 @@ import android.widget.ListView
 import android.widget.ToggleButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sportbooking.Adapters.homeListViewAdapter
+import com.example.sportbooking.DTO.BookingHistory
 import com.example.sportbooking.DTO.LocationManager
 import com.example.sportbooking.Ultils.GetDistance
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationBarView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.nex3z.togglebuttongroup.MultiSelectToggleGroup
 import java.text.Normalizer
@@ -199,10 +203,8 @@ class HomeActivity : AppCompatActivity(),MaterialSearchBar.OnSearchActionListene
     override fun onButtonClicked(buttonCode: Int) {
         TODO("Not yet implemented")
     }
-
     fun unaccent(str:String): String {
         val temp = Normalizer.normalize(str, Normalizer.Form.NFD)
         return REGEX_UNACCENT.replace(temp, "")
     }
-
 }
