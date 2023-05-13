@@ -7,6 +7,12 @@
     android:background="@drawable/bg2"
     tools:context=".UserTabActivity">
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/linkFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/changePassButton"
         android:layout_width="364dp"
@@ -143,6 +149,34 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/linkFacebookBtn"
+        android:layout_width="170dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#0676E8"
+        android:fontFamily="@font/lato"
+        android:text="Link to Facebook"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/linkWithGoogle"
+        android:layout_width="170dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#D2473B"
+        android:fontFamily="@font/lato"
+        android:text="Link to Google"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
