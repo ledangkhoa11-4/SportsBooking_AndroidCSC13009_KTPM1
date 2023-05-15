@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SportBooking_Owner</string>
+    <string name="app_name">Sport Booking - Chu san</string>
     <array name="step_create">
         <item>Introduction</item>
         <item>Information &amp; Format</item>
