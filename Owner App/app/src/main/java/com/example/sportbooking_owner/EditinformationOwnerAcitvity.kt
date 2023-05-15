@@ -49,8 +49,11 @@ class EditinformationOwnerAcitvity : AppCompatActivity() {
 
         phoneEdt=findViewById(R.id.phoneEdt_edt)
         phoneEdt.setText(owner.Phone)
-
+        if(owner.Image!=null){
+            bitmapSelected=owner.Image
+        }
         selectedGender=owner.Gender
+
         val genderOptions = arrayOf("Male", "Female", "Other")
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genderOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

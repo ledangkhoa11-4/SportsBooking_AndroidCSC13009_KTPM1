@@ -184,19 +184,19 @@ class SignInActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 ownerList.clear()
                 for(ds  in snapshot.children){
-                    val u=ds.getValue(Owner::class.java)
-                    val imageRef=MainActivity.storageRef.child("user"+u!!.id)
+                    val o=ds.getValue(Owner::class.java)
+                    val imageRef=MainActivity.storageRef.child("owner"+o!!.id)
                     val ONE_MEGABYTE: Long = 1024 * 1024
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
                         val bitmap=BitmapFactory.decodeByteArray(it,0,it.size)
-                        u.Image=bitmap
+                        o.Image=bitmap
                         // Data for "images/island.jpg" is returned, use this as needed
                     }.addOnFailureListener {
                         // Handle any errors
                     }
 
-                    if (u != null) {
-                        ownerList.add(u)
+                    if (o != null) {
+                        ownerList.add(o)
                     }
                 }
 
