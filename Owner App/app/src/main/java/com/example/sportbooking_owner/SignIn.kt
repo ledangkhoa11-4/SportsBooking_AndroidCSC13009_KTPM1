@@ -281,14 +281,14 @@ class SignIn : AppCompatActivity() {
         super.onStart()
        // auth.signOut()
          //Check if user is signed in (non-null) and update UI accordingly.
-         user = auth.currentUser
-
-        if(user != null){
-            loadCourtList()
-            getOwner(user!!.uid)
-           startActivity(Intent(this, CourtListActivity::class.java))
-            finish()
-        }
+//         user = auth.currentUser
+//
+//        if(user != null){
+//            loadCourtList()
+//            getOwner(user!!.uid)
+//           startActivity(Intent(this, CourtListActivity::class.java))
+//            finish()
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
