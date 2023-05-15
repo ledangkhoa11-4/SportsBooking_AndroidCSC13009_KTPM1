@@ -108,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         updateBookingNumber(court)
+                        Log.i("Load Court", listCourt.size.toString())
                         if(MainActivity.lastLocation.latLng.latitude != 0.0 && MainActivity.lastLocation.latLng.longitude != 0.0){
                             court.courtDistance = GetDistance.getDistance(MainActivity.lastLocation,court.location!!).toDouble()
                         }

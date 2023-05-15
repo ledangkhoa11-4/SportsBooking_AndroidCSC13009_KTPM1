@@ -151,7 +151,6 @@ class RatingActivity : AppCompatActivity() {
                 val replyIntent = Intent()
                 replyIntent.putExtra("isFinish", true)
                 setResult(555, replyIntent)
-                Thread.sleep(2000)
                 finish()
             }
         }

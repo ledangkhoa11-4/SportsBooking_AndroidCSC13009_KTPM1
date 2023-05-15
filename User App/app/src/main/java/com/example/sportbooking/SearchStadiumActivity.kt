@@ -153,6 +153,7 @@ class SearchStadiumActivity : AppCompatActivity() {
             if(HomeActivity.lastCourList!=null){
                 HomeActivity.courtList_Home!!.clear()
                 HomeActivity.courtList_Home!!.addAll(HomeActivity.lastCourList!!.toList())
+                HomeActivity.listViewAdapter!!.notifyDataSetChanged()
             }
             val editor = sharedPref.edit()
             editor.clear()

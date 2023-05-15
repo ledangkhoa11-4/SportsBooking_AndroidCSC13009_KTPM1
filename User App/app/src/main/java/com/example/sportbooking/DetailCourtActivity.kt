@@ -258,6 +258,10 @@ class DetailCourtActivity : AppCompatActivity() {
                 }
                 ratingResult = sum/ratingList.size
                 if(ratingAdapter != null){
+                    if(ratingList.size > 0){
+                        ratingView.scaleY = 1f
+                        ratingView.background = null
+                    }
                     ratingAdapter!!.notifyDataSetChanged()
                 }
             }
